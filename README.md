@@ -15,6 +15,6 @@ Created by <b>Jensen</b> on June 28th, 2017
 
 Download the .jar file above or here: (BLANK)
 
-Current version: <b> v2017.1.0
+Current version: <b> v2017.1.0 (ALPHA)
 
 

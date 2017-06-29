@@ -2,8 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
    <children>
       <GridPane gridLinesVisible="true" layoutX="110.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0">
         <columnConstraints>
@@ -97,6 +98,9 @@
                   <Font name="Impact" size="15.0" />
                </font>
             </ToggleButton>
+            <Rectangle fx:id="S0100" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.rowIndex="1" />
+            <Rectangle fx:id="S0101" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Rectangle fx:id="S0102" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper">
