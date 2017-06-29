@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
@@ -108,14 +109,19 @@
             <Font name="HeadLineA Regular" size="49.0" />
          </font>
       </Text>
-      <Text fill="#00000065" layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen v2017.1.0 (ALPHA)">
+      <Text fx:id="versionLabel" fill="#00000065" layoutX="14.0" layoutY="68.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen v2017.1.0 (ALPHA)">
          <font>
             <Font size="11.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
-      <Button layoutX="246.0" layoutY="25.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="119.0" text="New Game" />
-      <Button layoutX="381.0" layoutY="55.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="119.0" text="Highscores" />
-      <Button layoutX="381.0" layoutY="26.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="119.0" text="Help" />
-      <Button layoutX="512.0" layoutY="463.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Settings" />
+      <Button fx:id="newGameButton" layoutX="246.0" layoutY="25.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="119.0" text="New Game" />
+      <Button layoutX="512.0" layoutY="436.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="27.0" prefWidth="74.0" text="Scores" />
+      <Button fx:id="helpButton" layoutX="512.0" layoutY="409.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="27.0" prefWidth="74.0" text="Help" />
+      <Button layoutX="512.0" layoutY="463.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="27.0" prefWidth="74.0" text="Settings" />
+      <Rectangle fx:id="timerBox" fill="WHITE" height="30.0" layoutX="385.0" layoutY="39.0" stroke="WHITE" strokeType="INSIDE" width="30.0" />
+      <Text fx:id="timerLabel" layoutX="415.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" />
    </children>
 </AnchorPane>
