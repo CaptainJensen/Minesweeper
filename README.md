@@ -13,7 +13,7 @@ Created by <b>Jensen</b> on June 28th, 2017
 
 ### Download
 
-Download the .jar file above or here: (BLANK)
+Download above or here: https://github.com/CaptainJensen/Minesweeper/releases
 
 Current version: <b> v2017.1.0 (ALPHA)
 
