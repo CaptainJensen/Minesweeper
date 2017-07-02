@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Mine.SettingsController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="350.0" prefWidth="316.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="133.0" layoutX="161.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="141.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="133.0" layoutX="14.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="141.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="133.0" layoutX="14.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="141.0" />
+      <RadioButton fx:id="origToggle" layoutX="178.0" layoutY="107.0" mnemonicParsing="false" selected="true" text="Orignal">
+         <toggleGroup>
+            <ToggleGroup fx:id="flags" />
+         </toggleGroup>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></RadioButton>
+      <Text layoutX="186.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a Flag" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font></Text>
+      <RadioButton fx:id="greenToggle" layoutX="180.0" layoutY="157.0" mnemonicParsing="false" text="Green" toggleGroup="$flags">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></RadioButton>
+      <RadioButton fx:id="yellowToggle" layoutX="180.0" layoutY="132.0" mnemonicParsing="false" text="Yellow" toggleGroup="$flags">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></RadioButton>
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="254.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/redflag.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="256.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/spotifyflag.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="256.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/snapchatflag.png" />
+         </image>
+      </ImageView>
+      <Text fill="#b2780c" layoutX="92.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="132.6669921875">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Text>
+      <Button layoutX="171.0" layoutY="217.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" text="Restore Defaults">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="23.0" layoutY="217.0" mnemonicParsing="false" onAction="#clearHighscoresClick" text="Clear Highscores">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text layoutX="53.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <RadioButton layoutX="35.0" layoutY="107.0" mnemonicParsing="false" text="Easy" textFill="#08b92e">
+         <toggleGroup>
+            <ToggleGroup fx:id="diff" />
+         </toggleGroup>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </RadioButton>
+      <RadioButton layoutX="35.0" layoutY="132.0" mnemonicParsing="false" selected="true" text="Medium" textFill="#cad31b" toggleGroup="$diff">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </RadioButton>
+      <RadioButton layoutX="35.0" layoutY="157.0" mnemonicParsing="false" text="Hard" textFill="#ee2f04" toggleGroup="$diff">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </RadioButton>
+      <Text fx:id="versionLabel" fill="#00000065" layoutX="171.0" layoutY="269.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
+   </children>
 </AnchorPane>

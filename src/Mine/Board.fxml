@@ -1,127 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
    <children>
-      <GridPane gridLinesVisible="true" layoutX="110.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="1" textFill="#288a0f">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="2" textFill="#0f93ff" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="3" textFill="#e80e0e" GridPane.columnIndex="2">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="4" textFill="#8a0000" GridPane.columnIndex="3">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="5" GridPane.columnIndex="4">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="6" textFill="#d3ac0f" GridPane.columnIndex="5">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="7" textFill="#0bc5e5" GridPane.columnIndex="6">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="8" textFill="#ffa100" GridPane.columnIndex="7">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" textFill="WHITE" GridPane.columnIndex="8">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="T0011" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" textFill="#ae0000" underline="true" GridPane.columnIndex="11">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="T0010" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" textFill="#2afc00" underline="true" GridPane.columnIndex="10">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" selected="true" textFill="WHITE" GridPane.columnIndex="9">
-               <font>
-                  <Font name="Impact" size="15.0" />
-               </font>
-            </ToggleButton>
-            <Rectangle fx:id="S0100" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.rowIndex="1" />
-            <Rectangle fx:id="S0101" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Rectangle fx:id="S0102" fill="#e4e4e4" height="30.0" onContextMenuRequested="#squareRightClick" onMouseClicked="#squareClick" stroke="BLACK" strokeType="INSIDE" width="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
       <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper">
          <font>
             <Font name="HeadLineA Regular" size="49.0" />
          </font>
       </Text>
-      <Text fx:id="versionLabel" fill="#00000065" layoutX="14.0" layoutY="68.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen v2017.1.0 (ALPHA)">
-         <font>
-            <Font size="11.0" />
-         </font>
+      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="350.0" layoutY="26.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="119.0" text="New Game">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor>
-      </Text>
-      <Button fx:id="newGameButton" layoutX="246.0" layoutY="25.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="119.0" text="New Game" />
-      <Button layoutX="512.0" layoutY="436.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="27.0" prefWidth="74.0" text="Scores" />
-      <Button fx:id="helpButton" layoutX="512.0" layoutY="409.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="27.0" prefWidth="74.0" text="Help" />
-      <Button layoutX="512.0" layoutY="463.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="27.0" prefWidth="74.0" text="Settings" />
-      <Rectangle fx:id="timerBox" fill="WHITE" height="30.0" layoutX="385.0" layoutY="39.0" stroke="WHITE" strokeType="INSIDE" width="30.0" />
-      <Text fx:id="timerLabel" layoutX="415.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" />
+         </cursor></Button>
+      <Button fx:id="highscoresButton" layoutX="630.0" layoutY="30.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="27.0" prefWidth="149.0" text="Highscores">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="helpButton" contentDisplay="GRAPHIC_ONLY" layoutX="630.0" layoutY="57.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="27.0" prefWidth="74.0" text="Help">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="704.0" layoutY="57.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="27.0" prefWidth="74.0" text="Settings">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fx:id="timerLabel" layoutX="530.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="74.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="playerTxt" layoutX="5.0" layoutY="686.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player: " textAlignment="CENTER" textOrigin="CENTER" />
+      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="504.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/timeImg.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
