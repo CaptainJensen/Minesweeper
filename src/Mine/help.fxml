@@ -1,24 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="350.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.HelpController">
    <children>
       <Button fx:id="closeButton" layoutX="124.0" layoutY="299.0" mnemonicParsing="false" onAction="#closeWindow" text="Close" />
-      <Text layoutX="72.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper Help">
+      <Text layoutX="46.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper Help">
          <font>
-            <Font size="18.0" />
+            <Font name="Yuanti SC Bold" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="72.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;HELP HERE&gt;">
+      <Text layoutX="46.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Right-Click: Place flag / Remove flag">
          <font>
             <Font size="12.0" />
          </font>
       </Text>
-      <Hyperlink layoutX="72.0" layoutY="253.0" onAction="#openWiki" text="Wikipeida" />
+      <Hyperlink layoutX="54.0" layoutY="257.0" onAction="#openWiki" text="Wikipeida" />
+      <Text layoutX="46.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Left-Click: Check square">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="72.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="108.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controlls" textAlignment="CENTER" textOrigin="CENTER" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="78.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Other Information" textAlignment="CENTER" textOrigin="CENTER" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="121.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rules" textAlignment="CENTER" textOrigin="CENTER" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="45.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Have Fun!">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="45.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* And other stuff that ill explain later">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="54.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="but for now, read the considerably detailed wikihow on the bottom " wrappingWidth="239.84375">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Hyperlink layoutX="177.0" layoutY="257.0" onAction="#openWikihow" text="Wikihow" />
+      <Text fill="#0000006b" layoutX="2.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hidden Secrets: 12">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

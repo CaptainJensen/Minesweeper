@@ -25,7 +25,7 @@ public class Main extends Application {
         primaryStage.setTitle("Minesweeper");
         primaryStage.centerOnScreen();
         Scene scene = new Scene(root);
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/Resources/bomb.png")));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/Images/bomb.png")));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

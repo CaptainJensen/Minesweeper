@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Mine.ScoresController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.ScoresController">
+   <children>
+      <ListView fx:id="easyScoresList" layoutX="4.0" layoutY="89.0" prefHeight="300.0" prefWidth="200.0" />
+      <ListView fx:id="easyScoresList1" layoutX="204.0" layoutY="89.0" prefHeight="300.0" prefWidth="200.0" />
+      <ListView fx:id="easyScoresList11" layoutX="404.0" layoutY="89.0" prefHeight="300.0" prefWidth="200.0" />
+      <Text layoutX="90.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy">
+         <font>
+            <Font name="Yuanti SC Regular" size="13.0" />
+         </font>
+      </Text>
+      <Text layoutX="278.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medium">
+         <font>
+            <Font name="Yuanti SC Regular" size="13.0" />
+         </font>
+      </Text>
+      <Text layoutX="480.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard">
+         <font>
+            <Font name="Yuanti SC Regular" size="13.0" />
+         </font>
+      </Text>
+      <Text layoutX="232.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Highscores">
+         <font>
+            <Font name="Yuanti SC Bold" size="29.0" />
+         </font>
+      </Text>
+      <Text fill="#f53b3b" layoutX="50.0" layoutY="243.0" rotate="-23.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Working in-Progress" textAlignment="CENTER" wrappingWidth="501.6632385253906">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+   </children>
 </AnchorPane>

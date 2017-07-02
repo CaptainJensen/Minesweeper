@@ -31,7 +31,9 @@ public class GameTimer {
         public void handle(long timestamp) {
             long now = System.currentTimeMillis();
             time.set((now - startTime) / 1000.0);
+            if(((now - startTime) / 1000.0) / 60 > 1) {
 
+            }
         }
 
     };
@@ -42,7 +44,8 @@ public class GameTimer {
     public GameTimer(BoardController b) {
         //get the board controller for updating the text;
         boardController = b;
-        boardController.timerLabel.textProperty().bind(time.asString("%.3f s")); //TODO: Change to .1 later for speed?
+        boardController.timerLabel.textProperty().bind(time.asString("%.1f s"));
+
     }
 
 

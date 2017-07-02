@@ -13,6 +13,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,7 +31,9 @@ public class BoardController implements Initializable {
     public Button highscoresButton;
     public Button settingsButton;
     public Pane pane;
-
+    public Text bombsTxt;
+    public Text flagsTxt;
+    public Text informationTxt;
 
 
     //REFRENCE TO OTHER CLASSES
@@ -38,14 +42,17 @@ public class BoardController implements Initializable {
 
     //CLASS DECLARATIONS
     private GridPane grid;
+
+
+
     private GameTimer gameTimer;
     private static rect[][] board;
     private Difficulty difficulty = Difficulty.HARD;
 
-    private final Image helpImg = new Image("/Resources/helpImg.png");
-    private final Image highscoresImg = new Image("/Resources/highscoresImg.png");
-    private final Image newGameImg = new Image("/Resources/newgameImg.png");
-    private final Image settingsImg = new Image("/Resources/settingsImg.png");
+    private final Image helpImg = new Image("/Images/helpImg.png");
+    private final Image highscoresImg = new Image("/Images/highscoresImg.png");
+    private final Image newGameImg = new Image("/Images/newgameImg.png");
+    private final Image settingsImg = new Image("/Images/settingsImg.png");
 
     public void scoresClick(ActionEvent actionEvent) {
         try {
@@ -95,25 +102,25 @@ public class BoardController implements Initializable {
     public void newGameClick(ActionEvent actionEvent) {
         pane.getChildren().remove(grid);
         newGameButton.setDisable(true);
-        game = new Game(difficulty,this);
+        game = new Game(difficulty,this, settings);
         setupGrid(difficulty);
         board = new rect[difficulty.getCols()][difficulty.getRows()];
         addRectanglesToBoard();
-        game.placeBombs();
-        gameTimer.timer.start();
-
-
+        informationTxt.setVisible(false);
+       // timerLabel.setText("0.0 s");
     }
+
+
 
     public void stopTimer() {
         gameTimer.timer.stop();
     }
 
-    public void addRectanglesToBoard() {
+    private void addRectanglesToBoard() {
 
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                board[r][c] = new rect(game, settings,r,c);
+                board[r][c] = new rect(game, r,c);
                 grid.add(board[r][c],r,c);
             }
 
@@ -122,7 +129,7 @@ public class BoardController implements Initializable {
 
     }
 
-    public void setupGrid(Difficulty difficulty) {
+    private void setupGrid(Difficulty difficulty) {
 
         grid = new GridPane();
         grid.setHgap(1);
@@ -130,17 +137,18 @@ public class BoardController implements Initializable {
         grid.setGridLinesVisible(true);
         grid.setLayoutY(150);
 
-
         if(difficulty == Difficulty.EASY) {
-            grid.setLayoutX(240);
+            grid.setLayoutY(200);
+            grid.setLayoutX(370);
         }
         else if (difficulty == Difficulty.MEDIUM) {
-            grid.setLayoutX(125);
+            grid.setLayoutX(260);
         }
         else if(difficulty == Difficulty.HARD) {
             grid.setLayoutX(30);
         }
         else if(difficulty == Difficulty.FUN) {
+            grid.setLayoutY(200);
             grid.setLayoutX(20);
         }
         else {
@@ -173,12 +181,15 @@ public class BoardController implements Initializable {
     public rect[][] getBoard() {
         return board;
     }
-
+    public GameTimer getGameTimer() { return gameTimer; }
     public void showBombs() {
+
         for (rect[] aBoard : board) {
             for (rect anABoard : aBoard) {
-                if(anABoard.isBomb()) {
-                    anABoard.setBombImg();
+                if(anABoard.isBomb() && !anABoard.isCovered()) {
+                    anABoard.setFill(new ImagePattern(game.getSettingsController().getBombImg()));
+                } else if(anABoard.isCovered()) {
+                    anABoard.setFill(new ImagePattern(game.getSettingsController().getGreenBombImg()));
                 }
 
             }
@@ -187,6 +198,26 @@ public class BoardController implements Initializable {
     public void setBombValue(int r,int c) {
         board[r][c].setBomb(true);
     }
+
+    public void setFlagsTxt(int num) {
+        flagsTxt.setText("Flags: " + num);
+        switch (num) {
+            case 3:
+                flagsTxt.setFill(Color.rgb(206, 158, 24));
+                break;
+            case 2:
+                flagsTxt.setFill(Color.rgb(206, 104, 41));
+                break;
+            case 1:
+                flagsTxt.setFill(Color.rgb(206, 25, 57));
+                break;
+            default:
+                flagsTxt.setFill(Color.BLACK);
+                break;
+        }
+    }
+
+
 
 
     /**
@@ -200,7 +231,8 @@ public class BoardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerTxt.setText("Player: " + System.getenv("LOGNAME"));
-
+        informationTxt.setText("Press new game to play");
+        informationTxt.setVisible(true);
         newGameButton.setGraphic(new ImageView(newGameImg));
         helpButton.setGraphic(new ImageView(helpImg));
         settingsButton.setGraphic(new ImageView(settingsImg));

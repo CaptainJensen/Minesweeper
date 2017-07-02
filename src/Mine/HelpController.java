@@ -23,4 +23,9 @@ public class HelpController {
     public void openWiki(ActionEvent actionEvent) throws IOException {
         java.awt.Desktop.getDesktop().browse(URI.create("https://en.wikipedia.org/wiki/Microsoft_Minesweeper"));
     }
+
+    public void openWikihow(ActionEvent actionEvent) throws IOException {
+        java.awt.Desktop.getDesktop().browse(URI.create("http://www.wikihow.com/Play-Minesweeper"));
+
+    }
 }

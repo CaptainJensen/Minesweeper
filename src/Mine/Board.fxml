@@ -2,41 +2,78 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="990.0" style="-fx-background-color: C7C7C7;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
    <children>
-      <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="58.0" layoutX="590.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" width="201.0" />
+      <Text layoutX="30.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minesweeper" textAlignment="CENTER" wrappingWidth="355.8251953125">
          <font>
-            <Font name="HeadLineA Regular" size="49.0" />
+            <Font name="Impact" size="63.0" />
          </font>
       </Text>
-      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="350.0" layoutY="26.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="119.0" text="New Game">
+      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="436.0" layoutY="20.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="119.0" text="New Game">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="highscoresButton" layoutX="630.0" layoutY="30.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="27.0" prefWidth="149.0" text="Highscores">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="helpButton" contentDisplay="GRAPHIC_ONLY" layoutX="630.0" layoutY="57.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="27.0" prefWidth="74.0" text="Help">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="704.0" layoutY="57.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="27.0" prefWidth="74.0" text="Settings">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fx:id="timerLabel" layoutX="530.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="74.0">
+         </cursor>
          <font>
-            <Font size="16.0" />
+            <Font name="Yuanti SC Regular" size="15.0" />
+         </font></Button>
+      <Button fx:id="highscoresButton" layoutX="811.0" layoutY="19.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="29.0" prefWidth="149.0" text="Highscores">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Yuanti SC Regular" size="13.0" />
+         </font></Button>
+      <Button fx:id="helpButton" contentDisplay="GRAPHIC_ONLY" layoutX="811.0" layoutY="48.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="29.0" prefWidth="74.0" text="Help">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="885.0" layoutY="48.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="29.0" prefWidth="74.0" text="Settings">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fx:id="timerLabel" layoutX="642.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" wrappingWidth="149.0">
+         <font>
+            <Font name="Yuanti SC Regular" size="26.0" />
          </font></Text>
-      <Text fx:id="playerTxt" layoutX="5.0" layoutY="686.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player: " textAlignment="CENTER" textOrigin="CENTER" />
-      <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="504.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      <Text fx:id="playerTxt" layoutX="7.0" layoutY="686.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player: " textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Yuanti TC Regular" size="13.0" />
+         </font></Text>
+      <ImageView fitHeight="39.0" fitWidth="46.0" layoutX="603.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/timeImg.png" />
+            <Image url="@../Resources/Images/timeImg.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="informationTxt" layoutX="393.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Information&gt;" textAlignment="CENTER" visible="false">
+         <font>
+            <Font name="Yuanti SC Bold" size="32.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="217.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="555.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Text fx:id="bombsTxt" layoutX="224.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bombs: ">
+         <font>
+            <Font name="Yuppy SC Regular" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="flagsTxt" layoutX="562.0" layoutY="670.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flags:">
+         <font>
+            <Font name="Yuppy SC Regular" size="20.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="748.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/Images/redflag.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="412.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/Images/bomb.png" />
          </image>
       </ImageView>
    </children>

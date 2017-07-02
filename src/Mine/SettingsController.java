@@ -2,7 +2,6 @@ package Mine;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -18,32 +17,25 @@ import java.util.ResourceBundle;
  */
 public class SettingsController implements Initializable {
 
-
-    public RadioButton origToggle;
-    public RadioButton greenToggle;
-    public RadioButton yellowToggle;
-    public ToggleGroup flags;
     public ToggleGroup diff;
     public Text versionLabel;
 
-    //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDABLY!!
-    private final Image zero = new Image("/Resources/0.png");
-    private final Image one = new Image("/Resources/1.png");
-    private final Image two = new Image("/Resources/2.png");
-    private final Image three = new Image("/Resources/3.png");
-    private final Image four = new Image("/Resources/4.png");
-    private final Image five = new Image("/Resources/5.png");
-    private final Image six = new Image("/Resources/6.png");
-    private final Image seven = new Image("/Resources/7.png");
-    private final Image eightBall = new Image("/Resources/8ball.png");
-
-    private final Image greenFlagImg = new Image("/Resources/spotifyflag.png");
-    private final Image redFlagImg = new Image("/Resources/redflag.png");
-    private final Image yellowFlagImg = new Image("/Resources/snapchatflag.png");
-    private final Image bombImg = new Image("/Resources/bomb.png");
+    //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDIBLY!!
+    private final Image zero = new Image("/Images/0.png");
+    private final Image one = new Image("/Images/1.png");
+    private final Image two = new Image("/Images/2.png");
+    private final Image three = new Image("/Images/3.png");
+    private final Image four = new Image("/Images/4.png");
+    private final Image five = new Image("/Images/5.png");
+    private final Image six = new Image("/Images/6.png");
+    private final Image seven = new Image("/Images/7.png");
+    private final Image eightBall = new Image("/Images/8.png");
+    private final Image redFlagImg = new Image("/Images/redflag.png");
+    private final Image bombImg = new Image("/Images/bomb.png");
+    private final Image greenBombImg = new Image("/Images/greenBomb.png");
     private Image selectedFlagImg;
 
-    private String version = "v2017.1.0 (ALPHA)"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private String version = "v17.1.7 (BETA)"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
 
     public Image getSelectedFlagImg() {
@@ -54,6 +46,7 @@ public class SettingsController implements Initializable {
     public Image getBombImg() {
         return bombImg;
     }
+    public Image getGreenBombImg() { return greenBombImg; }
     public Image getValueImage(int value) {
         switch (value) {
             case 1:
@@ -101,15 +94,10 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         versionLabel.setText("Jensen " + version);
-        flags.selectToggle(origToggle);
-        origToggle.setUserData(redFlagImg);
-        greenToggle.setUserData(greenFlagImg);
-        yellowToggle.setUserData(yellowFlagImg);
+        diff.selectedToggleProperty().addListener((ov, old_toggle, new_toggle) -> {
 
-        flags.selectedToggleProperty().addListener((ov, old_toggle, new_toggle) -> {
+            if (diff.getSelectedToggle() != null) {
 
-            if (flags.getSelectedToggle() != null) {
-                selectedFlagImg = (Image) flags.getSelectedToggle().getUserData();
             }
 
         });
