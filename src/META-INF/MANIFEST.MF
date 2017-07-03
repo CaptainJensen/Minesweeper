@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: Mine.Main
+Application-Version: v17.1.7-beta
+Created-By: Jensen
+
