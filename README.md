@@ -1,20 +1,23 @@
 # Minesweeper
-A Java replica of the classic Microsoft Minesweeper game
+A Java replica of the classic Microsoft Minesweeper game :bomb:
 
-https://en.wikipedia.org/wiki/Microsoft_Minesweeper 
-
-
-<i>INSERT IMAGE OF GAME BOARD HERE</i>
-
----
+[Wikipeida](https://en.wikipedia.org/wiki/Microsoft_Minesweeper)
 
 Created by <b>Jensen</b> on June 28th, 2017
 
+--- 
 
 ### Download
 
-Download above or here: https://github.com/CaptainJensen/Minesweeper/releases
+Download above or [HERE](https://github.com/CaptainJensen/Minesweeper/releases)
 
-Current version: <b> v2017.1.0 (ALPHA)
+Current version: <b> v17.1.7-beta
+
+### Pictures!
+
+![Preview gameplay](preview.png)
+![Preview gameover](preview2.png)
+
+
 
 
