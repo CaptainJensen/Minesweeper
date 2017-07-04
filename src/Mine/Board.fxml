@@ -68,7 +68,7 @@
             <Image url="@../Resources/Images/timeImg.png" />
          </image>
       </ImageView>
-      <Text fx:id="informationTxt" depthTest="DISABLE" layoutX="171.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Information&gt;" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="647.3119964599609">
+      <Text fx:id="informationTxt" depthTest="DISABLE" layoutX="224.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Information&gt;" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="542.3119964599609">
          <font>
             <Font name="Yuanti SC Bold" size="32.0" />
          </font>

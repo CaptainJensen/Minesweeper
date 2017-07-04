@@ -36,13 +36,13 @@
             <Font name="Yuanti SC Bold" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="46.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Right-Click: Place flag / Remove flag">
+      <Text layoutX="42.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Right-Click: Place flag / Remove flag">
          <font>
             <Font size="12.0" />
          </font>
       </Text>
       <Hyperlink layoutX="54.0" layoutY="257.0" onAction="#openWiki" text="Wikipeida" />
-      <Text layoutX="46.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Left-Click: Check square">
+      <Text layoutX="42.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Left-Click: Check square">
          <font>
             <Font size="12.0" />
          </font>
@@ -52,7 +52,7 @@
             <Font size="12.0" />
          </font>
       </Text>
-      <Text layoutX="108.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controlls" textAlignment="CENTER" textOrigin="CENTER" underline="true">
+      <Text layoutX="104.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controlls" textAlignment="CENTER" textOrigin="CENTER" underline="true">
          <font>
             <Font size="15.0" />
          </font>
@@ -83,7 +83,7 @@
          </font>
       </Text>
       <Hyperlink layoutX="177.0" layoutY="257.0" onAction="#openWikihow" text="Wikihow" />
-      <Text fill="#0000006b" layoutX="2.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hidden Secrets: 12">
+      <Text layoutX="42.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* F key: Place flag / Remove flag">
          <font>
             <Font size="12.0" />
          </font>

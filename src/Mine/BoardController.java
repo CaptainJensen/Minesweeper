@@ -71,7 +71,7 @@ public class BoardController implements Initializable {
     private GridPane grid;
     private GameTimer gameTimer;
     private static rect[][] board;
-    private Difficulty difficulty = Difficulty.MEDIUM;
+    private Difficulty difficulty = Difficulty.MEDIUM; //Startup settings
 
     private final Image helpImg = new Image("/Images/helpImg.png");
     private final Image highscoresImg = new Image("/Images/highscoresImg.png");
@@ -108,12 +108,16 @@ public class BoardController implements Initializable {
         }
     }
     public void settingsClick(ActionEvent actionEvent) {
+        getGameTimer().timer.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("settings.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
+            stage.setOnCloseRequest(c -> { //on settings close reset board for new game
+                createNewGame();
+            });
             stage.setTitle("Settings");
 
             stage.show();
@@ -124,13 +128,7 @@ public class BoardController implements Initializable {
         }
     }
     public void newGameClick(ActionEvent actionEvent) {
-        pane.getChildren().remove(grid);
-        newGameButton.setDisable(true);
-        game = new Game(difficulty,this, settings, scoresController);
-        setupGrid(difficulty);
-        board = new rect[difficulty.getCols()][difficulty.getRows()];
-        addRectanglesToBoard();
-        informationTxt.setVisible(false);
+        createNewGame();
     }
     public void boardKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.C && gameTimer.isRunning() && keyEvent.isShiftDown()) {
@@ -244,7 +242,17 @@ public class BoardController implements Initializable {
         }
     }
 
-
+    public void createNewGame(){
+        difficulty = settings.getDifficulty();
+        pane.getChildren().remove(grid);
+        newGameButton.setDisable(true);
+        game = new Game(difficulty,this, settings, scoresController);
+        setupGrid(difficulty);
+        board = new rect[difficulty.getCols()][difficulty.getRows()];
+        addRectanglesToBoard();
+        informationTxt.setVisible(false);
+        playerTxt.setText("Player: " + settings.getUserName());
+    }
 
 
     /**
@@ -257,7 +265,7 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerTxt.setText("Player: " + System.getenv("LOGNAME"));
+        playerTxt.setText("");
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);
         newGameButton.setGraphic(new ImageView(newGameImg));
@@ -266,5 +274,8 @@ public class BoardController implements Initializable {
         highscoresButton.setGraphic(new ImageView(highscoresImg));
 
         gameTimer = new GameTimer(this);
+
+        Extra extras = new Extra(this);
+        extras.setHolidayGraphic();
     }
 }

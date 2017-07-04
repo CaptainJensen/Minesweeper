@@ -39,7 +39,7 @@
             <Font size="34.0" />
          </font>
       </Text>
-      <Button layoutX="171.0" layoutY="217.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" text="Restore Defaults">
+      <Button layoutX="24.0" layoutY="288.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" text="Restore Defaults">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -49,7 +49,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <RadioButton disable="true" layoutX="35.0" layoutY="107.0" mnemonicParsing="false" text="Easy" textFill="#08b92e">
+      <RadioButton fx:id="easyToggle" layoutX="35.0" layoutY="107.0" mnemonicParsing="false" onAction="#easyClickToggle" text="Easy" textFill="#08b92e">
          <toggleGroup>
             <ToggleGroup fx:id="diff" />
          </toggleGroup>
@@ -57,17 +57,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
-      <RadioButton disable="true" layoutX="35.0" layoutY="132.0" mnemonicParsing="false" selected="true" text="Medium" textFill="#cad31b" toggleGroup="$diff">
+      <RadioButton fx:id="medToggle" layoutX="35.0" layoutY="132.0" mnemonicParsing="false" onAction="#medClickToggle" selected="true" text="Medium" textFill="#cad31b" toggleGroup="$diff">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
-      <RadioButton disable="true" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" selected="true" text="Hard" textFill="#ee2f04" toggleGroup="$diff">
+      <RadioButton fx:id="hardToggle" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" onAction="#hardClickToggle" text="Hard" textFill="#ee2f04" toggleGroup="$diff">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
-      <Text fx:id="versionLabel" fill="#00000065" layoutX="171.0" layoutY="269.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
+      <Text fx:id="versionLabel" fill="#00000065" layoutX="180.0" layoutY="333.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -75,6 +75,26 @@
             <Font size="11.0" />
          </font>
       </Text>
-      <Button layoutX="31.0" layoutY="217.0" mnemonicParsing="false" text="Check Update" />
+      <Button layoutX="178.0" layoutY="288.0" mnemonicParsing="false" onAction="#checkUpdateClick" text="Check Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fx:id="infoTxt" layoutX="161.0" layoutY="241.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Random INFO&gt;" textAlignment="CENTER" wrappingWidth="141.0" />
+      <Text layoutX="191.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nameboxEdit" layoutX="28.0" layoutY="232.0" onAction="#editNameBox" prefHeight="27.0" prefWidth="114.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Text layoutX="46.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Name" />
+      <Text layoutX="181.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Board" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
