@@ -38,6 +38,7 @@ public final class Game {
 
     private BoardController boardController;
     private SettingsController settingsController;
+    private ScoresController scoresController;
     private ArrayList<Point> bombs;
     private Difficulty difficulty;
     private int numOfBombs;
@@ -46,11 +47,12 @@ public final class Game {
     private boolean gameOver;
     private boolean gameWin;
 
-    public Game(Difficulty Difficulty,BoardController c, SettingsController s){
+    public Game(Difficulty Difficulty,BoardController c, SettingsController s, ScoresController sc){
         gameWin = false;
         difficulty = Difficulty;
         boardController = c;
         settingsController = s;
+        scoresController = sc;
         numOfBombs = difficulty.getNumOfBombs();
         numberofActiveBombs = numOfBombs;
     }
@@ -161,11 +163,9 @@ public final class Game {
         boardController.newGameButton.setDisable(false);
         boardController.informationTxt.setVisible(true);
         if(gameWin) {
-
             boardController.informationTxt.setText("Congratulations");
             boardController.informationTxt.setFill(Color.rgb(12, 146, 32));
-
-            //TODO: initiate Run Highscores logic here.
+            scoresController.getScoreshandeler().addScore(System.getenv("LOGNAME"), boardController.getGameTimer().time.get(), difficulty);
         } else {
             boardController.showBombs();
             boardController.informationTxt.setText("Game Over");

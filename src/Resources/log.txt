@@ -1,10 +1,12 @@
-objc[20943]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/bin/java (0x1054464c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10550e4e0). One of the two will be used. Which one is undefined.
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
-Num active bombs: 99
+objc[25523]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/bin/java (0x1080364c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x1080fe4e0). One of the two will be used. Which one is undefined.
+Num active bombs: 2
+Num active bombs: 1
+Num active bombs: 0
+Num active bombs: 2
+Num active bombs: 1
+Num active bombs: 0
+1
+0
+Num active bombs: 2
+Num active bombs: 1
+Num active bombs: 0

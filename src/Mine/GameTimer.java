@@ -35,7 +35,9 @@ public class GameTimer {
 
 
     private BoardController boardController;
+    private boolean isrunning;
     DoubleProperty time = new SimpleDoubleProperty();
+
     public AnimationTimer timer = new AnimationTimer() {
 
         private long startTime ;
@@ -43,24 +45,37 @@ public class GameTimer {
         @Override
         public void start() {
             startTime = System.currentTimeMillis();
+            isrunning = true;
             super.start();
         }
 
         @Override
         public void stop() {
+            isrunning = false;
             super.stop();
         }
 
         @Override
         public void handle(long timestamp) {
             long now = System.currentTimeMillis();
-            time.set((now - startTime) / 1000.0);
-            if(((now - startTime) / 1000.0) / 60 > 1) {
-
-            }
+            time.set(((now - startTime) / 1000.0));
+//            if(sec / 60 < 1) {
+//                Seconds = String.valueOf(sec < 10 ? "0"+Integer.toString(sec) : Integer.toString(sec));
+//            } else {
+//                Seconds = "00";
+//                Miniuets = String.valueOf(Math.floor(TimeUnit.SECONDS.toMinutes(sec)));
+//            }
+//            boardController.timerLabel.setText(Miniuets + ":" + Seconds);
         }
 
     };
+
+    public boolean isRunning() {
+        return isrunning;
+
+    }
+
+
 
 
 
@@ -68,6 +83,7 @@ public class GameTimer {
     public GameTimer(BoardController b) {
         //get the board controller for updating the text;
         boardController = b;
+        isrunning = false;
         boardController.timerLabel.textProperty().bind(time.asString("%.1f s"));
 
     }

@@ -24,49 +24,23 @@
 
 package Mine;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+/**
+ * Created by Jensen on 7/3/17.
+ */
+import java.util.Comparator;
 
-public class Main extends Application {
+public class ScoreComparator implements Comparator<Score> {
+    public int compare(Score score1, Score score2) {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+        double sc1 = score1.getScore();
+        double sc2 = score2.getScore();
 
-        //DEBUG system
-//        System.out.println("[Log]: TIME: " + System.currentTimeMillis());
-//        Map<String, String> env = System.getenv();
-//        for (String envName : env.keySet()) {
-//            System.out.format("%s=%s%n",
-//                    envName,
-//                    env.get(envName));
-//        }
-
-        Parent root = FXMLLoader.load(getClass().getResource("Board.fxml"));
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.centerOnScreen();
-        Scene scene = new Scene(root);
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/Images/bomb.png")));
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
-        primaryStage.show();
-
-
-
-
-
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
+        if (sc1 < sc2){
+            return -1;
+        }else if (sc1 > sc2){
+            return +1;
+        }else{
+            return 0;
+        }
     }
 }

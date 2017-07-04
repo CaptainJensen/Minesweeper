@@ -24,8 +24,75 @@
 
 package Mine;
 
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * Created by Jensen on 6/29/17.
  */
-public class ScoresController {
+public class ScoresController implements Initializable {
+
+    public ListView easyScoresList;
+    public ListView medScoresList;
+    public ListView hardScoresList;
+    public Text informationTxt;
+    public Button clearButton;
+
+    private Scoreshandeler scoreshandeler;
+    private final Image BROOM_ICON = new Image("/Images/clearImg.png");
+
+
+    public ScoresController() {
+        scoreshandeler = new Scoreshandeler();
+    }
+
+    public Scoreshandeler getScoreshandeler() {
+        return scoreshandeler;
+    }
+
+
+
+    public void clearHighscoresClick(ActionEvent actionEvent) {
+        scoreshandeler.deleteScores();
+        easyScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.EASY)));
+        medScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.MEDIUM)));
+        hardScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.HARD)));
+        informationTxt.setVisible(true);
+        informationTxt.setFill(Color.rgb(211, 160, 12));
+        informationTxt.setText("Scores cleared!");
+    }
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        easyScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.EASY)));
+        medScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.MEDIUM)));
+        hardScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.HARD)));
+        clearButton.setGraphic(new ImageView(BROOM_ICON));
+        if (!scoreshandeler.isScoresGet()) {
+            informationTxt.setVisible(true);
+            informationTxt.setText("Error in loading scores, Check files!");
+            informationTxt.setFill(Color.MAROON);
+        }
+
+
+
+    }
+
 }

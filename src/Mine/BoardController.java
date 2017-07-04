@@ -33,6 +33,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -62,16 +64,14 @@ public class BoardController implements Initializable {
 
     //REFRENCE TO OTHER CLASSES
     private Game game;
+    private ScoresController scoresController = new ScoresController();
     private SettingsController settings = new SettingsController();
 
     //CLASS DECLARATIONS
     private GridPane grid;
-
-
-
     private GameTimer gameTimer;
     private static rect[][] board;
-    private Difficulty difficulty = Difficulty.HARD;
+    private Difficulty difficulty = Difficulty.MEDIUM;
 
     private final Image helpImg = new Image("/Images/helpImg.png");
     private final Image highscoresImg = new Image("/Images/highscoresImg.png");
@@ -126,15 +126,18 @@ public class BoardController implements Initializable {
     public void newGameClick(ActionEvent actionEvent) {
         pane.getChildren().remove(grid);
         newGameButton.setDisable(true);
-        game = new Game(difficulty,this, settings);
+        game = new Game(difficulty,this, settings, scoresController);
         setupGrid(difficulty);
         board = new rect[difficulty.getCols()][difficulty.getRows()];
         addRectanglesToBoard();
         informationTxt.setVisible(false);
-       // timerLabel.setText("0.0 s");
     }
+    public void boardKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.C && gameTimer.isRunning() && keyEvent.isShiftDown()) {
+            showBombs();
+        }
 
-
+    }
 
     public void stopTimer() {
         gameTimer.timer.stop();
@@ -264,7 +267,4 @@ public class BoardController implements Initializable {
 
         gameTimer = new GameTimer(this);
     }
-
-
-
 }

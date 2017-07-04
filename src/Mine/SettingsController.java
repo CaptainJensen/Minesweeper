@@ -32,8 +32,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -57,9 +59,13 @@ public class SettingsController implements Initializable {
     private final Image redFlagImg = new Image("/Images/redflag.png");
     private final Image bombImg = new Image("/Images/bomb.png");
     private final Image greenBombImg = new Image("/Images/greenBomb.png");
+
+    private Properties properties = new Properties(); //TODO: SET UP THESE SETTINGS
+    private InputStream in = getClass().getResourceAsStream("/Resources/settings.properties");
+
     private Image selectedFlagImg;
 
-    private String version = "v17.1.7 (BETA)"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private String version = "v17.1.8-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
 
     public Image getSelectedFlagImg() {
