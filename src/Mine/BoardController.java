@@ -206,6 +206,7 @@ public class BoardController implements Initializable {
     public rect[][] getBoard() {
         return board;
     }
+    public SettingsController getSettings() { return settings; }
     public GameTimer getGameTimer() { return gameTimer; }
     public void showBombs() {
 
@@ -265,7 +266,7 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerTxt.setText("");
+        playerTxt.setText("Player: " + settings.getUserName());
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);
         newGameButton.setGraphic(new ImageView(newGameImg));

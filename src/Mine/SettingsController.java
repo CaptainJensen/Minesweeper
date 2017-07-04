@@ -130,20 +130,35 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
     }
+    public void versionClick(MouseEvent mouseEvent){
+        try {
+            java.awt.Desktop.getDesktop().browse(URI.create("https://captainjensen.github.io/"));
+        } catch (IOException e) {
+            infoTxt.setFill(Color.MAROON);
+            infoTxt.setText("Could not open link");
+            e.printStackTrace();
+        }
+
+    }
 
     public void editNameBox(ActionEvent actionEvent) {
+        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+            properties.setProperty("username", nameboxEdit.getText());
+            properties.store(output, null);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void easyClickToggle(ActionEvent actionEvent) {
 
         try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
-            // set the properties value
+
             properties.setProperty("easyToggle", String.valueOf(true));
             properties.setProperty("medToggle", String.valueOf(false));
             properties.setProperty("hardToggle", String.valueOf(false));
 
-            // save properties to project root folder.
             properties.store(output, null);
 
         } catch (IOException e) {
@@ -178,25 +193,12 @@ public class SettingsController implements Initializable {
         }
     }
 
-    public void versionClick(MouseEvent mouseEvent){
-        try {
-            java.awt.Desktop.getDesktop().browse(URI.create("https://captainjensen.github.io/"));
-        } catch (IOException e) {
-            infoTxt.setFill(Color.MAROON);
-            infoTxt.setText("Could not open link");
-            e.printStackTrace();
-        }
-
-    }
 
 
     public Difficulty getDifficulty(){
         try (InputStream input = new FileInputStream("Resources/settings.properties")) {
 
             properties.load(input);
-            System.out.println("easyToggle - " + properties.getProperty("easyToggle"));
-            System.out.println("medToggle - " + properties.getProperty("medToggle"));
-            System.out.println("hardToggle - " + properties.getProperty("hardToggle"));
 
             if(properties.getProperty("easyToggle").equals("true")) {
                 return Difficulty.EASY;
@@ -259,6 +261,7 @@ public class SettingsController implements Initializable {
         } else medToggle.setSelected(true);
 
         versionLabel.setText("Jensen " + version);
+        nameboxEdit.setText(getUserName());
         Random random = new Random();
         infoTxt.setText(INFO_TXT[random.nextInt(INFO_TXT.length)]);
     }

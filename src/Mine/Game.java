@@ -165,7 +165,7 @@ public final class Game {
         if(gameWin) {
             boardController.informationTxt.setText("Congratulations");
             boardController.informationTxt.setFill(Color.rgb(12, 146, 32));
-            scoresController.getScoreshandeler().addScore(System.getenv("LOGNAME"), boardController.getGameTimer().time.get(), difficulty);
+            scoresController.getScoreshandeler().addScore(boardController.getSettings().getUserName(), boardController.getGameTimer().time.get(), difficulty);
         } else {
             boardController.showBombs();
             boardController.informationTxt.setText("Game Over");
