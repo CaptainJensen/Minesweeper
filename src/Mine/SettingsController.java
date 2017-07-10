@@ -73,7 +73,7 @@ public class SettingsController implements Initializable {
     private Properties properties = new Properties();
 
 
-    private static String version = "v17.2.0-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private static String version = "v17.2.1-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
     private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
             "Have a wonderful day",

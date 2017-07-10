@@ -21,10 +21,10 @@ Only MacOS at the moment
 Download above or [HERE](https://github.com/CaptainJensen/Minesweeper/releases)
 
 
-Current version: <b> v17.2.0-beta
+Current version: <b> v17.2.1-beta
 
 ### Pictures!
-
+ 
 ![Preview gameplay](preview.png)
 ![Preview gameover](preview2.png)
 ![Preview gamehard](preview3.png)
