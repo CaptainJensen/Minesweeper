@@ -10,7 +10,7 @@ Created by <b>Jensen</b> on June 28th, 2017
 ### Download
 
 
-<b> Only MacOS at the moment <b>
+Only MacOS at the moment
 
 Download above or [HERE](https://github.com/CaptainJensen/Minesweeper/releases)
 
