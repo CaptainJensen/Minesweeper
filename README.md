@@ -7,6 +7,12 @@ Created by <b>Jensen</b> on June 28th, 2017
 
 --- 
 
+### Features
+
+- Play three gamemodes (Easy, Medium, Hard)
+- Save Highscores
+- Take screenshots of gameplay :camera:
+
 ### Download
 
 
@@ -19,7 +25,9 @@ Current version: <b> v17.2.0-beta
 
 ### Pictures!
 
-TBA
+![Preview gameplay](preview.png)
+![Preview gameover](preview2.png)
+![Preview gamehard](preview3.png)
 
 
 
