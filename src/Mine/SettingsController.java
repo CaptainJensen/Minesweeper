@@ -55,25 +55,25 @@ public class SettingsController implements Initializable {
     public RadioButton easyToggle;
 
     //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDIBLY!!
-    private final Image zero = new Image("/Images/0.png");
-    private final Image one = new Image("/Images/1.png");
-    private final Image two = new Image("/Images/2.png");
-    private final Image three = new Image("/Images/3.png");
-    private final Image four = new Image("/Images/4.png");
-    private final Image five = new Image("/Images/5.png");
-    private final Image six = new Image("/Images/6.png");
-    private final Image seven = new Image("/Images/7.png");
-    private final Image eightBall = new Image("/Images/8.png");
-    private final Image redFlagImg = new Image("/Images/redflag.png");
-    private final Image bombImg = new Image("/Images/bomb.png");
-    private final Image greenBombImg = new Image("/Images/greenBomb.png");
+    private final Image zero = new Image("/Resources/Images/0.png");
+    private final Image one = new Image("/Resources/Images/1.png");
+    private final Image two = new Image("/Resources/Images/2.png");
+    private final Image three = new Image("/Resources/Images/3.png");
+    private final Image four = new Image("/Resources/Images/4.png");
+    private final Image five = new Image("/Resources/Images/5.png");
+    private final Image six = new Image("/Resources/Images/6.png");
+    private final Image seven = new Image("/Resources/Images/7.png");
+    private final Image eightBall = new Image("/Resources/Images/8.png");
+    private final Image redFlagImg = new Image("/Resources/Images/redflag.png");
+    private final Image bombImg = new Image("/Resources/Images/bomb.png");
+    private final Image greenBombImg = new Image("/Resources/Images/greenBomb.png");
 
 
     private directorySearch directorySearch = new directorySearch();
     private Properties properties = new Properties();
 
 
-    private static String version = "v17.1.9-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private static String version = "v17.2.0-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
     private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
             "Have a wonderful day",
@@ -140,6 +140,15 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+    public void screenshotfolderClick(ActionEvent actionEvent) {
+        File file = new File(directorySearch.getScreenshotsDirectory());
+        try {
+            Runtime.getRuntime().exec(new String[]{"/usr/bin/open", file.getAbsolutePath()});
+        } catch (IOException e) {
+            System.out.println("[Log]: Screenshot folder directory cannot be opened");
+            e.printStackTrace();
+        }
     }
 
     public void editNameBox(ActionEvent actionEvent) {
@@ -272,6 +281,7 @@ public class SettingsController implements Initializable {
         Random random = new Random();
         infoTxt.setText(INFO_TXT[random.nextInt(INFO_TXT.length)]);
     }
+
 
 
 }

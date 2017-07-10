@@ -39,7 +39,7 @@
             <Font size="34.0" />
          </font>
       </Text>
-      <Button layoutX="24.0" layoutY="288.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" text="Restore Defaults">
+      <Button layoutX="21.0" layoutY="302.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" prefHeight="27.0" prefWidth="128.0" text="Restore Defaults" textFill="#ff5555">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -101,5 +101,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
+      <Button layoutX="21.0" layoutY="273.0" mnemonicParsing="false" onAction="#screenshotfolderClick" text="Screenshot folder">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

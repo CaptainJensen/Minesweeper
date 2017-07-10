@@ -36,13 +36,13 @@
             <Font name="Yuanti SC Bold" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="42.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Right-Click: Place flag / Remove flag">
+      <Text layoutX="42.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Right-Click: Place flag / Remove flag">
          <font>
             <Font size="12.0" />
          </font>
       </Text>
       <Hyperlink layoutX="54.0" layoutY="257.0" onAction="#openWiki" text="Wikipeida" />
-      <Text layoutX="42.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Left-Click: Check square">
+      <Text layoutX="42.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Left-Click: Check square">
          <font>
             <Font size="12.0" />
          </font>
@@ -52,7 +52,7 @@
             <Font size="12.0" />
          </font>
       </Text>
-      <Text layoutX="104.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controlls" textAlignment="CENTER" textOrigin="CENTER" underline="true">
+      <Text layoutX="104.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Controlls" textAlignment="CENTER" textOrigin="CENTER" underline="true">
          <font>
             <Font size="15.0" />
          </font>
@@ -83,7 +83,12 @@
          </font>
       </Text>
       <Hyperlink layoutX="177.0" layoutY="257.0" onAction="#openWikihow" text="Wikihow" />
-      <Text layoutX="42.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* F key: Place flag / Remove flag">
+      <Text layoutX="42.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* F key: Place flag / Remove flag">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="42.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Control + S: Take a screen shot">
          <font>
             <Font size="12.0" />
          </font>

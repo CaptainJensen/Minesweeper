@@ -49,7 +49,7 @@ public class ScoresController implements Initializable {
     public Button clearButton;
 
     private Scoreshandeler scoreshandeler;
-    private final Image BROOM_ICON = new Image("/Images/clearImg.png");
+    private final Image BROOM_ICON = new Image("/Resources/Images/clearImg.png");
 
 
     public ScoresController() {

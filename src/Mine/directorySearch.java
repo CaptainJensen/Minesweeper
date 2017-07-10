@@ -39,6 +39,7 @@ public class directorySearch {
     private String logsDirectory = "";
     private String scoresDirectory = "";
     private String settingsDirectory = "";
+    private String screenshotsDirectory = "";
     private static String easyScoresPath = "";
     private static String medScoresPath = "";
     private static String hardScoresPath = "";
@@ -61,6 +62,7 @@ public class directorySearch {
         logsDirectory = mainDirectory + "/Logs";
         scoresDirectory = mainDirectory + "/Scores";
         settingsDirectory = mainDirectory + "/Settings";
+        screenshotsDirectory = mainDirectory + "/Screenshots";
 
     }
 
@@ -104,6 +106,16 @@ public class directorySearch {
             if (!issettingsCreated) {
                 // Directory creation failed
                 System.out.println("Settings directory creation failed.");
+                System.exit(17);
+            }
+        }
+
+        File screenshots = new File(screenshotsDirectory);
+        if(!screenshots.exists()) {
+            boolean isscreenshotsCreated = (screenshots.mkdirs());
+            if (!isscreenshotsCreated) {
+                // Directory creation failed
+                System.out.println("Screenshots directory creation failed.");
                 System.exit(17);
             }
         }
@@ -193,7 +205,7 @@ public class directorySearch {
     public String getMedScoresPath() { return medScoresPath; }
     public String getHardScoresPath() { return hardScoresPath; }
     public String getSettingsPath() { return settingsPath; }
-
+    public String getScreenshotsDirectory() { return screenshotsDirectory; }
 
 
 

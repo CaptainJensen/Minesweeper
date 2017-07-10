@@ -39,6 +39,7 @@ public final class Game {
     private BoardController boardController;
     private SettingsController settingsController;
     private ScoresController scoresController;
+    private directorySearch directorySearch;
     private ArrayList<Point> bombs;
     private Difficulty difficulty;
     private int numOfBombs;
@@ -53,6 +54,7 @@ public final class Game {
         boardController = c;
         settingsController = s;
         scoresController = sc;
+        directorySearch = boardController.getDirectorySearch();
         numOfBombs = difficulty.getNumOfBombs();
         numberofActiveBombs = numOfBombs;
     }
@@ -162,6 +164,7 @@ public final class Game {
 
         boardController.newGameButton.setDisable(false);
         boardController.informationTxt.setVisible(true);
+
         if(gameWin) {
             boardController.informationTxt.setText("Congratulations");
             boardController.informationTxt.setFill(Color.rgb(12, 146, 32));
@@ -171,9 +174,6 @@ public final class Game {
             boardController.informationTxt.setText("Game Over");
             boardController.informationTxt.setFill(Color.rgb(255, 56, 68));
         }
-
-
-
 
     }
     public void checkifwin() {
