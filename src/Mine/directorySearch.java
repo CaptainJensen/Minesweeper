@@ -32,8 +32,6 @@ import java.util.Properties;
  */
 public class directorySearch {
 
-    private String os = "";
-    private String pwd = "";
     private String user = "";
     private String mainDirectory = "";
     private String logsDirectory = "";
@@ -55,8 +53,6 @@ public class directorySearch {
 
 
     public directorySearch() {
-        os = System.getProperty("os.name");
-        pwd = System.getProperty("user.home");
         user = System.getenv("USER");
         mainDirectory = "/Users/" + user + "/Library/Application Support/Minesweeper";
         logsDirectory = mainDirectory + "/Logs";
@@ -127,7 +123,7 @@ public class directorySearch {
     /**
      * Creates all files needed for the game to run. Then sets the file paths for reference
      */
-    public void createFiles() {
+    private void createFiles() {
         //CREATE files [ easyscores.dat, hardscores.dat, medscores.dat, settings.properties, ]
         //TODO: Set up logger here. EX] Logger.createFile
 
@@ -206,7 +202,7 @@ public class directorySearch {
     public String getHardScoresPath() { return hardScoresPath; }
     public String getSettingsPath() { return settingsPath; }
     public String getScreenshotsDirectory() { return screenshotsDirectory; }
-
+    public String getLogsDirectory() { return logsDirectory; }
 
 
 

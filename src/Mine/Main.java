@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -46,18 +47,23 @@ public class Main extends Application {
 //                    env.get(envName));
 //        }
 
-        Parent root = FXMLLoader.load(getClass().getResource("Board.fxml"));
+
+
+        Parent root = FXMLLoader.load(getClass().getResource("Windows/Board.fxml"));
         primaryStage.setTitle("Minesweeper");
         primaryStage.centerOnScreen();
         Scene scene = new Scene(root);
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/Resources/Images/bomb.png")));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.setMaximized(false);
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
         primaryStage.show();
+
+
 
 
 

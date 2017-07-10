@@ -83,12 +83,7 @@
          </font>
       </Text>
       <Hyperlink layoutX="177.0" layoutY="257.0" onAction="#openWikihow" text="Wikihow" />
-      <Text layoutX="42.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* F key: Place flag / Remove flag">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="42.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Control + S: Take a screen shot">
+      <Text layoutX="40.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* command + S: Take a screen shot">
          <font>
             <Font size="12.0" />
          </font>

@@ -155,7 +155,7 @@ public final class Game {
 
     public void endGame(){
         gameOver = true;
-        boardController.stopTimer();
+        boardController.getGameTimer().timer.stop();
         for (int r = 0; r < boardController.getBoard().length; r++) {
             for (int c = 0; c < boardController.getBoard()[r].length; c++) {
                 boardController.getBoard()[r][c].setDisable(true);
@@ -177,7 +177,6 @@ public final class Game {
 
     }
     public void checkifwin() {
-        System.out.println("Num active bombs: " + numberofActiveBombs);
         if(totFlags == 0) {
             gameWin = numberofActiveBombs == 0;
             endGame();
@@ -188,6 +187,7 @@ public final class Game {
     public void startNewGame(int r, int c) {
         placeBombs(r,c);
         boardController.getGameTimer().timer.start();
+        boardController.timerLabel.setVisible(true);
     }
 
     public void setBombImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(settingsController.getBombImg())); }

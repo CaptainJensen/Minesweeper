@@ -42,14 +42,13 @@ public class Extra {
     public void setHolidayGraphic() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
         LocalDate localDate = LocalDate.now();
-        System.out.println(dtf.format(localDate));
         switch (dtf.format(localDate)) {
             case "07/04":
-                System.out.println("Happy Fourth!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(155,12,40,0.9), #9b9b9b, #12669b)\n 0%");
                 break;
             case "12/25":
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(155,16,44,0.9), #159b1c)\n 0%");
+                break;
             case "10/31":
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(0,0,0,0.8), #9b560c)\n 0%");
         }

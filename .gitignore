@@ -98,3 +98,8 @@ hs_err_pid*
 .idea/inspectionProfiles/
 .idea/workspace.xml
 out/
+!/src/Mine/Main.java
+Resources/
+Test/
+lib/
+src/Resources/log.txt

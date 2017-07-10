@@ -36,11 +36,14 @@ public class GameTimer {
 
     private BoardController boardController;
     private boolean isrunning;
+
+
     DoubleProperty time = new SimpleDoubleProperty();
 
     public AnimationTimer timer = new AnimationTimer() {
 
-        private long startTime ;
+        private long startTime;
+
 
         @Override
         public void start() {
@@ -55,10 +58,14 @@ public class GameTimer {
             super.stop();
         }
 
+
         @Override
         public void handle(long timestamp) {
             long now = System.currentTimeMillis();
-            time.set(((now - startTime) / 1000.0));
+            if(isrunning) {
+                time.set(((now - startTime) / 1000.0));
+            }
+
 //            if(sec / 60 < 1) {
 //                Seconds = String.valueOf(sec < 10 ? "0"+Integer.toString(sec) : Integer.toString(sec));
 //            } else {
@@ -74,7 +81,6 @@ public class GameTimer {
         return isrunning;
 
     }
-
 
 
 

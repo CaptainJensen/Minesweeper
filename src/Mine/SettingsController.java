@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -46,6 +47,7 @@ import java.util.ResourceBundle;
  */
 public class SettingsController implements Initializable {
 
+    public AnchorPane pane;
     public ToggleGroup diff;
     public Text versionLabel;
     public TextField nameboxEdit;
@@ -53,6 +55,7 @@ public class SettingsController implements Initializable {
     public RadioButton hardToggle;
     public RadioButton medToggle;
     public RadioButton easyToggle;
+
 
     //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDIBLY!!
     private final Image zero = new Image("/Resources/Images/0.png");
@@ -69,16 +72,17 @@ public class SettingsController implements Initializable {
     private final Image greenBombImg = new Image("/Resources/Images/greenBomb.png");
 
 
+
     private directorySearch directorySearch = new directorySearch();
     private Properties properties = new Properties();
 
-
-    private static String version = "v17.2.1-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private static boolean newgamecheck;
+    private static String version = "v17.2.2-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
     private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
             "Have a wonderful day",
             "There are 99 Bombs on hard",
-            "There are more than 4000 lines of code",
+            "5871 lines of code!",
             "Have fun!",
             "Not all who wander are lost",
             "Sometimes a cigar, is just a cigar",
@@ -115,6 +119,7 @@ public class SettingsController implements Initializable {
     }
 
     public void restoreDefaultsClick(ActionEvent actionEvent) {
+        newgamecheck = true;
         medToggle.setSelected(true);
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
@@ -141,15 +146,6 @@ public class SettingsController implements Initializable {
         }
 
     }
-    public void screenshotfolderClick(ActionEvent actionEvent) {
-        File file = new File(directorySearch.getScreenshotsDirectory());
-        try {
-            Runtime.getRuntime().exec(new String[]{"/usr/bin/open", file.getAbsolutePath()});
-        } catch (IOException e) {
-            System.out.println("[Log]: Screenshot folder directory cannot be opened");
-            e.printStackTrace();
-        }
-    }
 
     public void editNameBox(ActionEvent actionEvent) {
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
@@ -163,7 +159,6 @@ public class SettingsController implements Initializable {
 
 
     public void easyClickToggle(ActionEvent actionEvent) {
-
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(true));
@@ -189,6 +184,7 @@ public class SettingsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
     public void hardClickToggle(ActionEvent actionEvent) {
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
@@ -202,8 +198,8 @@ public class SettingsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
 
     public Difficulty getDifficulty(){
@@ -257,7 +253,7 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    public boolean isNewgameCheck() { return newgamecheck; }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -270,6 +266,8 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        newgamecheck = false;
+
         if(getDifficulty() == Difficulty.EASY) {
             easyToggle.setSelected(true);
         } else if(getDifficulty() == Difficulty.HARD) {
@@ -280,6 +278,8 @@ public class SettingsController implements Initializable {
         nameboxEdit.setText(getUserName());
         Random random = new Random();
         infoTxt.setText(INFO_TXT[random.nextInt(INFO_TXT.length)]);
+
+
     }
 
 
