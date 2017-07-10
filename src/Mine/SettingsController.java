@@ -69,12 +69,13 @@ public class SettingsController implements Initializable {
     private final Image greenBombImg = new Image("/Images/greenBomb.png");
 
 
+    private directorySearch directorySearch = new directorySearch();
     private Properties properties = new Properties();
 
 
-    private static String version = "v17.1.8-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private static String version = "v17.1.9-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
-    private static final String[] INFO_TXT = {
+    private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
             "Have a wonderful day",
             "There are 99 Bombs on hard",
             "There are more than 4000 lines of code",
@@ -142,7 +143,7 @@ public class SettingsController implements Initializable {
     }
 
     public void editNameBox(ActionEvent actionEvent) {
-        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
             properties.setProperty("username", nameboxEdit.getText());
             properties.store(output, null);
 
@@ -151,9 +152,10 @@ public class SettingsController implements Initializable {
         }
     }
 
+
     public void easyClickToggle(ActionEvent actionEvent) {
 
-        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(true));
             properties.setProperty("medToggle", String.valueOf(false));
@@ -167,7 +169,7 @@ public class SettingsController implements Initializable {
 
     }
     public void medClickToggle(ActionEvent actionEvent) {
-        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(true));
@@ -180,7 +182,7 @@ public class SettingsController implements Initializable {
         }
     }
     public void hardClickToggle(ActionEvent actionEvent) {
-        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(false));
@@ -196,7 +198,7 @@ public class SettingsController implements Initializable {
 
 
     public Difficulty getDifficulty(){
-        try (InputStream input = new FileInputStream("Resources/settings.properties")) {
+        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
 
             properties.load(input);
 
@@ -215,30 +217,34 @@ public class SettingsController implements Initializable {
         return Difficulty.MEDIUM; //DEFAULT
     }
     public String getUserName() {
-        try (InputStream input = new FileInputStream("Resources/settings.properties")) {
+        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
 
             properties.load(input);
-            if(properties.getProperty("username") != null) {
+            if(properties.getProperty("username") == null || properties.getProperty("username").equals("")) {
+                properties.setProperty("username", System.getenv("LOGNAME"));
+                return System.getenv("LOGNAME"); //DEFAULT
+
+            } else {
                 return properties.getProperty("username");
             }
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return System.getenv("LOGNAME"); //DEFAULT
+
+        return  System.getenv("LOGNAME"); //DEFAULT
     }
     private void setDefaultSettings() {
-        try (OutputStream output = new FileOutputStream("Resources/settings.properties")) {
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(true));
             properties.setProperty("hardToggle", String.valueOf(false));
             properties.setProperty("username", System.getenv("LOGNAME"));
 
-            properties.store(output, null);
+            properties.store(output, "Reset to defaults");
 
         } catch (IOException e) {
-            //TODO: If no file found create one with these settings
             e.printStackTrace();
         }
     }
@@ -254,6 +260,7 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         if(getDifficulty() == Difficulty.EASY) {
             easyToggle.setSelected(true);
         } else if(getDifficulty() == Difficulty.HARD) {

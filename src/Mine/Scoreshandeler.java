@@ -42,23 +42,22 @@ public class Scoreshandeler {
     private ArrayList<Score> medScores;
     private ArrayList<Score> hardScores;
     private ArrayList<Score> easyScores;
-    private boolean scoresGet;
 
-    // The name of the file where the highscores will be saved
-    private static final String EASY_FILE = "Resources/easyscores.dat";
-    private static final String MED_FILE = "Resources/medscores.dat";
-    private static final String HARD_FILE = "Resources/hardscores.dat";
+    private String errorMessage;
+
+    private directorySearch directorySearch = new directorySearch();
+
 
     //Initialising an in and outputStream for working with the file
     private ObjectOutputStream outputStream = null;
     private ObjectInputStream inputStream = null;
 
     public Scoreshandeler() {
-        scoresGet = true;
         easyScores = new ArrayList<Score>();
         medScores = new ArrayList<Score>();
         hardScores = new ArrayList<Score>();
 
+        errorMessage = "";
     }
 
     public ArrayList<Score> getEasyScores() {
@@ -103,15 +102,15 @@ public class Scoreshandeler {
     private void loadScoreFile(Difficulty difficulty) {
         try {
             if (difficulty == Difficulty.EASY) {
-                inputStream = new ObjectInputStream(new FileInputStream(EASY_FILE));
+                inputStream = new ObjectInputStream(new FileInputStream(directorySearch.getEasyScoresPath()));
                 easyScores = (ArrayList<Score>) inputStream.readObject();
             }
             else if (difficulty == Difficulty.MEDIUM) {
-                inputStream = new ObjectInputStream(new FileInputStream(MED_FILE));
+                inputStream = new ObjectInputStream(new FileInputStream(directorySearch.getMedScoresPath()));
                 medScores = (ArrayList<Score>) inputStream.readObject();
             }
             else if (difficulty == Difficulty.HARD) {
-                inputStream = new ObjectInputStream(new FileInputStream(HARD_FILE));
+                inputStream = new ObjectInputStream(new FileInputStream(directorySearch.getHardScoresPath()));
                 hardScores = (ArrayList<Score>) inputStream.readObject();
             } else {
                 return;
@@ -120,15 +119,17 @@ public class Scoreshandeler {
         }
         catch (FileNotFoundException e) {
             System.out.println("[Log] File not Found Error: " + e.getMessage());
-            scoresGet = false;
+            errorMessage = "Scores file not found, check Files!";
         }
         catch (IOException e) {
             System.out.println("[Log] IO Error: " + e.getMessage());
-            scoresGet = false;
+            errorMessage = "";
+            //errorMessage = "No Scores to display"; //Error message when first creation of files loads. Error message is when files have not yet been initalized;
+            deleteScores(); //RESET scores to initialize files
         }
         catch (ClassNotFoundException e) {
             System.out.println("[Log] CNF Error: " + e.getMessage());
-            scoresGet = false;
+            errorMessage = "Class not found Error";
         }
         finally {
             try {
@@ -139,32 +140,32 @@ public class Scoreshandeler {
             }
             catch (IOException e) {
                 System.out.println("[Log] IO Error: " + e.getMessage());
-                scoresGet = false;
+                errorMessage = "Scores file not found TWO, check Files!";
             }
         }
     }
     private void updateScoreFile(Difficulty difficulty) {
         try {
             if (difficulty == Difficulty.EASY) {
-                outputStream = new ObjectOutputStream(new FileOutputStream(EASY_FILE));
+                outputStream = new ObjectOutputStream(new FileOutputStream(directorySearch.getEasyScoresPath()));
                 outputStream.writeObject(easyScores);
             }
             else if (difficulty == Difficulty.MEDIUM) {
-                outputStream = new ObjectOutputStream(new FileOutputStream(MED_FILE));
+                outputStream = new ObjectOutputStream(new FileOutputStream(directorySearch.getMedScoresPath()));
                 outputStream.writeObject(medScores);
             }
             else if (difficulty == Difficulty.HARD) {
-                outputStream = new ObjectOutputStream(new FileOutputStream(HARD_FILE));
+                outputStream = new ObjectOutputStream(new FileOutputStream(directorySearch.getHardScoresPath()));
                 outputStream.writeObject(hardScores);
             } else return;
         }
         catch (FileNotFoundException e) {
             System.out.println("[Update] FNF Error: " + e.getMessage() + ",the program will try and make a new file");
-            scoresGet = false;
+            errorMessage = "Scores file not found, check Files!";
         }
         catch (IOException e) {
             System.out.println("[Update] IO Error: " + e.getMessage());
-            scoresGet = false;
+            errorMessage = "No Scores to display";
         }
         finally {
             try {
@@ -175,16 +176,14 @@ public class Scoreshandeler {
             }
             catch (IOException e) {
                 System.out.println("[Update] Error: " + e.getMessage());
-                scoresGet = false;
+                errorMessage = "Error in loading scores";
             }
         }
     }
     public void deleteScores(){
-        System.out.println(easyScores.size());
         easyScores.clear();
         medScores.clear();
         hardScores.clear();
-        System.out.println(easyScores.size());
         updateScoreFile(Difficulty.EASY);
         updateScoreFile(Difficulty.MEDIUM);
         updateScoreFile(Difficulty.HARD);
@@ -222,9 +221,7 @@ public class Scoreshandeler {
         return scores;
     }
 
-
-
-    public boolean isScoresGet() { return scoresGet; }
+    public String getErrorMessage() { return errorMessage; }
 
 
 

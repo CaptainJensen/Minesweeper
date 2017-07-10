@@ -65,7 +65,7 @@
          </font></Text>
       <ImageView fitHeight="39.0" fitWidth="46.0" layoutX="137.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/Images/timeImg.png" />
+            <Image url="@../../Resources/Images/timeImg.png" />
          </image>
       </ImageView>
       <Text fx:id="informationTxt" depthTest="DISABLE" layoutX="224.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Information&gt;" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="542.3119964599609">
@@ -87,12 +87,12 @@
       </Text>
       <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="748.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/Images/redflag.png" />
+            <Image url="@../../Resources/Images/redflag.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="412.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/Images/bomb.png" />
+            <Image url="@../../Resources/Images/bomb.png" />
          </image>
       </ImageView>
    </children>

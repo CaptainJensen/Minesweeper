@@ -64,6 +64,7 @@ public class BoardController implements Initializable {
 
     //REFRENCE TO OTHER CLASSES
     private Game game;
+    private directorySearch directorySearch;
     private ScoresController scoresController = new ScoresController();
     private SettingsController settings = new SettingsController();
 
@@ -266,6 +267,10 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        directorySearch = new directorySearch();
+        directorySearch.createDirectories();
+
+
         playerTxt.setText("Player: " + settings.getUserName());
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);

@@ -85,11 +85,10 @@ public class ScoresController implements Initializable {
         medScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.MEDIUM)));
         hardScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.HARD)));
         clearButton.setGraphic(new ImageView(BROOM_ICON));
-        if (!scoreshandeler.isScoresGet()) {
-            informationTxt.setVisible(true);
-            informationTxt.setText("Error in loading scores, Check files!");
-            informationTxt.setFill(Color.MAROON);
-        }
+        informationTxt.setVisible(true);
+        informationTxt.setText(scoreshandeler.getErrorMessage());
+        informationTxt.setFill(Color.MAROON);
+
 
 
 
