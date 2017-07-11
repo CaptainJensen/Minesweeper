@@ -10,6 +10,7 @@ Created by <b>Jensen</b> on June 28th, 2017
 ### Features
 
 - Play three gamemodes (Easy, Medium, Hard)
+- Custom board feature
 - Save Highscores
 - Take screenshots of gameplay :camera:
 
@@ -21,7 +22,7 @@ Only MacOS at the moment
 Download above or [HERE](https://github.com/CaptainJensen/Minesweeper/releases)
 
 
-Current version: <b> v17.2.1-beta
+Current version: <b> v17.2.3-beta
 
 ### Pictures!
  
