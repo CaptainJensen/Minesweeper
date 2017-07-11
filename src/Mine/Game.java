@@ -59,12 +59,17 @@ public final class Game {
         numberofActiveBombs = numOfBombs;
     }
 
-    private void placeBombs(int x, int y) { //exclude first click
+    /**
+     * Places the bombs onto the board and keeps track
+     * @param x the x value of the first click
+     * @param y the y value of the first click
+     */
+    private void placeBombs(int x, int y) {
         Random random = new Random();
         bombs = new ArrayList<Point>();
         for (int r = 0; r < numOfBombs; r++) {
             Point p = new Point(random.nextInt(boardController.getGridCols()), random.nextInt(boardController.getGridRows()));
-            while (bombs.contains(p) || p.x == x && p.y == y) {
+            while (excludedSquare(x,y,p)) {
                 // there is already a mine at that location, select a different one.
                 p = new Point(random.nextInt(boardController.getGridCols()), random.nextInt(boardController.getGridRows()));
             }
@@ -75,6 +80,48 @@ public final class Game {
         boardController.bombsTxt.setText("Bombs: " + numOfBombs);
         totFlags = numOfBombs;
         boardController.setFlagsTxt(totFlags);
+
+    }
+
+    /**
+     *
+     * @param x the x value of the first click
+     * @param y the y value of the first click
+     * @param p the selected point
+     * @return true if the selected point is a excluded square, false if otherwise
+     */
+    private boolean excludedSquare(int x, int y, Point p){
+        if(bombs.contains(p)) { //placement is already a bomb
+            return true;
+        }
+        if (p.x == x && p.y == y) { // First click square
+            return true;
+        }
+        if (p.x == x-1 && p.y == y-1) { //top left
+            return true;
+        }
+        if (p.x == x && p.y == y-1) { //top center
+            return true;
+        }
+        if (p.x == x+1 && p.y == y-1) { //top right
+            return true;
+        }
+        if (p.x == x-1 && p.y == y) { //middle left
+            return true;
+        }
+        if (p.x == x+1 && p.y == y) { //middle right
+            return true;
+        }
+        if (p.x == x-1 && p.y == y+1) { //bottom right
+            return true;
+        }
+        if (p.x == x && p.y == y+1) { //bottom center
+            return true;
+        }
+        if (p.x == x+1 && p.y == y+1) { //bottom right
+            return true;
+        }
+        return false;
 
     }
 

@@ -164,39 +164,37 @@ public class BoardController implements Initializable {
 
     }
     private void addRectanglesToBoard() {
-
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
                 board[r][c] = new rect(game, r,c);
                 grid.add(board[r][c],r,c);
             }
-
         }
-
-
     }
 
     private void setupGrid(Difficulty difficulty) {
 
         grid = new GridPane();
+
         grid.setHgap(1);
         grid.setVgap(1);
+
         grid.setGridLinesVisible(true);
         grid.setLayoutY(150);
 
         if(difficulty == Difficulty.EASY) {
             grid.setLayoutY(200);
-            grid.setLayoutX(370);
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.EASY.getCols()*15));
         }
         else if (difficulty == Difficulty.MEDIUM) {
-            grid.setLayoutX(260);
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.MEDIUM.getCols()*15));
         }
         else if(difficulty == Difficulty.HARD) {
-            grid.setLayoutX(30);
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.HARD.getCols()*15));
         }
-        else if(difficulty == Difficulty.FUN) {
+        else if(difficulty == Difficulty.CUSTOM) {
             grid.setLayoutY(200);
-            grid.setLayoutX(20);
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.CUSTOM.getCols()*15));
         }
         else {
             System.err.println("Define a Difficulty");
@@ -215,7 +213,6 @@ public class BoardController implements Initializable {
             rc.setFillHeight(true);
             grid.getRowConstraints().add(rc);
         }
-
         pane.getChildren().add(grid);
 
     }

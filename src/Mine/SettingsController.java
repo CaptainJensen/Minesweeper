@@ -76,7 +76,6 @@ public class SettingsController implements Initializable {
     private directorySearch directorySearch = new directorySearch();
     private Properties properties = new Properties();
 
-    private static boolean newgamecheck;
     private static String version = "v17.2.2-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
     private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
@@ -119,7 +118,6 @@ public class SettingsController implements Initializable {
     }
 
     public void restoreDefaultsClick(ActionEvent actionEvent) {
-        newgamecheck = true;
         medToggle.setSelected(true);
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
@@ -253,7 +251,6 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
     }
-    public boolean isNewgameCheck() { return newgamecheck; }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -265,9 +262,6 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        newgamecheck = false;
-
         if(getDifficulty() == Difficulty.EASY) {
             easyToggle.setSelected(true);
         } else if(getDifficulty() == Difficulty.HARD) {
