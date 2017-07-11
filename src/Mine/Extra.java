@@ -204,6 +204,7 @@
 
 package Mine;
 
+import io.sentry.Sentry;
 import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
@@ -262,6 +263,7 @@ public class Extra {
                 }
             }
         } catch (Exception e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Error in getting splashes from file");
             e.printStackTrace();
         }

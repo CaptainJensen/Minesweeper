@@ -204,6 +204,9 @@
 
 package Mine;
 
+import io.sentry.Sentry;
+import io.sentry.SentryClient;
+import io.sentry.event.UserBuilder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -214,6 +217,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static SentryClient sentry;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -226,8 +230,6 @@ public class Main extends Application {
 //                    envName,
 //                    env.get(envName));
 //        }
-
-
 
         Parent root = FXMLLoader.load(getClass().getResource("Windows/Board.fxml"));
         primaryStage.setTitle("Minesweeper");
@@ -253,6 +255,10 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
+        Sentry.init("https://32820f5e9c6f45c6a7e0d03dd8138f8b:215c9c242e794264b1493c787abdae48@sentry.io/190351");
+        Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
+
         launch(args);
     }
 }

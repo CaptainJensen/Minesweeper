@@ -204,6 +204,7 @@
 
 package Mine;
 
+import io.sentry.Sentry;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -305,6 +306,7 @@ public class SettingsController implements Initializable {
         try {
             java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper/releases"));
         } catch (IOException e) {
+            Sentry.capture(e);
             infoTxt.setFill(Color.MAROON);
             infoTxt.setText("Could not open link");
             e.printStackTrace();
@@ -314,6 +316,7 @@ public class SettingsController implements Initializable {
         try {
             java.awt.Desktop.getDesktop().browse(URI.create("https://captainjensen.github.io/"));
         } catch (IOException e) {
+            Sentry.capture(e);
             infoTxt.setFill(Color.MAROON);
             infoTxt.setText("Could not open link");
             e.printStackTrace();
@@ -332,6 +335,7 @@ public class SettingsController implements Initializable {
             properties.store(output, "Settings changed to custom");
 
         } catch (IOException e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Error in setting custom board settings for settings properties");
             e.printStackTrace();
         }
@@ -346,6 +350,7 @@ public class SettingsController implements Initializable {
             propertiesCust.store(output, "Custom Board set values");
 
         } catch (IOException e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Error in setting custom board properties");
             e.printStackTrace();
         }
@@ -360,6 +365,7 @@ public class SettingsController implements Initializable {
             properties.store(output, null);
 
         } catch (IOException e) {
+            Sentry.capture(e);
             e.printStackTrace();
         }
     }
@@ -374,6 +380,7 @@ public class SettingsController implements Initializable {
             properties.store(output, null);
 
         } catch (IOException e) {
+            Sentry.capture(e);
             e.printStackTrace();
         }
 
@@ -389,6 +396,7 @@ public class SettingsController implements Initializable {
             properties.store(output, null);
 
         } catch (IOException e) {
+            Sentry.capture(e);
             e.printStackTrace();
         }
 
@@ -404,6 +412,7 @@ public class SettingsController implements Initializable {
             properties.store(output, null);
 
         } catch (IOException e) {
+            Sentry.capture(e);
             e.printStackTrace();
         }
 
@@ -419,6 +428,7 @@ public class SettingsController implements Initializable {
             bombsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("bombs")));
 
         } catch (IOException ex) {
+            Sentry.capture(ex);
             System.out.println("[Log]: Error in getting custom board settings, check loading");
             ex.printStackTrace();
         }
@@ -437,6 +447,7 @@ public class SettingsController implements Initializable {
             else return -1;
 
         } catch (IOException ex) {
+            Sentry.capture(ex);
             System.out.println("[Log]: Error in getting custom board settings, check loading");
             ex.printStackTrace();
         }
@@ -451,6 +462,7 @@ public class SettingsController implements Initializable {
                 return (int) Double.parseDouble(propertiesCust.getProperty("bombs"));
 
             } catch (IOException ex) {
+                Sentry.capture(ex);
                 System.out.println("[Log]: Error in getting custom board settings bombs, check loading");
                 ex.printStackTrace();
             }
@@ -475,7 +487,7 @@ public class SettingsController implements Initializable {
             }
 
         } catch (IOException ex) {
-
+            Sentry.capture(ex);
             ex.printStackTrace();
         }
         return Difficulty.MEDIUM; //DEFAULT
@@ -493,6 +505,7 @@ public class SettingsController implements Initializable {
             }
 
         } catch (IOException ex) {
+            Sentry.capture(ex);
             ex.printStackTrace();
         }
 
@@ -510,6 +523,7 @@ public class SettingsController implements Initializable {
             properties.store(output, "Settings reset to default");
 
         } catch (IOException e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Error in setting default settings for settings properties");
             e.printStackTrace();
         }
@@ -524,6 +538,7 @@ public class SettingsController implements Initializable {
             propertiesCust.store(output, "Custom Board Reset to default");
 
         } catch (IOException e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Error in setting default settings for custom board properties");
             e.printStackTrace();
         }
@@ -571,7 +586,6 @@ public class SettingsController implements Initializable {
 
         versionLabel.setText("Jensen " + version);
         nameboxEdit.setText(getUserName());
-
     }
 
 }

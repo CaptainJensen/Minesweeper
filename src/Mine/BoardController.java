@@ -205,6 +205,7 @@
 
 package Mine;
 
+import io.sentry.Sentry;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -276,6 +277,7 @@ public class BoardController implements Initializable {
             stage.initOwner(((Node)(actionEvent.getSource())).getScene().getWindow());
             stage.show();
         } catch(Exception e) {
+            Sentry.capture(e);
             System.out.println("[Log]: Highscores Window failed to open");
             e.printStackTrace();
         }
@@ -294,6 +296,7 @@ public class BoardController implements Initializable {
             stage.show();
         } catch(Exception e) {
             System.out.println("[Log]: Help Window failed to open");
+            Sentry.capture(e);
             e.printStackTrace();
         }
     }
@@ -319,6 +322,7 @@ public class BoardController implements Initializable {
 
                     stage.show();
                 } catch(Exception e) {
+                    Sentry.capture(e);
                     System.out.println("[Log]: Settings Window failed to open with alert");
                     e.printStackTrace();
                 }
@@ -339,6 +343,7 @@ public class BoardController implements Initializable {
                 });
                 stage.show();
             } catch(Exception e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: Settings Window failed to open");
                 e.printStackTrace();
             }
@@ -487,6 +492,9 @@ public class BoardController implements Initializable {
 
     public Mine.directorySearch getDirectorySearch() { return directorySearch; }
 
+
+
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -497,6 +505,7 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         directorySearch = new directorySearch();
         directorySearch.createDirectories();
 

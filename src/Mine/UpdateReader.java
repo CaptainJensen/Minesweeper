@@ -206,9 +206,24 @@
 
 package Mine;
 
+
+import org.json.HTTP;
+import org.json.JSONObject;
+
 /**
  * Created by Jensen on 7/4/17.
  */
 public class UpdateReader {
-    //TODO: WIP
+
+    JSONObject latestRelease;
+
+    public UpdateReader() {
+
+        HTTP httpLink = new HTTP();
+        latestRelease = new JSONObject();
+
+
+
+
+    }
 }

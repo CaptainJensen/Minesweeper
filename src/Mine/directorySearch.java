@@ -204,6 +204,8 @@
 
 package Mine;
 
+import io.sentry.Sentry;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -254,6 +256,7 @@ public class directorySearch {
             boolean isdirectoryCreated = (main.mkdirs());
             if (!isdirectoryCreated) {
                 // Directory creation failed
+                Sentry.capture("Main directory creation failed.");
                 System.out.println("Main directory creation failed.");
                 System.exit(17);
             }
@@ -264,6 +267,7 @@ public class directorySearch {
             boolean islogsCreated = (logs.mkdirs());
             if (!islogsCreated) {
                 // Directory creation failed
+                Sentry.capture("Logs directory creation failed.");
                 System.out.println("Logs directory creation failed.");
                 System.exit(17);
             }
@@ -273,6 +277,7 @@ public class directorySearch {
             boolean isscoresCreated = (scores.mkdirs());
             if (!isscoresCreated) {
                 // Directory creation failed
+                Sentry.capture("Scores directory creation failed.");
                 System.out.println("Scores directory creation failed.");
                 System.exit(17);
             }
@@ -282,6 +287,7 @@ public class directorySearch {
             boolean issettingsCreated = (settings.mkdirs());
             if (!issettingsCreated) {
                 // Directory creation failed
+                Sentry.capture("Settings directory creation failed.");
                 System.out.println("Settings directory creation failed.");
                 System.exit(17);
             }
@@ -292,6 +298,7 @@ public class directorySearch {
             boolean isscreenshotsCreated = (screenshots.mkdirs());
             if (!isscreenshotsCreated) {
                 // Directory creation failed
+                Sentry.capture("Screenshots directory creation failed.");
                 System.out.println("Screenshots directory creation failed.");
                 System.exit(17);
             }
@@ -315,6 +322,7 @@ public class directorySearch {
                 easyScoresFile.createNewFile();
                 outputStream = new ObjectOutputStream(new FileOutputStream(easyScoresPath));
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: Easy Scores file could not be created");
                 e.printStackTrace();
             }
@@ -328,6 +336,7 @@ public class directorySearch {
                 medScoresFile.createNewFile();
                 outputStream = new ObjectOutputStream(new FileOutputStream(medScoresPath));
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: Med Scores file could not be created");
                 e.printStackTrace();
             }
@@ -341,6 +350,7 @@ public class directorySearch {
                 hardScoresFile.createNewFile();
                 outputStream = new ObjectOutputStream(new FileOutputStream(hardScoresPath));
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: Hard Scores file could not be created");
                 e.printStackTrace();
             }
@@ -366,9 +376,11 @@ public class directorySearch {
                     properties.store(output, "Created Settings File");
 
                 } catch (IOException e) {
+                    Sentry.capture(e);
                     e.printStackTrace();
                 }
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: Settings file could not be created");
                 e.printStackTrace();
             }
@@ -437,6 +449,7 @@ public class directorySearch {
                 }
 
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: could not create splash file");
                 e.printStackTrace();
 
@@ -451,7 +464,7 @@ public class directorySearch {
                         fw.close();
 
                 } catch (IOException ex) {
-
+                    Sentry.capture(ex);
                     ex.printStackTrace();
 
                 }
@@ -476,9 +489,11 @@ public class directorySearch {
                     propertiesCust.store(output, "Created custom board File");
 
                 } catch (IOException e) {
+                    Sentry.capture(e);
                     e.printStackTrace();
                 }
             } catch (IOException e) {
+                Sentry.capture(e);
                 System.out.println("[Log]: custom board file could not be created");
                 e.printStackTrace();
             }
