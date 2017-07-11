@@ -209,6 +209,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -224,7 +225,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -270,6 +273,7 @@ public class BoardController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.setTitle("Highscores");
+            stage.initOwner(((Node)(actionEvent.getSource())).getScene().getWindow());
             stage.show();
         } catch(Exception e) {
             System.out.println("[Log]: Highscores Window failed to open");
@@ -285,6 +289,8 @@ public class BoardController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.setTitle("Help");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } catch(Exception e) {
             System.out.println("[Log]: Help Window failed to open");
@@ -304,6 +310,8 @@ public class BoardController implements Initializable {
                     stage.setScene(new Scene(root));
                     stage.setResizable(false);
                     stage.setTitle("Settings");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(((Node)(actionEvent.getSource())).getScene().getWindow());
                     stage.setOnCloseRequest(e -> {
                         timerLabel.setVisible(false);
                         createNewGame();
@@ -323,6 +331,8 @@ public class BoardController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
                 stage.setTitle("Settings");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(((Node)(actionEvent.getSource())).getScene().getWindow());
                 stage.setOnCloseRequest(e -> {
                     timerLabel.setVisible(false);
                     createNewGame();

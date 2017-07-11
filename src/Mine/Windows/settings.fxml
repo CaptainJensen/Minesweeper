@@ -211,7 +211,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-border-color: #dd8b47; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-border-color: #dd8b47; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="191.0" layoutX="203.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="160.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="191.0" layoutX="37.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="160.0" />
@@ -221,7 +221,7 @@
             <Font size="34.0" />
          </font>
       </Text>
-      <Button layoutX="53.0" layoutY="421.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" prefHeight="27.0" prefWidth="128.0" text="Restore Defaults" textFill="#ff5555">
+      <Button layoutX="53.0" layoutY="421.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" prefHeight="27.0" prefWidth="128.0" text="Reset" textFill="#ff5555">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -258,7 +258,7 @@
             <Font size="20.0" />
          </font>
       </RadioButton>
-      <Text fx:id="versionLabel" fill="#00000065" layoutX="233.0" layoutY="453.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
+      <Text fx:id="versionLabel" fill="#00000065" layoutX="233.0" layoutY="452.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -270,13 +270,13 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Text fx:id="infoTxt" layoutX="213.0" layoutY="308.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Random INFO&gt;" textAlignment="CENTER" wrappingWidth="141.0" />
+      <Text fx:id="infoTxt" layoutX="213.0" layoutY="308.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Random INFO&gt;" textAlignment="CENTER" visible="false" wrappingWidth="141.0" />
       <Text layoutX="243.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" textAlignment="CENTER" underline="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-      <TextField fx:id="nameboxEdit" layoutX="45.0" layoutY="292.0" onAction="#editNameBox" onInputMethodTextChanged="#editNameBox" prefHeight="27.0" prefWidth="114.0" promptText="Enter Name">
+      <TextField fx:id="nameboxEdit" layoutX="60.0" layoutY="297.0" onAction="#editNameBox" onInputMethodTextChanged="#editNameBox" prefHeight="27.0" prefWidth="114.0" promptText="Enter Name">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
@@ -292,13 +292,25 @@
             <Image url="@../../Resources/Images/settingsImg64.png" />
          </image>
       </ImageView>
-      <Slider fx:id="rowsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="123.0" majorTickUnit="1.0" max="16.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0" />
+      <Slider fx:id="rowsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="123.0" majorTickUnit="1.0" max="16.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0">
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor></Slider>
       <Label layoutX="266.0" layoutY="108.0" text="Rows" />
       <Label layoutX="269.0" layoutY="146.0" text="Cols" />
-      <Slider fx:id="colsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="161.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0" />
-      <Slider fx:id="bombsSlider" blockIncrement="1.0" layoutX="214.0" layoutY="201.0" majorTickUnit="1.0" max="1000.0" min="2.0" minorTickCount="1" snapToTicks="true" value="10.0" />
+      <Slider fx:id="colsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="161.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0">
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor></Slider>
+      <Slider fx:id="bombsSlider" blockIncrement="1.0" layoutX="214.0" layoutY="201.0" majorTickUnit="1.0" max="1000.0" min="2.0" minorTickCount="1" snapToTicks="true" value="10.0">
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor></Slider>
       <Label layoutX="262.0" layoutY="186.0" text="Bombs" />
-      <Button layoutX="254.0" layoutY="224.0" mnemonicParsing="false" onAction="#createCustomBoardClick" text="Create" />
+      <Button layoutX="254.0" layoutY="224.0" mnemonicParsing="false" onAction="#createCustomBoardClick" text="Apply">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Text fx:id="bombsNum" layoutX="319.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
       <Text fx:id="colsNum" layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
       <Text fx:id="rowsNum" layoutX="319.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />

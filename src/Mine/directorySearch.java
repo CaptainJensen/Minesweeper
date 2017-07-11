@@ -410,25 +410,31 @@ public class directorySearch {
                         "Minesweeper",
                         "01001101 01010011",
                         String.valueOf(System.currentTimeMillis()),
-                        "This message will not be part of the splash text, Why is that?",
+                        "This message will not be part of the splash text no matter how hard you try",
                         "Thor",
                         "You got this!",
                         "You are amazing",
                         "Win Win Win!",
                         "Morning cup of java",
                         "Magic 8 ball",
+                        "Max of 471",
+                        "Min of 2",
+                        "Does a barrel roll!",
+                        "Bombs or mines?",
+                        "¡repeewseniM",
+                        "Now supports Emojis",
+                        "Java enabled ☕",
+                        "☾"
+
+
                 };
 
                 fw = new FileWriter(splashFile.getAbsoluteFile());
                 bw = new BufferedWriter(fw);
                 for (int s = 0; s < SPLASH_TEXT.length; s++) {
-                    if(SPLASH_TEXT[s].length() <= 22) {
-                        bw.write(SPLASH_TEXT[s]);
-                        bw.newLine();
-                    }
-
+                    bw.write(SPLASH_TEXT[s]);
+                    bw.newLine();
                 }
-
 
             } catch (IOException e) {
                 System.out.println("[Log]: could not create splash file");
