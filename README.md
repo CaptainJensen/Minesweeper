@@ -19,6 +19,8 @@ Created by <b>Jensen</b> on June 28th, 2017
 
 Only MacOS at the moment
 
+![Status](https://travis-ci.org/CaptainJensen/Minesweeper.svg?branch=master)
+
 Download above or [HERE](https://github.com/CaptainJensen/Minesweeper/releases)
 
 
