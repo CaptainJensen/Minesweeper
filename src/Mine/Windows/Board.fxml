@@ -32,30 +32,30 @@
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#boardKeyPressed" prefHeight="700.0" prefWidth="990.0" style="-fx-background-color: C7C7C7;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="58.0" layoutX="124.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="201.0" />
-      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="421.0" layoutY="20.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="149.0" text="New Game">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="58.0" layoutX="619.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="420.5" layoutY="20.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="149.0" text="New Game">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
             <Font name="Yuanti SC Regular" size="15.0" />
          </font></Button>
-      <Button fx:id="highscoresButton" layoutX="704.0" layoutY="20.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="29.0" prefWidth="149.0" text="Highscores">
+      <Button fx:id="highscoresButton" layoutX="210.0" layoutY="20.0" mnemonicParsing="false" onAction="#scoresClick" prefHeight="29.0" prefWidth="149.0" text="Highscores">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
             <Font name="Yuanti SC Regular" size="13.0" />
          </font></Button>
-      <Button fx:id="helpButton" contentDisplay="GRAPHIC_ONLY" layoutX="704.0" layoutY="49.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="29.0" prefWidth="74.0" text="Help">
+      <Button fx:id="helpButton" contentDisplay="GRAPHIC_ONLY" layoutX="210.0" layoutY="49.0" mnemonicParsing="false" onAction="#helpClick" prefHeight="29.0" prefWidth="74.0" text="Help">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="778.0" layoutY="49.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="29.0" prefWidth="74.0" text="Settings">
+      <Button fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" layoutX="285.0" layoutY="49.0" mnemonicParsing="false" onAction="#settingsClick" prefHeight="29.0" prefWidth="74.0" text="Settings">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Text fx:id="timerLabel" layoutX="176.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" wrappingWidth="149.0">
+      <Text fx:id="timerLabel" layoutX="676.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" wrappingWidth="149.0">
          <font>
             <Font name="Yuanti SC Regular" size="26.0" />
          </font></Text>
@@ -63,7 +63,7 @@
          <font>
             <Font name="Yuanti TC Regular" size="13.0" />
          </font></Text>
-      <ImageView fitHeight="39.0" fitWidth="46.0" layoutX="137.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="39.0" fitWidth="46.0" layoutX="637.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Resources/Images/timeImg.png" />
          </image>
@@ -73,27 +73,32 @@
             <Font name="Yuanti SC Bold" size="32.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="217.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="555.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
-      <Text fx:id="bombsTxt" layoutX="224.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bombs: ">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="136.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="631.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Text fx:id="bombsTxt" layoutX="141.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bombs: ">
          <font>
             <Font name="Yuanti SC Regular" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="flagsTxt" layoutX="562.0" layoutY="670.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flags:">
+      <Text fx:id="flagsTxt" layoutX="637.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flags:">
          <font>
             <Font name="Yuanti SC Regular" size="20.0" />
          </font>
       </Text>
-      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="748.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="826.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Resources/Images/redflag.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="412.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="331.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Resources/Images/bomb.png" />
          </image>
       </ImageView>
+      <Text fx:id="splashText" layoutX="13.0" layoutY="67.0" rotate="-20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Splash&gt;" textAlignment="CENTER" wrappingWidth="183.90297317504883">
+         <font>
+            <Font name="Yuanti SC Regular" size="23.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

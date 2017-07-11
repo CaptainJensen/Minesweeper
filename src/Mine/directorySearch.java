@@ -42,6 +42,7 @@ public class directorySearch {
     private static String medScoresPath = "";
     private static String hardScoresPath = "";
     private static String settingsPath = "";
+    private static String splashText
 
     //Initialising an in and outputStream for working with the file
     private ObjectOutputStream outputStream = null;
@@ -50,8 +51,7 @@ public class directorySearch {
 
     //TODO: ADD QUOTES TO MAIN FILE EG A SPLASH TEXT THAT LOADS FROM EXTRA FILES
 
-
-
+22
     public directorySearch() {
         user = System.getenv("USER");
         mainDirectory = "/Users/" + user + "/Library/Application Support/Minesweeper";
