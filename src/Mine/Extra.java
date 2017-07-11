@@ -24,8 +24,14 @@
 
 package Mine;
 
+import javafx.scene.paint.Color;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Jensen on 7/4/17.
@@ -44,13 +50,69 @@ public class Extra {
         LocalDate localDate = LocalDate.now();
         switch (dtf.format(localDate)) {
             case "07/04":
+                boardController.splashText.setVisible(true);
+                boardController.splashText.setText("Happy Fourth!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(155,12,40,0.9), #9b9b9b, #12669b)\n 0%");
                 break;
             case "12/25":
+                boardController.splashText.setVisible(true);
+                boardController.splashText.setText("Happy Holidays!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(155,16,44,0.9), #159b1c)\n 0%");
                 break;
             case "10/31":
+                boardController.splashText.setVisible(true);
+                boardController.splashText.setText("Boo!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(0,0,0,0.8), #9b560c)\n 0%");
         }
     }
+
+
+    /**
+     * Sets the splash image on the board to one from the text
+     */
+    public void setSplash() {
+
+        ArrayList<String> splashText = new ArrayList<>();
+        String line = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(boardController.getDirectorySearch().getSplashtextpath()));
+            while((line = reader.readLine()) != null){
+                if (line.length() <=22) {
+                    splashText.add(line);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[Log]: Error in getting splashes from file");
+            e.printStackTrace();
+        }
+
+        boardController.splashText.setVisible(true);
+        boardController.splashText.setFill(Color.BLACK);
+        Random random = new Random();
+        boardController.splashText.setText(splashText.get(random.nextInt(splashText.size())));
+
+        if(boardController.splashText.getText().equals("Koalas are cool")) {
+            boardController.splashText.setFill(Color.ORANGE);
+        }
+
+
+    }
+
+    /**
+     * Rotates the game board upside down
+     */
+    public void rotateBoard() {
+        if(boardController.pane.getRotate() == 0) {
+            boardController.pane.setRotate(180);
+        } else {
+            boardController.pane.setRotate(0);
+        }
+
+    }
+
+
+
+
+
+
 }

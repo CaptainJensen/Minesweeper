@@ -61,7 +61,7 @@ public class BoardController implements Initializable {
     public Text bombsTxt;
     public Text flagsTxt;
     public Text informationTxt;
-
+    public Text splashText;
 
 
     //REFRENCE TO OTHER CLASSES
@@ -158,8 +158,13 @@ public class BoardController implements Initializable {
         createNewGame();
     }
     public void boardKeyPressed(KeyEvent keyEvent) {
-        if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.C && gameTimer.isRunning() && keyEvent.isShiftDown()) {
+        if (keyEvent.isMetaDown() && keyEvent.getCode() == KeyCode.C && gameTimer.isRunning() && keyEvent.isShiftDown()) {
             showBombs();
+        }
+        if(keyEvent.isMetaDown() && keyEvent.isShiftDown() && keyEvent.getCode() == KeyCode.R) {
+            Extra extras = new Extra(this);
+            extras.rotateBoard();
+            extras.setSplash();
         }
 
     }
@@ -272,6 +277,10 @@ public class BoardController implements Initializable {
         addRectanglesToBoard();
         informationTxt.setVisible(false);
         playerTxt.setText("Player: " + settings.getUserName());
+
+        Extra extras = new Extra(this);
+        extras.setSplash();
+
     }
 
     public Mine.directorySearch getDirectorySearch() { return directorySearch; }
@@ -305,5 +314,8 @@ public class BoardController implements Initializable {
 
         Extra extras = new Extra(this);
         extras.setHolidayGraphic();
+        extras.setSplash();
+
+
     }
 }

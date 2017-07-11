@@ -42,16 +42,16 @@ public class directorySearch {
     private static String medScoresPath = "";
     private static String hardScoresPath = "";
     private static String settingsPath = "";
-    private static String splashText
+    private static String splashtextpath = "";
 
     //Initialising an in and outputStream for working with the file
     private ObjectOutputStream outputStream = null;
     private ObjectInputStream inputStream = null;
 
 
-    //TODO: ADD QUOTES TO MAIN FILE EG A SPLASH TEXT THAT LOADS FROM EXTRA FILES
+    //TODO: ADD QUOTES TO MAIN FILE EG A SPLASH TEXT THAT LOADS FROM EXTRA FILES 22
 
-22
+
     public directorySearch() {
         user = System.getenv("USER");
         mainDirectory = "/Users/" + user + "/Library/Application Support/Minesweeper";
@@ -124,7 +124,6 @@ public class directorySearch {
      * Creates all files needed for the game to run. Then sets the file paths for reference
      */
     private void createFiles() {
-        //CREATE files [ easyscores.dat, hardscores.dat, medscores.dat, settings.properties, ]
         //TODO: Set up logger here. EX] Logger.createFile
 
         File easyScoresFile = new File(scoresDirectory + "/easyscores.dat");
@@ -190,9 +189,90 @@ public class directorySearch {
             } catch (IOException e) {
                 System.out.println("[Log]: Settings file could not be created");
                 e.printStackTrace();
-        }
+            }
 
         }
+
+        File splashFile = new File(mainDirectory + "/splash.txt");
+         splashtextpath = splashFile.getAbsolutePath();
+        if(!splashFile.exists()) {
+
+            BufferedWriter bw = null;
+            FileWriter fw = null;
+
+            try {
+
+                final String[] SPLASH_TEXT = { //Max of 22 Chars
+                        "Have a wonderful day",
+                        "99 Bombs on the wall..",
+                        "5871 lines of code!",
+                        "Have fun!",
+                        "The cake is a lie!",
+                        "Doug Rattman",
+                        "GLaDOS",
+                        "Cheat codes!",
+                        "Koalas are cool",
+                        "Life = 42",
+                        "Luna",
+                        "Boom!",
+                        "1990's",
+                        "!Turing complete",
+                        "Lots of glass!",
+                        "⌘+S to take a selfie",
+                        "Curt Johnson",
+                        "Removed in v8",
+                        "8x8 -> 10x10",
+                        "Hello, " + System.getenv("LOGNAME"),
+                        "Hello",
+                        "22 characters is long ",
+                        "Minesweeper",
+                        "01001101 01010011",
+                        String.valueOf(System.currentTimeMillis()),
+                        "This message will not be part of the splash text, Why is that?",
+                        "Thor",
+                        "You got this!",
+                        "You are amazing",
+                        "Win Win Win!",
+                        "Morning cup of java",
+                        "Magic 8 ball",
+                };
+
+                fw = new FileWriter(splashFile.getAbsoluteFile());
+                bw = new BufferedWriter(fw);
+                for (int s = 0; s < SPLASH_TEXT.length; s++) {
+                    if(SPLASH_TEXT[s].length() <= 22) {
+                        bw.write(SPLASH_TEXT[s]);
+                        bw.newLine();
+                    }
+
+                }
+
+
+            } catch (IOException e) {
+                System.out.println("[Log]: could not create splash file");
+                e.printStackTrace();
+
+            } finally {
+
+                try {
+
+                    if (bw != null)
+                        bw.close();
+
+                    if (fw != null)
+                        fw.close();
+
+                } catch (IOException ex) {
+
+                    ex.printStackTrace();
+
+                }
+
+            }
+        }
+
+
+
     }
 
 
@@ -203,7 +283,7 @@ public class directorySearch {
     public String getSettingsPath() { return settingsPath; }
     public String getScreenshotsDirectory() { return screenshotsDirectory; }
     public String getLogsDirectory() { return logsDirectory; }
-
+    public String getSplashtextpath() { return splashtextpath; }
 
 
 

@@ -95,7 +95,7 @@
             <Image url="@../../Resources/Images/bomb.png" />
          </image>
       </ImageView>
-      <Text fx:id="splashText" layoutX="13.0" layoutY="67.0" rotate="-20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Splash&gt;" textAlignment="CENTER" wrappingWidth="183.90297317504883">
+      <Text fx:id="splashText" layoutX="13.0" layoutY="67.0" rotate="-20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Splash&gt;" textAlignment="CENTER" visible="false" wrappingWidth="183.90297317504883">
          <font>
             <Font name="Yuanti SC Regular" size="23.0" />
          </font>

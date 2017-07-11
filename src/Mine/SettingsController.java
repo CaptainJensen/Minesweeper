@@ -39,7 +39,6 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.Properties;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -78,18 +77,6 @@ public class SettingsController implements Initializable {
 
     private static String version = "v17.2.2-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
-    private static final String[] INFO_TXT = {  //TODO: Change to Extras folder splash text
-            "Have a wonderful day",
-            "There are 99 Bombs on hard",
-            "5871 lines of code!",
-            "Have fun!",
-            "Not all who wander are lost",
-            "Sometimes a cigar, is just a cigar",
-            "The cake is a lie!",
-            "There is a cheat code hidden here",
-            "You are playing version " + version,
-    };
-
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }
     public Image getGreenBombImg() { return greenBombImg; }
@@ -121,8 +108,6 @@ public class SettingsController implements Initializable {
         medToggle.setSelected(true);
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
-        Random random = new Random();
-        infoTxt.setText(INFO_TXT[random.nextInt(INFO_TXT.length)]);
         setDefaultSettings();
     }
     public void checkUpdateClick(ActionEvent actionEvent) {
@@ -270,9 +255,6 @@ public class SettingsController implements Initializable {
 
         versionLabel.setText("Jensen " + version);
         nameboxEdit.setText(getUserName());
-        Random random = new Random();
-        infoTxt.setText(INFO_TXT[random.nextInt(INFO_TXT.length)]);
-
 
     }
 
