@@ -403,6 +403,7 @@ public class BoardController implements Initializable {
 
         }
         else {
+            Sentry.capture("Define a difficulty in setup grid");
             System.err.println("Define a Difficulty");
             return;
         }

@@ -260,5 +260,7 @@ public class Main extends Application {
         Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
 
         launch(args);
+
+        Sentry.close();
     }
 }
