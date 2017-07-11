@@ -212,7 +212,7 @@ public enum Difficulty {
     EASY (10,10,10),
     MEDIUM(16,16,40),
     HARD(16,30,99),
-    CUSTOM(4,2,1);
+    CUSTOM(0, 0, 0);
 
     private final int rows;
     private final int cols;

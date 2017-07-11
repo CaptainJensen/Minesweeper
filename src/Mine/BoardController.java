@@ -308,6 +308,7 @@ public class BoardController implements Initializable {
                         timerLabel.setVisible(false);
                         createNewGame();
                     });
+
                     stage.show();
                 } catch(Exception e) {
                     System.out.println("[Log]: Settings Window failed to open with alert");
@@ -361,16 +362,17 @@ public class BoardController implements Initializable {
     private void setupGrid(Difficulty difficulty) {
 
         grid = new GridPane();
-
         grid.setHgap(1);
         grid.setVgap(1);
-
         grid.setGridLinesVisible(true);
         grid.setLayoutY(150);
 
+        int cols = difficulty.getCols();
+        int rows = difficulty.getRows();
+
         if(difficulty == Difficulty.EASY) {
             grid.setLayoutY(200);
-            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.EASY.getCols()*15));
+            grid.setLayoutX((pane.getWidth()/2)-((Difficulty.EASY.getCols()*15)-(Difficulty.EASY.getCols())));
         }
         else if (difficulty == Difficulty.MEDIUM) {
             grid.setLayoutX((pane.getWidth()/2)-(Difficulty.MEDIUM.getCols()*15));
@@ -379,8 +381,11 @@ public class BoardController implements Initializable {
             grid.setLayoutX((pane.getWidth()/2)-(Difficulty.HARD.getCols()*15));
         }
         else if(difficulty == Difficulty.CUSTOM) {
-            grid.setLayoutY(200);
-            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.CUSTOM.getCols()*15));
+            cols = (int) settings.getCustomBoardSettings("cols");
+            rows = (int) settings.getCustomBoardSettings("rows");
+            grid.setLayoutY((pane.getHeight()/2+25)-rows*15);
+            grid.setLayoutX((pane.getWidth()/2)-(cols*15)-cols/2);
+
         }
         else {
             System.err.println("Define a Difficulty");
@@ -388,13 +393,13 @@ public class BoardController implements Initializable {
         }
 
 
-        for (int x = 0 ; x < difficulty.getCols() ; x++) {
+        for (int x = 0 ; x < cols ; x++) {
             ColumnConstraints cc = new ColumnConstraints();
             cc.setFillWidth(true);
             grid.getColumnConstraints().add(cc);
         }
 
-        for (int y = 0 ; y < difficulty.getRows() ; y++) {
+        for (int y = 0 ; y < rows ; y++) {
             RowConstraints rc = new RowConstraints();
             rc.setFillHeight(true);
             grid.getRowConstraints().add(rc);
@@ -402,10 +407,16 @@ public class BoardController implements Initializable {
         pane.getChildren().add(grid);
 
     }
-    public int getGridRows() {
+    public int getGridRows(Difficulty difficulty) {
+        if (difficulty == Difficulty.CUSTOM) {
+            return (int) settings.getCustomBoardSettings("rows");
+        }
         return difficulty.getRows();
     }
-    public int getGridCols() {
+    public int getGridCols(Difficulty difficulty) {
+        if(difficulty == Difficulty.CUSTOM) {
+            return (int) settings.getCustomBoardSettings("cols");
+        }
         return difficulty.getCols();
     }
     public rect[][] getBoard() {
@@ -448,13 +459,13 @@ public class BoardController implements Initializable {
         }
     }
 
-    public void createNewGame(){
+    private void createNewGame(){
         difficulty = settings.getDifficulty();
         pane.getChildren().remove(grid);
         newGameButton.setDisable(true);
         game = new Game(difficulty,this, settings, scoresController);
         setupGrid(difficulty);
-        board = new rect[difficulty.getCols()][difficulty.getRows()];
+        board = new rect[getGridCols(difficulty)][getGridRows(difficulty)];
         addRectanglesToBoard();
         informationTxt.setVisible(false);
         playerTxt.setText("Player: " + settings.getUserName());

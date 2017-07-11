@@ -235,7 +235,7 @@ public final class Game {
         settingsController = s;
         scoresController = sc;
         directorySearch = boardController.getDirectorySearch();
-        numOfBombs = difficulty.getNumOfBombs();
+        numOfBombs = settingsController.getNumOfsetBombs(difficulty);
         numberofActiveBombs = numOfBombs;
     }
 
@@ -248,10 +248,10 @@ public final class Game {
         Random random = new Random();
         bombs = new ArrayList<Point>();
         for (int r = 0; r < numOfBombs; r++) {
-            Point p = new Point(random.nextInt(boardController.getGridCols()), random.nextInt(boardController.getGridRows()));
+            Point p = new Point(random.nextInt(boardController.getGridCols(difficulty)), random.nextInt(boardController.getGridRows(difficulty)));
             while (excludedSquare(x,y,p)) {
                 // there is already a mine at that location, select a different one.
-                p = new Point(random.nextInt(boardController.getGridCols()), random.nextInt(boardController.getGridRows()));
+                p = new Point(random.nextInt(boardController.getGridCols(difficulty)), random.nextInt(boardController.getGridRows(difficulty)));
             }
             bombs.add(p);
             boardController.setBombValue(p.x,p.y);
@@ -407,7 +407,6 @@ public final class Game {
         if(totFlags == 0) {
             gameWin = numberofActiveBombs == 0;
             endGame();
-
         }
     }
 

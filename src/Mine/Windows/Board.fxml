@@ -212,8 +212,9 @@
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="pane" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#boardKeyPressed" prefHeight="700.0" prefWidth="990.0" style="-fx-background-color: C7C7C7;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.BoardController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="58.0" layoutX="619.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
-      <Button fx:id="newGameButton" graphicTextGap="6.0" layoutX="420.5" layoutY="20.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="149.0" text="New Game">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="58.0" layoutX="619.0" layoutY="20.0" stroke="#da772a" strokeType="INSIDE" width="223.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="60.0" layoutX="209.0" layoutY="19.0" stroke="#da772a" strokeType="OUTSIDE" width="151.0" />
+      <Button fx:id="newGameButton" focusTraversable="false" graphicTextGap="6.0" layoutX="420.5" layoutY="20.0" mnemonicParsing="false" onAction="#newGameClick" prefHeight="58.0" prefWidth="149.0" style="-fx-border-color: #da772a;" text="New Game">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -253,8 +254,8 @@
             <Font name="Yuanti SC Bold" size="32.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="136.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="631.0" layoutY="649.0" stroke="BLACK" strokeType="INSIDE" width="223.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="136.0" layoutY="649.0" stroke="#da772a" strokeType="INSIDE" width="223.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e4" height="30.0" layoutX="631.0" layoutY="649.0" stroke="#da772a" strokeType="INSIDE" width="223.0" />
       <Text fx:id="bombsTxt" layoutX="141.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bombs: ">
          <font>
             <Font name="Yuanti SC Regular" size="20.0" />

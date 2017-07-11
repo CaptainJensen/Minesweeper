@@ -223,6 +223,7 @@ public class directorySearch {
     private static String hardScoresPath = "";
     private static String settingsPath = "";
     private static String splashtextpath = "";
+    private static String customBoardpath = "";
 
     //Initialising an in and outputStream for working with the file
     private ObjectOutputStream outputStream = null;
@@ -359,6 +360,7 @@ public class directorySearch {
                     properties.setProperty("easyToggle", String.valueOf(false));
                     properties.setProperty("medToggle", String.valueOf(true));
                     properties.setProperty("hardToggle", String.valueOf(false));
+                    properties.setProperty("customToggle", String.valueOf(false));
                     properties.setProperty("username", System.getenv("LOGNAME"));
 
                     properties.store(output, "Created Settings File");
@@ -385,7 +387,7 @@ public class directorySearch {
                 final String[] SPLASH_TEXT = { //Max of 22 Chars
                         "Have a wonderful day",
                         "99 Bombs on the wall..",
-                        "5871 lines of code!",
+                        "10485 lines of code!",
                         "Have fun!",
                         "The cake is a lie!",
                         "Doug Rattman",
@@ -453,6 +455,32 @@ public class directorySearch {
 
 
 
+        File customFile = new File(settingsDirectory + "/customboard.properties");
+        customBoardpath = customFile.getAbsolutePath();
+        if(!customFile.exists()) {
+            try {
+                Properties propertiesCust = new Properties();
+                customFile.createNewFile();
+                try (OutputStream output = new FileOutputStream(customFile.getAbsoluteFile())) {
+
+                    propertiesCust.setProperty("rows", String.valueOf(10));
+                    propertiesCust.setProperty("cols", String.valueOf(10));
+                    propertiesCust.setProperty("bombs", String.valueOf(10));
+
+                    propertiesCust.store(output, "Created custom board File");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                System.out.println("[Log]: custom board file could not be created");
+                e.printStackTrace();
+            }
+
+        }
+
+
+
     }
 
 
@@ -464,7 +492,7 @@ public class directorySearch {
     public String getScreenshotsDirectory() { return screenshotsDirectory; }
     public String getLogsDirectory() { return logsDirectory; }
     public String getSplashtextpath() { return splashtextpath; }
-
+    public String getCustomBoardpath() { return customBoardpath; }
 
 
 

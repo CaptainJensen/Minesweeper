@@ -267,6 +267,9 @@ public class Scoreshandeler {
 
     }
     public void addScore(String name, double score, Difficulty difficulty) {
+
+        //if scores is Custom or anything else it will bypass by returning;
+
         loadScoreFile(difficulty);
         if(difficulty == Difficulty.EASY) {
             easyScores.add(new Score(name, score));

@@ -204,9 +204,13 @@
 
 package Mine;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -234,6 +238,12 @@ public class SettingsController implements Initializable {
     public RadioButton hardToggle;
     public RadioButton medToggle;
     public RadioButton easyToggle;
+    public Slider rowsSlider;
+    public Slider colsSlider;
+    public Slider bombsSlider;
+    public Text bombsNum;
+    public Text colsNum;
+    public Text rowsNum;
 
 
     //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDIBLY!!
@@ -254,8 +264,9 @@ public class SettingsController implements Initializable {
 
     private directorySearch directorySearch = new directorySearch();
     private Properties properties = new Properties();
+    private Properties propertiesCust = new Properties();
 
-    private static String version = "v17.2.2-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private static String version = "v17.2.3-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
 
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }
@@ -309,7 +320,40 @@ public class SettingsController implements Initializable {
         }
 
     }
+    public void createCustomBoardClick(ActionEvent actionEvent) {
 
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
+
+            properties.setProperty("easyToggle", String.valueOf(false));
+            properties.setProperty("medToggle", String.valueOf(false));
+            properties.setProperty("hardToggle", String.valueOf(false));
+            properties.setProperty("customToggle", String.valueOf(true));
+
+            properties.store(output, "Settings changed to custom");
+
+        } catch (IOException e) {
+            System.out.println("[Log]: Error in setting custom board settings for settings properties");
+            e.printStackTrace();
+        }
+
+
+
+        try (OutputStream output = new FileOutputStream(directorySearch.getCustomBoardpath())) {
+
+            propertiesCust.setProperty("rows", String.valueOf(rowsSlider.getValue()));
+            propertiesCust.setProperty("cols", String.valueOf(colsSlider.getValue()));
+            propertiesCust.setProperty("bombs", String.valueOf(bombsSlider.getValue()));
+            propertiesCust.store(output, "Custom Board set values");
+
+        } catch (IOException e) {
+            System.out.println("[Log]: Error in setting custom board properties");
+            e.printStackTrace();
+        }
+
+
+
+
+    }
     public void editNameBox(ActionEvent actionEvent) {
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
             properties.setProperty("username", nameboxEdit.getText());
@@ -319,14 +363,13 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
     public void easyClickToggle(ActionEvent actionEvent) {
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(true));
             properties.setProperty("medToggle", String.valueOf(false));
             properties.setProperty("hardToggle", String.valueOf(false));
+            properties.setProperty("customToggle", String.valueOf(false));
 
             properties.store(output, null);
 
@@ -341,6 +384,7 @@ public class SettingsController implements Initializable {
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(true));
             properties.setProperty("hardToggle", String.valueOf(false));
+            properties.setProperty("customToggle", String.valueOf(false));
 
             properties.store(output, null);
 
@@ -355,6 +399,7 @@ public class SettingsController implements Initializable {
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(false));
             properties.setProperty("hardToggle", String.valueOf(true));
+            properties.setProperty("customToggle", String.valueOf(false));
 
             properties.store(output, null);
 
@@ -364,7 +409,56 @@ public class SettingsController implements Initializable {
 
     }
 
+    public void loadCustomBoardSettings() {
+        try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
 
+            propertiesCust.load(input);
+
+            rowsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("rows")));
+            colsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("cols")));
+            bombsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("bombs")));
+
+        } catch (IOException ex) {
+            System.out.println("[Log]: Error in getting custom board settings, check loading");
+            ex.printStackTrace();
+        }
+    }
+    public double getCustomBoardSettings(String property) {
+        try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
+            propertiesCust.load(input);
+
+            if(property.equalsIgnoreCase("rows")){
+                return Double.parseDouble(propertiesCust.getProperty("rows"));
+            } else if(property.equalsIgnoreCase("cols")){
+                return Double.parseDouble(propertiesCust.getProperty("cols"));
+            } else if(property.equalsIgnoreCase("bombs")){
+                return Double.parseDouble(propertiesCust.getProperty("bombs"));
+            }
+            else return -1;
+
+        } catch (IOException ex) {
+            System.out.println("[Log]: Error in getting custom board settings, check loading");
+            ex.printStackTrace();
+        }
+        return -1;
+    }
+    public int getNumOfsetBombs(Difficulty difficulty) {
+        if(difficulty == Difficulty.CUSTOM) {
+
+            try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
+
+                propertiesCust.load(input);
+                return (int) Double.parseDouble(propertiesCust.getProperty("bombs"));
+
+            } catch (IOException ex) {
+                System.out.println("[Log]: Error in getting custom board settings bombs, check loading");
+                ex.printStackTrace();
+            }
+            return 2; //Default min
+        }
+
+        return difficulty.getNumOfBombs();
+    }
     public Difficulty getDifficulty(){
         try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
 
@@ -374,6 +468,8 @@ public class SettingsController implements Initializable {
                 return Difficulty.EASY;
             } else if(properties.getProperty("hardToggle").equals("true")) {
                 return Difficulty.HARD;
+            } else if(properties.getProperty("customToggle").equals("true")) {
+                return Difficulty.CUSTOM;
             } else {
                 return Difficulty.MEDIUM;
             }
@@ -408,11 +504,27 @@ public class SettingsController implements Initializable {
             properties.setProperty("easyToggle", String.valueOf(false));
             properties.setProperty("medToggle", String.valueOf(true));
             properties.setProperty("hardToggle", String.valueOf(false));
+            properties.setProperty("customToggle", String.valueOf(false));
             properties.setProperty("username", System.getenv("LOGNAME"));
 
-            properties.store(output, "Reset to defaults");
+            properties.store(output, "Settings reset to default");
 
         } catch (IOException e) {
+            System.out.println("[Log]: Error in setting default settings for settings properties");
+            e.printStackTrace();
+        }
+
+
+        try (OutputStream output = new FileOutputStream(directorySearch.getCustomBoardpath())) {
+
+            propertiesCust.setProperty("rows", String.valueOf(10));
+            propertiesCust.setProperty("cols", String.valueOf(10));
+            propertiesCust.setProperty("bombs", String.valueOf(10));
+
+            propertiesCust.store(output, "Custom Board Reset to default");
+
+        } catch (IOException e) {
+            System.out.println("[Log]: Error in setting default settings for custom board properties");
             e.printStackTrace();
         }
     }
@@ -427,6 +539,30 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        rowsSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                bombsSlider.setMax((newValue.doubleValue()*colsSlider.getValue())-9);
+                bombsSlider.setValue((newValue.doubleValue()*colsSlider.getValue())/2);
+            }
+        });
+
+        colsSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                bombsSlider.setMax((rowsSlider.getValue()*newValue.doubleValue())-9);
+                bombsSlider.setValue((rowsSlider.getValue()*newValue.doubleValue())/2);
+            }
+        });
+
+
+        bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
+        rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
+        colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
+        loadCustomBoardSettings();
+        bombsSlider.setMax((rowsSlider.getValue()*colsSlider.getValue())-9);
+
         if(getDifficulty() == Difficulty.EASY) {
             easyToggle.setSelected(true);
         } else if(getDifficulty() == Difficulty.HARD) {
@@ -437,7 +573,5 @@ public class SettingsController implements Initializable {
         nameboxEdit.setText(getUserName());
 
     }
-
-
 
 }
