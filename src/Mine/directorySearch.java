@@ -372,6 +372,7 @@ public class directorySearch {
                     properties.setProperty("hardToggle", String.valueOf(false));
                     properties.setProperty("customToggle", String.valueOf(false));
                     properties.setProperty("username", System.getenv("LOGNAME"));
+                    properties.setProperty("downShowAgain", String.valueOf(false));
 
                     properties.store(output, "Created Settings File");
 

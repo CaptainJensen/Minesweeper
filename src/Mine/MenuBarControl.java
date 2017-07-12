@@ -270,10 +270,12 @@ public class MenuBarControl extends MenuBar {
             if(updateReader.checkForUpdate(boardController.getSettings().getVERSION())){
                 AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
                 alertWindow.createUpdateAlert(updateReader);
+                boardController.getSettings().setDownShowAgainValue(alertWindow.isDownShowAgain());
             }
             else {
                 AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
                 alertWindow.createNoUpdateAlert();
+
             }
 
         });

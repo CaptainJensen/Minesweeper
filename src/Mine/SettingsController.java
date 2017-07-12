@@ -470,6 +470,33 @@ public class SettingsController implements Initializable {
 
         return difficulty.getNumOfBombs();
     }
+    public void setDownShowAgainValue(boolean value){
+        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
+
+            properties.setProperty("downShowAgain", String.valueOf(value));
+
+            properties.store(output, "Down show Again set to false");
+
+        } catch (IOException e) {
+            Sentry.capture(e);
+            System.out.println("[Log]: Error in setting default settings for settings properties");
+            e.printStackTrace();
+        }
+    }
+    public boolean getDownShowAgainValue(){
+        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
+
+            properties.load(input);
+
+            return Boolean.parseBoolean(properties.getProperty("downShowAgain"));
+
+
+        } catch (IOException ex) {
+            Sentry.capture(ex);
+            ex.printStackTrace();
+        }
+        return false;
+    }
     public Difficulty getDifficulty(){
         try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
 
@@ -518,6 +545,8 @@ public class SettingsController implements Initializable {
             properties.setProperty("hardToggle", String.valueOf(false));
             properties.setProperty("customToggle", String.valueOf(false));
             properties.setProperty("username", System.getenv("LOGNAME"));
+            properties.setProperty("downShowAgain", String.valueOf(false));
+
 
             properties.store(output, "Settings reset to default");
 

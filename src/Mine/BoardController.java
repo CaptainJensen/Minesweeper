@@ -529,9 +529,10 @@ public class BoardController implements Initializable {
 
         //check for update after all loaded
         UpdateReader updateReader = new UpdateReader();
-        if(updateReader.checkForUpdate(settings.getVERSION())){
+        if(updateReader.checkForUpdate(settings.getVERSION()) && !settings.getDownShowAgainValue()){
             AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
             alertWindow.createUpdateAlert(updateReader);
+            settings.setDownShowAgainValue(alertWindow.isDownShowAgain());
         }
 
 

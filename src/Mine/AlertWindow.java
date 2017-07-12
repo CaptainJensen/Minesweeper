@@ -222,6 +222,7 @@ public class AlertWindow extends Alert {
 
 
     private boolean okPressed;
+    private boolean downShowAgain;
 
     /**
      * Creates an alert with the given AlertType (refer to the {@link AlertType}
@@ -294,6 +295,7 @@ public class AlertWindow extends Alert {
         getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
 
         Optional<ButtonType> result = showAndWait();
+        downShowAgain = false;
         if (result.get() == buttonTypeOne){
             try {
                 java.awt.Desktop.getDesktop().browse(URI.create(updateReader.getDownloadUrl()));
@@ -311,14 +313,14 @@ public class AlertWindow extends Alert {
                 e.printStackTrace();
             }
         } else if (result.get() == buttonTypeThree) {
-            // Set dont show again value
+            downShowAgain = true;
         } else {
             // ... user chose CANCEL or closed the dialog
         }
     }
 
     public boolean isOkPressed() { return okPressed; }
-
+    public boolean isDownShowAgain() { return downShowAgain; }
 
 
 
