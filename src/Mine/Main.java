@@ -259,6 +259,8 @@ public class Main extends Application {
         Sentry.init("https://32820f5e9c6f45c6a7e0d03dd8138f8b:215c9c242e794264b1493c787abdae48@sentry.io/190351");
         Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
 
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+
         launch(args);
 
         Sentry.close();

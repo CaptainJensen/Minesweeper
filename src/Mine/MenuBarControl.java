@@ -204,6 +204,8 @@
 
 package Mine;
 
+import de.codecentric.centerdevice.MenuToolkit;
+import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.print.PrinterJob;
 import javafx.scene.SnapshotParameters;
@@ -219,6 +221,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /**
  * Created by Jensen on 7/10/17.
@@ -226,6 +229,7 @@ import java.time.format.DateTimeFormatter;
 public class MenuBarControl extends MenuBar {
 
 
+    private final Menu nullMenu = new Menu("null"); //Primary menu item for nullable
     private final Menu fileMenu = new Menu("File");
     private final Menu viewMenu = new Menu("View");
     private final Menu helpMenu = new Menu("Help");
@@ -238,12 +242,47 @@ public class MenuBarControl extends MenuBar {
         boardController = b;
         setupMenuBar();
 
-        getMenus().addAll(fileMenu, viewMenu, helpMenu);
+        getMenus().addAll(nullMenu, fileMenu, viewMenu, helpMenu);
         setUseSystemMenuBar(true);
+
+
     }
 
 
     private void setupMenuBar() {
+
+        //Main menu
+
+        MenuToolkit tk = MenuToolkit.toolkit();
+
+        AboutStageBuilder aboutStageBuilder = AboutStageBuilder.start("Minesweeper")
+                .withAppName("Minesweeper").withCloseOnFocusLoss().withHtml("Minesweeper<br /> Created by Jensen<br /> <br />Testers: marank ")
+                .withVersionString(boardController.getSettings().getVERSION()).withCopyright("Copyright \u00A9 " + Calendar
+                        .getInstance().get(Calendar.YEAR));
+
+        aboutStageBuilder = aboutStageBuilder.withImage(new Image("/Resources/Images/Minesweeper.png"));
+
+        Menu appMenu = new Menu("Minesweeper");
+        MenuItem updatesMenuItem = new MenuItem("Check for Updates...");
+        updatesMenuItem.setOnAction(e -> {
+            //check for update after all loaded
+            UpdateReader updateReader = new UpdateReader();
+            if(updateReader.checkForUpdate(boardController.getSettings().getVERSION())){
+                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
+                alertWindow.createUpdateAlert(updateReader);
+            }
+            else {
+                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
+                alertWindow.createNoUpdateAlert();
+            }
+
+        });
+        MenuItem prefsItem = new MenuItem("Preferences...");
+        prefsItem.setOnAction(e -> boardController.settingsClick(e) );
+        appMenu.getItems().addAll(tk.createAboutMenuItem("Minesweeper",aboutStageBuilder.build()), updatesMenuItem,new SeparatorMenuItem(), prefsItem, new SeparatorMenuItem(), tk.createHideMenuItem("Minesweeper"), tk.createHideOthersMenuItem(), tk.createUnhideAllMenuItem(), new SeparatorMenuItem(), tk.createQuitMenuItem("Minesweeper"));
+
+        tk.setApplicationMenu(appMenu);
+        tk.setGlobalMenuBar(this);
 
         //file menu
         MenuItem newGameMenuItem = new MenuItem("New");
@@ -307,22 +346,7 @@ public class MenuBarControl extends MenuBar {
         MenuItem scoresMenuItem = new MenuItem("Highscores");
         scoresMenuItem.setOnAction(e -> boardController.scoresClick(e));
 
-        MenuItem updatesMenuItem = new MenuItem("Check Updates");
-        updatesMenuItem.setOnAction(e -> {
-            //check for update after all loaded
-            UpdateReader updateReader = new UpdateReader();
-            if(updateReader.checkForUpdate(boardController.getSettings().getVERSION())){
-                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
-                alertWindow.createUpdateAlert(updateReader);
-            }
-            else {
-                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
-                alertWindow.createNoUpdateAlert();
-            }
-
-        });
-
-        viewMenu.getItems().addAll(scoresMenuItem, screenshotMenuItem,new SeparatorMenuItem(),updatesMenuItem);
+        viewMenu.getItems().addAll(scoresMenuItem, screenshotMenuItem);
 
         //Help menu
         MenuItem helpMenuItem = new MenuItem("Keymap Reference");
