@@ -278,7 +278,6 @@ public class BoardController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.setTitle("Highscores");
-            stage.initOwner(((Node)(actionEvent.getSource())).getScene().getWindow());
             stage.show();
         } catch(Exception e) {
             Sentry.capture(e);
