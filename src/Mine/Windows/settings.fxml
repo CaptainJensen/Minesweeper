@@ -266,7 +266,7 @@
             <Font size="11.0" />
          </font>
       </Text>
-      <Button disable="true" layoutX="231.0" layoutY="408.0" mnemonicParsing="false" onAction="#checkUpdateClick" text="Check Update">
+      <Button layoutX="231.0" layoutY="408.0" mnemonicParsing="false" onAction="#checkUpdateClick" text="Check Update">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

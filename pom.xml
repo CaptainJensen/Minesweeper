@@ -210,7 +210,7 @@
     <groupId>com.Mine</groupId>
     <artifactId>Minesweeper</artifactId>
     <packaging>jar</packaging>
-    <version>v17.2.3-beta</version>
+    <version>v17.2.4-beta</version>
     <name>Minesweeper</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -218,6 +218,21 @@
             <groupId>io.sentry</groupId>
             <artifactId>sentry</artifactId>
             <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 

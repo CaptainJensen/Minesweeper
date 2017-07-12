@@ -259,13 +259,17 @@ public class BoardController implements Initializable {
     private GridPane grid;
     private GameTimer gameTimer;
     private static rect[][] board;
-    private Difficulty difficulty = Difficulty.MEDIUM; //Startup settings
 
     private final Image helpImg = new Image("/Resources/Images/helpImg.png");
     private final Image highscoresImg = new Image("/Resources/Images/highscoresImg.png");
     private final Image newGameImg = new Image("/Resources/Images/newgameImg.png");
     private final Image settingsImg = new Image("/Resources/Images/settingsImg.png");
 
+
+
+
+
+    //Button actions
     public void scoresClick(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/scores.fxml"));
@@ -374,6 +378,7 @@ public class BoardController implements Initializable {
         }
     }
 
+    //logic
     private void setupGrid(Difficulty difficulty) {
 
         grid = new GridPane();
@@ -438,8 +443,6 @@ public class BoardController implements Initializable {
     public rect[][] getBoard() {
         return board;
     }
-    public SettingsController getSettings() { return settings; }
-    public GameTimer getGameTimer() { return gameTimer; }
     public void showBombs() {
 
         for (rect[] aBoard : board) {
@@ -476,7 +479,7 @@ public class BoardController implements Initializable {
     }
 
     private void createNewGame(){
-        difficulty = settings.getDifficulty();
+        Difficulty difficulty = settings.getDifficulty();
         pane.getChildren().remove(grid);
         newGameButton.setDisable(true);
         game = new Game(difficulty,this, settings, scoresController);
@@ -491,9 +494,10 @@ public class BoardController implements Initializable {
 
     }
 
+    //Get classes
     public Mine.directorySearch getDirectorySearch() { return directorySearch; }
-
-
+    public SettingsController getSettings() { return settings; }
+    public GameTimer getGameTimer() { return gameTimer; }
 
 
     /**
@@ -513,7 +517,6 @@ public class BoardController implements Initializable {
         MenuBarControl menuBar = new MenuBarControl(this);
         pane.getChildren().addAll(menuBar);
 
-
         playerTxt.setText("Player: " + settings.getUserName());
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);
@@ -527,6 +530,15 @@ public class BoardController implements Initializable {
         Extra extras = new Extra(this);
         extras.setHolidayGraphic();
         extras.setSplash();
+
+        //check for update after all loaded
+        UpdateReader updateReader = new UpdateReader();
+        if(updateReader.checkForUpdate(settings.getVERSION())){
+            AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
+            alertWindow.createUpdateAlert(updateReader);
+        }
+
+
 
 
     }

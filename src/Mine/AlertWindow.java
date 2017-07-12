@@ -204,11 +204,15 @@
 
 package Mine;
 
+import io.sentry.Sentry;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -241,8 +245,6 @@ public class AlertWindow extends Alert {
      */
     public AlertWindow(AlertType alertType) {
         super(alertType);
-
-
     }
 
 
@@ -264,6 +266,55 @@ public class AlertWindow extends Alert {
         setContentText("Ooops, there was an error!");
 
         showAndWait();
+    }
+
+    public void createNoUpdateAlert() {
+        setAlertType(AlertType.INFORMATION);
+        setTitle("Update");
+        setHeaderText(null);
+        setGraphic(new ImageView(new Image("/Resources/Images/updateImg.png")));
+        setContentText("Good News! No update found... YAY!");
+        showAndWait();
+    }
+
+    public void createUpdateAlert(UpdateReader updateReader){
+        setAlertType(AlertType.CONFIRMATION);
+        setTitle("Update!");
+        setHeaderText("There is a new update for Minesweeper! \t(" + updateReader.getLatestReleaseAssetData("created_at") + ")");
+        setContentText("Update: " + updateReader.getLatestReleaseData("tag_name") + "\t\tCurrent Downloads: " + updateReader.getLatestReleaseAssetData("download_count") +
+                        "\n\nWould you like to download and update now?\n\n\n");
+
+        setGraphic(new ImageView(new Image("/Resources/Images/updateImg.png")));
+
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeTwo = new ButtonType("View");
+        ButtonType buttonTypeThree = new ButtonType("Don't show again");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+
+        Optional<ButtonType> result = showAndWait();
+        if (result.get() == buttonTypeOne){
+            try {
+                java.awt.Desktop.getDesktop().browse(URI.create(updateReader.getDownloadUrl()));
+            } catch (IOException e) {
+                Sentry.capture(e);
+                e.printStackTrace();
+            }
+            System.exit(1); //close for update
+
+        } else if (result.get() == buttonTypeTwo) {
+            try {
+                java.awt.Desktop.getDesktop().browse(URI.create(updateReader.getLatestReleaseView()));
+            } catch (IOException e) {
+                Sentry.capture(e);
+                e.printStackTrace();
+            }
+        } else if (result.get() == buttonTypeThree) {
+            // Set dont show again value
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
     }
 
     public boolean isOkPressed() { return okPressed; }

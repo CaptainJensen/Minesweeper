@@ -205,17 +205,18 @@
 package Mine;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.print.PrinterJob;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -243,14 +244,12 @@ public class MenuBarControl extends MenuBar {
 
 
     private void setupMenuBar() {
-        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
-
 
         //file menu
         MenuItem newGameMenuItem = new MenuItem("New");
         newGameMenuItem.setAccelerator(KeyCombination.keyCombination("META+N"));
+        newGameMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/newgameImg.png")));
         //TODO: Create a new game dialogue using http://code.makery.ch/blog/javafx-dialogs-official/
-
 
         MenuItem screenshot = new MenuItem("Take Screenshot");
         screenshot.setAccelerator(KeyCombination.keyCombination("META+S"));
@@ -268,12 +267,30 @@ public class MenuBarControl extends MenuBar {
 
         });
 
-        fileMenu.getItems().addAll(newGameMenuItem,separatorMenuItem, screenshot);
+        MenuItem printMenuItem = new MenuItem("Print...");
+        printMenuItem.setAccelerator(KeyCombination.keyCombination("META+P"));
+        printMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/printImg.png")));
+        printMenuItem.setOnAction(e -> {
+
+            PrinterJob job = PrinterJob.createPrinterJob();
+            if (job != null && job.showPrintDialog(boardController.pane.getScene().getWindow())){
+                boolean success = job.printPage(boardController.pane);
+                if (success) {
+                    job.endJob();
+                }
+            }
+
+
+        });
+
+
+        fileMenu.getItems().addAll(newGameMenuItem, new SeparatorMenuItem(), screenshot, new SeparatorMenuItem(), printMenuItem);
 
 
         //Options menu
 
         MenuItem screenshotMenuItem = new MenuItem("Open Screenshots");
+        screenshotMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/folderImg.png")));
         screenshotMenuItem.setOnAction(e -> {
 
                 File file = new File(boardController.getDirectorySearch().getScreenshotsDirectory());
@@ -290,10 +307,26 @@ public class MenuBarControl extends MenuBar {
         MenuItem scoresMenuItem = new MenuItem("Highscores");
         scoresMenuItem.setOnAction(e -> boardController.scoresClick(e));
 
-        viewMenu.getItems().addAll(scoresMenuItem, screenshotMenuItem);
+        MenuItem updatesMenuItem = new MenuItem("Check Updates");
+        updatesMenuItem.setOnAction(e -> {
+            //check for update after all loaded
+            UpdateReader updateReader = new UpdateReader();
+            if(updateReader.checkForUpdate(boardController.getSettings().getVERSION())){
+                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
+                alertWindow.createUpdateAlert(updateReader);
+            }
+            else {
+                AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
+                alertWindow.createNoUpdateAlert();
+            }
+
+        });
+
+        viewMenu.getItems().addAll(scoresMenuItem, screenshotMenuItem,new SeparatorMenuItem(),updatesMenuItem);
 
         //Help menu
-        MenuItem helpMenuItem = new MenuItem("Controls");
+        MenuItem helpMenuItem = new MenuItem("Keymap Reference");
+        helpMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/noticeImg.png")));
         helpMenuItem.setOnAction(e -> {
             boardController.helpClick(e);
         });
@@ -310,8 +343,16 @@ public class MenuBarControl extends MenuBar {
 
 
         });
+        MenuItem reportMenuItem = new MenuItem("Report an issue...");
+        reportMenuItem.setOnAction(e -> {
+            try {
+                java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper/issues/new"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        helpMenu.getItems().addAll(helpMenuItem,logsMenuItem);
+        helpMenu.getItems().addAll(helpMenuItem,logsMenuItem,new SeparatorMenuItem(), reportMenuItem);
     }
 
 }

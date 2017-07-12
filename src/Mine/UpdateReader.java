@@ -207,23 +207,165 @@
 package Mine;
 
 
-import org.json.HTTP;
-import org.json.JSONObject;
+import io.sentry.Sentry;
+
+import javax.json.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.*;
 
 /**
  * Created by Jensen on 7/4/17.
  */
 public class UpdateReader {
 
-    JSONObject latestRelease;
+    private ArrayList<String> versionNames;
+    private Set<Map.Entry<String, JsonValue>> fullReleasesRawData; //Complete releases data
+    private HashMap<String, JsonValue> LatestReleaseData; //Latest release data
+    private JsonObject latestReleaseDataAsset; //latest release data files
+    private String downloadUrl = "";
+    private String latestReleaseView = "";
 
     public UpdateReader() {
+        versionNames = new ArrayList<>();
+        LatestReleaseData = new HashMap<>();
+        loadValues();
 
-        HTTP httpLink = new HTTP();
-        latestRelease = new JSONObject();
+        JsonArray latestReleaseDataAssets = LatestReleaseData.get("assets").asJsonArray();
+        latestReleaseDataAsset = latestReleaseDataAssets.get(0).asJsonObject();
+        downloadUrl = latestReleaseDataAsset.getString("browser_download_url");
+
+    }
 
 
+    /**
+     * Loads the class instance variables with values in the JSON array
+     */
+    public void loadValues() {
 
 
+        try (InputStream is = getSearchStream("https://api.github.com/repos/CaptainJensen/Minesweeper/releases");
+             JsonReader rdr = Json.createReader(is)) {
+
+            JsonArray results = rdr.readArray();
+            List<JsonObject> valuesAs = results.getValuesAs(JsonObject.class);
+            for (int i = 0; i < valuesAs.size(); i++) {
+                JsonObject result = valuesAs.get(i);
+                JsonValue value = result.get("name");
+                versionNames.add(value.toString());
+
+            }
+
+            JsonObject latest = valuesAs.get(0);
+            fullReleasesRawData = latest.entrySet();
+            latestReleaseView = latest.getString("html_url");
+            for (Map.Entry<String, JsonValue> entry : latest.entrySet()) {
+                LatestReleaseData.put(entry.getKey(),entry.getValue());
+            }
+
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
+    }
+
+    private static InputStream getSearchStream(String searchURL){
+        // Gets the search stream
+        String searchUrl = searchURL;
+        URL url = null;
+        try {
+            url = new URL(searchUrl);
+        } catch (MalformedURLException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
+
+
+        HttpURLConnection con = null;
+        try {
+            con = (HttpURLConnection)url.openConnection();
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
+        try {
+
+            return con.getInputStream();
+
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public String getDownloadUrl() { return downloadUrl; }
+    public String getLatestReleaseView() { return latestReleaseView; }
+
+
+    /**
+     * Returns the String value of a specified key in the latest release information
+     * @param key the key associated with the needed value
+     * @return String value of the value associated with the specified key
+     */
+    public String getLatestReleaseData(String key) {
+        String s = String.valueOf(LatestReleaseData.get(key));
+        return s.substring(1,s.length()-1);
+    }
+
+    /**
+     * Returns the String value of a specified key in the latest release Asset information
+     * @param key the key associated with the needed value
+     * @return String value of the value associated with the specified key
+     */
+    public String getLatestReleaseAssetData(String key) {
+        return String.valueOf(latestReleaseDataAsset.get(key));
+    }
+
+    /**
+     * Checks for an update online
+     * @param version the current app version
+     * @return true if there is an update, false if otherwise
+     */
+    public boolean checkForUpdate(String version){
+       // System.out.println(LatestReleaseData.entrySet());
+        if(getLatestReleaseData("tag_name").equals(version)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Checks for connection to the internet through dummy request
+     * @return true if there is an internet connection, false if otherwise.
+     */
+
+    public static boolean isInternetReachable() {
+        try {
+            //make a URL to a known source
+            URL url = new URL("http://www.google.com");
+
+            //open a connection to that source
+            HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
+
+            //trying to retrieve data from the source. If there
+            //is no connection, this line will fail
+            Object objData = urlConnect.getContent();
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return false;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

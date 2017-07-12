@@ -210,10 +210,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -267,7 +264,7 @@ public class SettingsController implements Initializable {
     private Properties properties = new Properties();
     private Properties propertiesCust = new Properties();
 
-    private static String version = "v17.2.3-beta"; //TODO: ADD A WAY FOR VERSION CONTROLL
+    private final String VERSION = "v17.2.3-beta";
 
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }
@@ -303,14 +300,16 @@ public class SettingsController implements Initializable {
         setDefaultSettings();
     }
     public void checkUpdateClick(ActionEvent actionEvent) {
-        try {
-            java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper/releases"));
-        } catch (IOException e) {
-            Sentry.capture(e);
-            infoTxt.setFill(Color.MAROON);
-            infoTxt.setText("Could not open link");
-            e.printStackTrace();
+        UpdateReader updateReader = new UpdateReader();
+        if(updateReader.checkForUpdate(getVERSION())){
+            AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
+            alertWindow.createUpdateAlert(updateReader);
         }
+        else {
+            AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
+            alertWindow.createNoUpdateAlert();
+        }
+
     }
     public void versionClick(MouseEvent mouseEvent){
         try {
@@ -544,6 +543,7 @@ public class SettingsController implements Initializable {
         }
     }
 
+    public String getVERSION() { return VERSION; }
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -584,7 +584,7 @@ public class SettingsController implements Initializable {
             hardToggle.setSelected(true);
         } else medToggle.setSelected(true);
 
-        versionLabel.setText("Jensen " + version);
+        versionLabel.setText("Jensen " + VERSION);
         nameboxEdit.setText(getUserName());
     }
 
