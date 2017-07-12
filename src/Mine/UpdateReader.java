@@ -332,12 +332,12 @@ public class UpdateReader {
      * @param version the current app version
      * @return true if there is an update, false if otherwise
      */
-    public boolean checkForUpdate(String version){
-       // System.out.println(LatestReleaseData.entrySet());
-        if(getLatestReleaseData("tag_name").equals(version)) {
-            return false;
+    public boolean checkForUpdate(double version){
+        //TODO: Fix for full release
+        if(Double.parseDouble(getLatestReleaseData("tag_name")) > version) {
+            return true;
         }
-        return true;
+        return false;
     }
 
 

@@ -248,7 +248,6 @@ public class MenuBarControl extends MenuBar {
 
     }
 
-
     private void setupMenuBar() {
 
         //Main menu
@@ -257,7 +256,7 @@ public class MenuBarControl extends MenuBar {
 
         AboutStageBuilder aboutStageBuilder = AboutStageBuilder.start("Minesweeper")
                 .withAppName("Minesweeper").withCloseOnFocusLoss().withHtml("Minesweeper<br /> Created by Jensen<br /> <br />Testers: marank ")
-                .withVersionString(boardController.getSettings().getVERSION()).withCopyright("Copyright \u00A9 " + Calendar
+                .withVersionString(String.valueOf(boardController.getSettings().getVERSION())).withCopyright("Copyright \u00A9 " + Calendar
                         .getInstance().get(Calendar.YEAR));
 
         aboutStageBuilder = aboutStageBuilder.withImage(new Image("/Resources/Images/Minesweeper.png"));

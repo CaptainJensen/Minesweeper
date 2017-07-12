@@ -224,6 +224,8 @@ public class AlertWindow extends Alert {
     private boolean okPressed;
     private boolean downShowAgain;
 
+
+
     /**
      * Creates an alert with the given AlertType (refer to the {@link AlertType}
      * documentation for clarification over which one is most appropriate).
@@ -282,7 +284,8 @@ public class AlertWindow extends Alert {
         setAlertType(AlertType.CONFIRMATION);
         setTitle("Update!");
         setHeaderText("There is a new update for Minesweeper! \t(" + updateReader.getLatestReleaseAssetData("created_at") + ")");
-        setContentText("Update: " + updateReader.getLatestReleaseData("tag_name") + "\t\tCurrent Downloads: " + updateReader.getLatestReleaseAssetData("download_count") +
+        setContentText("Update: " + updateReader.getLatestReleaseData("name") + "\t\tCurrent Downloads: " + updateReader.getLatestReleaseAssetData("download_count") +
+                        updateReader.getLatestReleaseData("tag_name") +
                         "\n\nWould you like to download and update now?\n\n\n");
 
         setGraphic(new ImageView(new Image("/Resources/Images/updateImg.png")));

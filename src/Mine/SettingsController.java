@@ -264,7 +264,8 @@ public class SettingsController implements Initializable {
     private Properties properties = new Properties();
     private Properties propertiesCust = new Properties();
 
-    private final String VERSION = "v17.2.4.1-beta";
+    //YEAR:MAJOR:MINOR:PATCH
+    private final double VERSION = 17020401;
 
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }
@@ -572,7 +573,7 @@ public class SettingsController implements Initializable {
         }
     }
 
-    public String getVERSION() { return VERSION; }
+    public double getVERSION() { return VERSION; }
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
