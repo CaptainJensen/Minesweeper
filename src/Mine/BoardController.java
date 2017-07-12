@@ -388,13 +388,13 @@ public class BoardController implements Initializable {
 
         if(difficulty == Difficulty.EASY) {
             grid.setLayoutY(200);
-            grid.setLayoutX((pane.getWidth()/2)-((Difficulty.EASY.getCols()*15)-(Difficulty.EASY.getCols())));
+            grid.setLayoutX((pane.getWidth()/2)-((Difficulty.EASY.getCols()*15)-(Difficulty.EASY.getCols()/2)));
         }
         else if (difficulty == Difficulty.MEDIUM) {
-            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.MEDIUM.getCols()*15));
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.MEDIUM.getCols()*15)-(Difficulty.MEDIUM.getCols()/2));
         }
         else if(difficulty == Difficulty.HARD) {
-            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.HARD.getCols()*15));
+            grid.setLayoutX((pane.getWidth()/2)-(Difficulty.HARD.getCols()*15)-(Difficulty.HARD.getCols()/2));
         }
         else if(difficulty == Difficulty.CUSTOM) {
             cols = (int) settings.getCustomBoardSettings("cols");

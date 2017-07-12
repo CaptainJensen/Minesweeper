@@ -264,7 +264,7 @@ public class SettingsController implements Initializable {
     private Properties properties = new Properties();
     private Properties propertiesCust = new Properties();
 
-    private final String VERSION = "v17.2.4-beta";
+    private final String VERSION = "v17.2.4.1-beta";
 
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }
