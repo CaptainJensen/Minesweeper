@@ -389,7 +389,6 @@ public final class Game {
             }
         }
 
-        boardController.newGameButton.setDisable(false);
         boardController.informationTxt.setVisible(true);
 
         if(gameWin) {

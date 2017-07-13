@@ -265,7 +265,7 @@ public class SettingsController implements Initializable {
     private Properties propertiesCust = new Properties();
 
     //YEAR:MAJOR:MINOR:PATCH
-    private final double VERSION = 17020401;
+    private final double VERSION = 17020402;
 
     public Image getSelectedFlagImg() { return redFlagImg; }
     public Image getBombImg() { return bombImg; }

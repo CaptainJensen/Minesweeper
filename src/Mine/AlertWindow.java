@@ -254,7 +254,7 @@ public class AlertWindow extends Alert {
     public void createNewGameAlert() {
         setAlertType(AlertType.CONFIRMATION);
         setTitle("Abandon Game?");
-        setHeaderText("Changing the settings will abandon the current game.");
+        setHeaderText("This action will abandon the current game.");
         setContentText("Are you ok with this?");
         setGraphic(new ImageView(new Image("/Resources/Images/explosionImg.png")));
 

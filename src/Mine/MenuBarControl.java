@@ -288,6 +288,9 @@ public class MenuBarControl extends MenuBar {
         //file menu
         MenuItem newGameMenuItem = new MenuItem("New");
         newGameMenuItem.setAccelerator(KeyCombination.keyCombination("META+N"));
+        newGameMenuItem.setOnAction(e -> {
+            boardController.newGameClick(e);
+        });
         newGameMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/newgameImg.png")));
         //TODO: Create a new game dialogue using http://code.makery.ch/blog/javafx-dialogs-official/
 

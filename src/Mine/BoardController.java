@@ -270,6 +270,7 @@ public class BoardController implements Initializable {
 
     //Button actions
     public void scoresClick(ActionEvent actionEvent) {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/scores.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -421,6 +422,8 @@ public class BoardController implements Initializable {
             rc.setFillHeight(true);
             grid.getRowConstraints().add(rc);
         }
+        grid.setFocusTraversable(true);
+        grid.requestFocus();
         pane.getChildren().add(grid);
 
     }
@@ -475,18 +478,33 @@ public class BoardController implements Initializable {
     }
 
     private void createNewGame(){
-        Difficulty difficulty = settings.getDifficulty();
-        pane.getChildren().remove(grid);
-        newGameButton.setDisable(true);
-        game = new Game(difficulty,this, settings, scoresController);
-        setupGrid(difficulty);
-        board = new rect[getGridCols(difficulty)][getGridRows(difficulty)];
-        addRectanglesToBoard();
         informationTxt.setVisible(false);
         playerTxt.setText("Player: " + settings.getUserName());
-
         Extra extras = new Extra(this);
         extras.setSplash();
+
+
+        if(gameTimer.isRunning()) {
+            AlertWindow alert = new AlertWindow(Alert.AlertType.CONFIRMATION);
+            alert.createNewGameAlert();
+            if(alert.isOkPressed()) {
+                Difficulty difficulty = settings.getDifficulty();
+                pane.getChildren().remove(grid);
+                game = new Game(difficulty,this, settings, scoresController);
+                setupGrid(difficulty);
+                board = new rect[getGridCols(difficulty)][getGridRows(difficulty)];
+                addRectanglesToBoard();
+            }
+        } else {
+            Difficulty difficulty = settings.getDifficulty();
+            pane.getChildren().remove(grid);
+            game = new Game(difficulty,this, settings, scoresController);
+            setupGrid(difficulty);
+            board = new rect[getGridCols(difficulty)][getGridRows(difficulty)];
+            addRectanglesToBoard();
+
+        }
+
 
     }
 

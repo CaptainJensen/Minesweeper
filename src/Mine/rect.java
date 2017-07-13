@@ -204,6 +204,8 @@
 
 package Mine;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -240,8 +242,48 @@ public class rect extends Rectangle {
         setFill(Color.WHITE);
 
 
-        setOnMouseEntered(t -> { if(!isClicked) { setFill(Color.LIGHTGRAY); } });
-        setOnMouseExited(t -> { if(!isClicked) { setFill(Color.WHITE); } });
+        setOnMouseEntered(t -> {
+            setFocusTraversable(true);
+            requestFocus();
+            setFocused(true);
+            if(!isClicked) {
+                setFill(Color.LIGHTGRAY);
+            }
+        });
+        setOnMouseExited(t -> {
+            setFocusTraversable(false);
+            setFocused(false);
+            if(!isClicked) {
+                setFill(Color.WHITE);
+            }
+        });
+
+        setOnKeyPressed((KeyEvent e) -> {
+            System.out.println(row +":"+col);
+            isClicked = true;
+            if(e.getCode() == KeyCode.SPACE && firstClicked) {
+                isClicked = false;
+                return;
+            }
+            else if(e.getCode() == KeyCode.SPACE && !placedFlag) {
+                placedFlag = true;
+                if(isBomb && placedFlag) {
+                    isCovered = true;
+                }
+                game.placeFlag(row,col);
+
+            }
+            else if(e.getCode() == KeyCode.SPACE && placedFlag) {
+                isClicked = false;
+                setFill(Color.WHITE);
+                game.addTotFlags();
+                if(isBomb) {
+                    game.addNumberofActiveBombs();
+                }
+                isCovered = false;
+                placedFlag = false;
+            }
+        });
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 
@@ -301,7 +343,12 @@ public class rect extends Rectangle {
 
         });
 
+
+
+
+
     }
+
 
     public boolean isBomb() {
         return isBomb;
