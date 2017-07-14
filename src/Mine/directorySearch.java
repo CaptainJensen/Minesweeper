@@ -438,8 +438,6 @@ public class directorySearch {
                         "Now supports Emojis",
                         "Java enabled ☕",
                         "☾",
-                        "semver.org"
-
 
                 };
 

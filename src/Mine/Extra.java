@@ -244,6 +244,9 @@ public class Extra {
                 boardController.splashText.setVisible(true);
                 boardController.splashText.setText("Boo!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(0,0,0,0.8), #9b560c)\n 0%");
+            case "4/1":
+                boardController.splashText.setVisible(true);
+                boardController.splashText.setText("April Fools!");
         }
     }
 

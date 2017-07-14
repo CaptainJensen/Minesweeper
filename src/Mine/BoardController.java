@@ -311,7 +311,6 @@ public class BoardController implements Initializable {
                 gameTimer.timer.stop();
                 timerLabel.setVisible(false);
                 pane.getChildren().remove(grid);
-                game.endGame();
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
@@ -336,7 +335,7 @@ public class BoardController implements Initializable {
         } else {
             pane.getChildren().remove(grid);
             timerLabel.setVisible(false);
-            game.endGame();
+
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
