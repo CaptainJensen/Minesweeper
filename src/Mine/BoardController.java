@@ -309,6 +309,9 @@ public class BoardController implements Initializable {
             alert.createNewGameAlert();
             if(alert.isOkPressed()) {
                 gameTimer.timer.stop();
+                timerLabel.setVisible(false);
+                pane.getChildren().remove(grid);
+                game.endGame();
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
@@ -318,8 +321,9 @@ public class BoardController implements Initializable {
                     stage.setTitle("Settings");
                     stage.initModality(Modality.WINDOW_MODAL);
                     stage.setOnCloseRequest(e -> {
-                        timerLabel.setVisible(false);
-                        createNewGame();
+                        informationTxt.setText("Press new game to play");
+                        informationTxt.setFill(Color.BLACK);
+                        informationTxt.setVisible(true);
                     });
 
                     stage.show();
@@ -330,6 +334,9 @@ public class BoardController implements Initializable {
                 }
             }
         } else {
+            pane.getChildren().remove(grid);
+            timerLabel.setVisible(false);
+            game.endGame();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
@@ -339,8 +346,9 @@ public class BoardController implements Initializable {
                 stage.setTitle("Settings");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.setOnCloseRequest(e -> {
-                    timerLabel.setVisible(false);
-                    createNewGame();
+                    informationTxt.setText("Press new game to play");
+                    informationTxt.setFill(Color.BLACK);
+                    informationTxt.setVisible(true);
                 });
                 stage.show();
             } catch(Exception e) {
@@ -353,6 +361,8 @@ public class BoardController implements Initializable {
 
     }
     public void newGameClick(ActionEvent actionEvent) {
+        timerLabel.setVisible(false);
+        gameTimer.timer.stop();
         createNewGame();
     }
     public void boardKeyPressed(KeyEvent keyEvent) {

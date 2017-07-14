@@ -285,7 +285,7 @@ public class AlertWindow extends Alert {
         setTitle("Update!");
         setHeaderText("There is a new update for Minesweeper! \t(" + updateReader.getLatestReleaseAssetData("created_at") + ")");
         setContentText("Update: " + updateReader.getLatestReleaseData("name") + "\t\tCurrent Downloads: " + updateReader.getLatestReleaseAssetData("download_count") +
-                        updateReader.getLatestReleaseData("tag_name") +
+                        "\n" + updateReader.getLatestReleaseData("tag_name") +
                         "\n\nWould you like to download and update now?\n\n\n");
 
         setGraphic(new ImageView(new Image("/Resources/Images/updateImg.png")));
