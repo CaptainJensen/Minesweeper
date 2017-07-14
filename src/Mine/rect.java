@@ -259,7 +259,7 @@ public class rect extends Rectangle {
         });
 
         setOnKeyPressed((KeyEvent e) -> {
-            System.out.println(row +":"+col);
+            //System.out.println(row +":"+col);
             isClicked = true;
             if(e.getCode() == KeyCode.SPACE && firstClicked) {
                 isClicked = false;
@@ -283,6 +283,11 @@ public class rect extends Rectangle {
                 isCovered = false;
                 placedFlag = false;
             }
+
+            game.checkifwin();
+
+
+            e.consume();
         });
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
