@@ -415,9 +415,9 @@ public final class Game {
         boardController.timerLabel.setVisible(true);
     }
 
-    public void setBombImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(settingsController.getBombImg())); }
+    public void setBombImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getBombImg())); }
     public void setFlagImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(settingsController.getSelectedFlagImg())); }
-    private void setNumber(int r, int c, int value) { boardController.getBoard()[r][c].setFill(new ImagePattern(settingsController.getValueImage(value))); }
+    private void setNumber(int r, int c, int value) { boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getValueImage(value))); }
     public SettingsController getSettingsController() {
         return settingsController;
     }

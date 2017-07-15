@@ -204,64 +204,196 @@
 
 package Mine;
 
-import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.event.UserBuilder;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
-public class Main extends Application {
-
-    private static SentryClient sentry;
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
-        //DEBUG system
-//        System.out.println("[Log]: TIME: " + System.currentTimeMillis());
-//        Map<String, String> env = System.getenv();
-//        for (String envName : env.keySet()) {
-//            System.out.format("%s=%s%n",
-//                    envName,
-//                    env.get(envName));
-//        }
-
-        Parent root = FXMLLoader.load(getClass().getResource("Windows/Board.fxml"));
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.centerOnScreen();
-        Scene scene = new Scene(root);
-        primaryStage.getIcons().add(ImageHandler.getBombImg());
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setMaximized(false);
-        primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
-        primaryStage.show();
+/**
+ * Created by Jensen on 7/15/17.
+ */
+public final class ImageHandler {
 
 
+    //Numbers
+    private static final Image ZERO = new Image("/Resources/Images/0.png");
+    private static final Image ONE = new Image("/Resources/Images/1.png");
+    private static final Image TWO = new Image("/Resources/Images/2.png");
+    private static final Image THREE = new Image("/Resources/Images/3.png");
+    private static final Image FOUR = new Image("/Resources/Images/4.png");
+    private static final Image FIVE = new Image("/Resources/Images/5.png");
+    private static final Image SIX = new Image("/Resources/Images/6.png");
+    private static final Image SEVEN = new Image("/Resources/Images/7.png");
+    private static final Image EIGHT = new Image("/Resources/Images/8.png");
+    private static final Image NINE = new Image("/Resources/Images/9.png");
+
+    //Flags
+    private static final Image BLACK_FLAG_IMG = new Image("/Resources/Images/redflag.png");
+    private static final Image RED_FLAG_IMG = new Image("/Resources/Images/redFlag.png");
+    private static final Image ORANGE_FLAG_IMG = new Image("/Resources/Images/orangeFlag.png");
+    private static final Image USA_FLAG_IMG = new Image("/Resources/Images/USAFlag.png");
+    private static final Image RUSSIA_FLAG_IMG = new Image("/Resources/Images/RussiaFlag.png");
+    private static final Image MAPLELEAF_IMG = new Image("/Resources/Images/MapleLeafFlag.png");
+
+    //Bombs
+    private static final Image BOMB_IMG = new Image("/Resources/Images/bomb.png");
+    private static final Image GREEN_BOMB_IMG = new Image("/Resources/Images/greenBomb.png");
+
+    //Icons
+    private static final Image SETTINGS_IMG = new Image("/Resources/Images/settingsImg.png");
+    private static final Image SETTINGS_IMG64 = new Image("/Resources/Images/settingsImg64.png");
+    private static final Image TIME_IMG = new Image("/Resources/Images/timeImg.png");
+    private static final Image UPDATE_IMG = new Image("/Resources/Images/updateImg.png");
+    private static final Image PRINT_IMG = new Image("/Resources/Images/printImg.png");
+    private static final Image NOTICE_IMG = new Image("/Resources/Images/noticeImg.png");
+    private static final Image NEW_GAME_IMG = new Image("/Resources/Images/newgameImg.png");
+    private static final Image HIGHSCORES_IMG = new Image("/Resources/Images/highscoresImg.png");
+    private static final Image HELP_IMG = new Image("/Resources/Images/helpImg.png");
+    private static final Image FOLDER_IMG = new Image("/Resources/Images/folderImg.png");
+    private static final Image EXPLOSION_IMG = new Image("/Resources/Images/explosionImg.png");
+    private static final Image CLEAR_IMG = new Image("/Resources/Images/clearImg.png");
+    private static final Image CHECKMARK_IMG = new Image("/Resources/Images/checkmarkImg.png");
+    private static final Image CANCEL_IMG = new Image("/Resources/Images/cancelImg.png");
+
+    //Other
+    private static final Image MINESWEEPER_LOGO_IMG = new Image("/Resources/Images/Minesweeper.png");
 
 
 
-
-
+    private ImageHandler(Image image) {
+        //nullable
     }
 
 
-    public static void main(String[] args) {
-
-        Sentry.init("https://32820f5e9c6f45c6a7e0d03dd8138f8b:215c9c242e794264b1493c787abdae48@sentry.io/190351");
-        Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
-
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-
-        launch(args);
-
-        Sentry.close();
+    /**
+     *
+     * @param value the image number want to recive
+     * @return The Image
+     */
+    public static Image getValueImage(int value) {
+        switch (value) {
+            case 1:
+                return ONE;
+            case 2:
+                return TWO;
+            case 3:
+                return THREE;
+            case 4:
+                return FOUR;
+            case 5:
+                return FIVE;
+            case 6:
+                return SIX;
+            case 7:
+                return SEVEN;
+            case 8:
+                return EIGHT;
+            case 9:
+                return NINE;
+            default:
+                return ZERO;
+        }
     }
+
+
+
+
+
+    public static Image getBlackFlagImg() {
+        return BLACK_FLAG_IMG;
+    }
+
+    public static Image getRedFlagImg() {
+        return RED_FLAG_IMG;
+    }
+
+    public static Image getOrangeFlagImg() {
+        return ORANGE_FLAG_IMG;
+    }
+
+    public static Image getUsaFlagImg() {
+        return USA_FLAG_IMG;
+    }
+
+    public static Image getRussiaFlagImg() {
+        return RUSSIA_FLAG_IMG;
+    }
+
+    public static Image getMapleleafImg() {
+        return MAPLELEAF_IMG;
+    }
+
+    public static Image getBombImg() {
+        return BOMB_IMG;
+    }
+
+    public static Image getGreenBombImg() {
+        return GREEN_BOMB_IMG;
+    }
+
+    public static Image getSettingsImg() {
+        return SETTINGS_IMG;
+    }
+
+    public static Image getSettingsImg64() {
+        return SETTINGS_IMG64;
+    }
+
+    public static Image getTimeImg() {
+        return TIME_IMG;
+    }
+
+    public static Image getUpdateImg() {
+        return UPDATE_IMG;
+    }
+
+    public static Image getPrintImg() {
+        return PRINT_IMG;
+    }
+
+    public static Image getNoticeImg() {
+        return NOTICE_IMG;
+    }
+
+    public static Image getNewGameImg() {
+        return NEW_GAME_IMG;
+    }
+
+    public static Image getHighscoresImg() {
+        return HIGHSCORES_IMG;
+    }
+
+    public static Image getHelpImg() {
+        return HELP_IMG;
+    }
+
+    public static Image getFolderImg() {
+        return FOLDER_IMG;
+    }
+
+    public static Image getExplosionImg() {
+        return EXPLOSION_IMG;
+    }
+
+    public static Image getClearImg() {
+        return CLEAR_IMG;
+    }
+
+    public static Image getCheckmarkImg() {
+        return CHECKMARK_IMG;
+    }
+
+    public static Image getCancelImg() {
+        return CANCEL_IMG;
+    }
+
+    public static Image getMinesweeperLogoImg() {
+        return MINESWEEPER_LOGO_IMG;
+    }
+
+
+
+
+
+
+
+
+
 }

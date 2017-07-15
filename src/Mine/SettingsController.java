@@ -206,16 +206,16 @@ package Mine;
 
 import io.sentry.Sentry;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URI;
@@ -228,35 +228,28 @@ import java.util.ResourceBundle;
  */
 public class SettingsController implements Initializable {
 
+    public TabPane tabbedPane;
     public AnchorPane pane;
-    public ToggleGroup diff;
     public Text versionLabel;
-    public TextField nameboxEdit;
     public Text infoTxt;
-    public RadioButton hardToggle;
-    public RadioButton medToggle;
-    public RadioButton easyToggle;
-    public Slider rowsSlider;
-    public Slider colsSlider;
-    public Slider bombsSlider;
     public Text bombsNum;
     public Text colsNum;
     public Text rowsNum;
-
-
-    //ALL OF THE IMAGES ARE PUT INTO SETTINGS FOR FASTER LOAD TIME. Recive the image when called upon. Speeds up INCREDIBLY!!
-    private final Image zero = new Image("/Resources/Images/0.png");
-    private final Image one = new Image("/Resources/Images/1.png");
-    private final Image two = new Image("/Resources/Images/2.png");
-    private final Image three = new Image("/Resources/Images/3.png");
-    private final Image four = new Image("/Resources/Images/4.png");
-    private final Image five = new Image("/Resources/Images/5.png");
-    private final Image six = new Image("/Resources/Images/6.png");
-    private final Image seven = new Image("/Resources/Images/7.png");
-    private final Image eightBall = new Image("/Resources/Images/8.png");
-    private final Image redFlagImg = new Image("/Resources/Images/redflag.png");
-    private final Image bombImg = new Image("/Resources/Images/bomb.png");
-    private final Image greenBombImg = new Image("/Resources/Images/greenBomb.png");
+    public Text easyGameInfoText;
+    public Text medGameInfoText;
+    public Text hardGameInfoText;
+    public TextField nameboxEdit;
+    public Slider rowsSlider;
+    public Slider colsSlider;
+    public Slider bombsSlider;
+    public Button timetrialButton;
+    public Button funrunButton;
+    public Button easyButton;
+    public Button medButton;
+    public Button hardButton;
+    public Tab shopTab;
+    public Tab settingsTab;
+    public Tab gamemodesTab;
 
 
 
@@ -267,35 +260,12 @@ public class SettingsController implements Initializable {
     //YEAR:MAJOR:MINOR:PATCH
     private final double VERSION = 17020403;
 
-    public Image getSelectedFlagImg() { return redFlagImg; }
-    public Image getBombImg() { return bombImg; }
-    public Image getGreenBombImg() { return greenBombImg; }
-    public Image getValueImage(int value) {
-        switch (value) {
-            case 1:
-                return one;
-            case 2:
-                return two;
-            case 3:
-                return three;
-            case 4:
-                return four;
-            case 5:
-                return five;
-            case 6:
-                return six;
-            case 7:
-                return seven;
-            case 8:
-                return eightBall;
-            default:
-                System.out.println("[Log]: Error in setting value for ball");
-                return zero;
-        }
+    public Image getSelectedFlagImg() {
+        return ImageHandler.getRedFlagImg();
+        //TODO: Change to allow custom flags here
     }
 
     public void restoreDefaultsClick(ActionEvent actionEvent) {
-        medToggle.setSelected(true);
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
         setDefaultSettings();
@@ -355,7 +325,8 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
 
-
+        Stage stage = (Stage) tabbedPane.getScene().getWindow();
+        stage.close();
 
 
     }
@@ -370,6 +341,7 @@ public class SettingsController implements Initializable {
         }
     }
     public void easyClickToggle(ActionEvent actionEvent) {
+        AudioHandler.playSelectSound();
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(true));
@@ -384,8 +356,11 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
 
+        Stage stage = (Stage) tabbedPane.getScene().getWindow();
+        stage.close();
     }
     public void medClickToggle(ActionEvent actionEvent) {
+        AudioHandler.playSelectSound();
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
@@ -400,8 +375,12 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
 
+        Stage stage = (Stage) tabbedPane.getScene().getWindow();
+        stage.close();
+
     }
     public void hardClickToggle(ActionEvent actionEvent) {
+        AudioHandler.playSelectSound();
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
@@ -415,6 +394,9 @@ public class SettingsController implements Initializable {
             Sentry.capture(e);
             e.printStackTrace();
         }
+
+        Stage stage = (Stage) tabbedPane.getScene().getWindow();
+        stage.close();
 
     }
 
@@ -573,6 +555,25 @@ public class SettingsController implements Initializable {
         }
     }
 
+    private void setButtonEffects(){
+        easyButton.setOnMouseEntered(e -> easyButton.setStyle("-fx-background-color:  #08e139"));
+        easyButton.setOnMouseExited(e -> easyButton.setStyle("-fx-background-color:  #0bff42"));
+
+        medButton.setOnMouseEntered(e -> medButton.setStyle("-fx-background-color:  #e1c700"));
+        medButton.setOnMouseExited(e -> medButton.setStyle("-fx-background-color:  #FFE100"));
+
+        hardButton.setOnMouseEntered(e -> hardButton.setStyle("-fx-background-color:  #e14848"));
+        hardButton.setOnMouseExited(e -> hardButton.setStyle("-fx-background-color:  #ff5555"));
+
+        timetrialButton.setOnMouseEntered(e -> timetrialButton.setStyle("-fx-background-color:  #c236e1"));
+        timetrialButton.setOnMouseExited(e -> timetrialButton.setStyle("-fx-background-color:   #E038FF"));
+
+        funrunButton.setOnMouseEntered(e -> funrunButton.setStyle("-fx-background-color:  #56e1e1"));
+        funrunButton.setOnMouseExited(e -> funrunButton.setStyle("-fx-background-color:  #59ffff"));
+
+
+    }
+
     public double getVERSION() { return VERSION; }
     /**
      * Called to initialize a controller after its root element has been
@@ -585,35 +586,28 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rowsSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                bombsSlider.setMax((newValue.doubleValue()*colsSlider.getValue())-9);
-                bombsSlider.setValue((newValue.doubleValue()*colsSlider.getValue())/2);
-            }
+        rowsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            bombsSlider.setMax((newValue.doubleValue()*colsSlider.getValue())-9);
+            bombsSlider.setValue((newValue.doubleValue()*colsSlider.getValue())/2);
+        });
+        colsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            bombsSlider.setMax((rowsSlider.getValue()*newValue.doubleValue())-9);
+            bombsSlider.setValue((rowsSlider.getValue()*newValue.doubleValue())/2);
         });
 
-        colsSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                bombsSlider.setMax((rowsSlider.getValue()*newValue.doubleValue())-9);
-                bombsSlider.setValue((rowsSlider.getValue()*newValue.doubleValue())/2);
-            }
-        });
+        settingsTab.setGraphic(new ImageView(ImageHandler.getSettingsImg()));
 
+        setButtonEffects();
+
+        easyGameInfoText.setText(Difficulty.EASY.getRows() + " x " + Difficulty.EASY.getCols() + " - " + Difficulty.EASY.getNumOfBombs()+ " Bombs");
+        medGameInfoText.setText(Difficulty.MEDIUM.getRows() + " x " + Difficulty.MEDIUM.getCols() + " - " + Difficulty.MEDIUM.getNumOfBombs()+ " Bombs");
+        hardGameInfoText.setText(Difficulty.HARD.getRows() + " x " + Difficulty.HARD.getCols() + " - " + Difficulty.HARD.getNumOfBombs()+ " Bombs");
 
         bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
         rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
         colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
         loadCustomBoardSettings();
         bombsSlider.setMax((rowsSlider.getValue()*colsSlider.getValue())-9);
-
-        if(getDifficulty() == Difficulty.EASY) {
-            easyToggle.setSelected(true);
-        } else if(getDifficulty() == Difficulty.HARD) {
-            hardToggle.setSelected(true);
-        } else medToggle.setSelected(true);
-
         versionLabel.setText("Jensen " + VERSION);
         nameboxEdit.setText(getUserName());
     }

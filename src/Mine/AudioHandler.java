@@ -205,63 +205,117 @@
 package Mine;
 
 import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.event.UserBuilder;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-public class Main extends Application {
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
-    private static SentryClient sentry;
+/**
+ * Created by Jensen on 7/15/17.
+ */
+public final class AudioHandler {
+    private final static int BUFFER_SIZE = 12800;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
-        //DEBUG system
-//        System.out.println("[Log]: TIME: " + System.currentTimeMillis());
-//        Map<String, String> env = System.getenv();
-//        for (String envName : env.keySet()) {
-//            System.out.format("%s=%s%n",
-//                    envName,
-//                    env.get(envName));
-//        }
-
-        Parent root = FXMLLoader.load(getClass().getResource("Windows/Board.fxml"));
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.centerOnScreen();
-        Scene scene = new Scene(root);
-        primaryStage.getIcons().add(ImageHandler.getBombImg());
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setMaximized(false);
-        primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
-        primaryStage.show();
-
-
-
-
-
-
-
+    private AudioHandler(){
+       //Nullable
     }
 
 
-    public static void main(String[] args) {
+    /**
+     * Plays the sound file
+     * @param filename the name of the file that is going to be played
+     */
+    private static void playSound(String filename){
 
-        Sentry.init("https://32820f5e9c6f45c6a7e0d03dd8138f8b:215c9c242e794264b1493c787abdae48@sentry.io/190351");
-        Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
+        String strFilename = filename;
+        AudioInputStream audioStream = null;
+        SourceDataLine sourceLine = null;
 
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        try {
+            File soundFile = new File(strFilename);
+            audioStream = AudioSystem.getAudioInputStream(soundFile);
+        } catch (Exception e){
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
 
-        launch(args);
+        AudioFormat audioFormat = audioStream.getFormat();
 
-        Sentry.close();
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+        try {
+            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+            sourceLine.open(audioFormat);
+        } catch (LineUnavailableException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
+
+        sourceLine.start();
+
+        int nBytesRead = 0;
+        byte[] abData = new byte[BUFFER_SIZE];
+        while (nBytesRead != -1) {
+            try {
+                nBytesRead = audioStream.read(abData, 0, abData.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (nBytesRead >= 0) {
+                @SuppressWarnings("unused")
+                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
+            }
+        }
+
+        sourceLine.drain();
+        sourceLine.close();
     }
+
+
+    /**
+     * Plays the sound faster
+     * @param path file path to the sound file
+     * @implNote File format must be in .wav files
+     */
+    private static synchronized void playFastSound(final String path) {
+        // Note: use .wav files
+
+        new Thread(() -> {
+            try {
+                 Clip clip = AudioSystem.getClip();
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
+                clip.open(inputStream);
+                clip.start();
+                inputStream.close();
+            } catch (Exception e) {
+                System.out.println("play sound error: " + e.getMessage() + " for " + path);
+            }
+        }).start();
+    }
+
+
+    public static void playFlagSound() { playFastSound("Resources/Sound/flag.wav"); }
+    public static void playClickSound() {
+        Random random = new Random();
+        int numOfClickFiles = 4;
+        if(random.nextInt(numOfClickFiles) == 0) {
+            playSound("Resources/Sound/click0.wav");
+        }
+        else if(random.nextInt(numOfClickFiles) == 1) {
+            playSound("Resources/Sound/click1.wav");
+        }
+        else if(random.nextInt(numOfClickFiles) == 2) {
+            playSound("Resources/Sound/click2.wav");
+        }
+        else playSound("Resources/Sound/click3.wav");
+
+
+    }
+    public static void playSelectSound() { playFastSound("Resources/Sound/select.wav"); }
+    public static void playWinSound() { playFastSound("Resources/Sound/win.wav"); }
+
+
 }

@@ -214,7 +214,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -259,14 +258,6 @@ public class BoardController implements Initializable {
     private GameTimer gameTimer;
     private static rect[][] board;
 
-    private final Image helpImg = new Image("/Resources/Images/helpImg.png");
-    private final Image highscoresImg = new Image("/Resources/Images/highscoresImg.png");
-    private final Image newGameImg = new Image("/Resources/Images/newgameImg.png");
-    private final Image settingsImg = new Image("/Resources/Images/settingsImg.png");
-
-
-
-
 
     //Button actions
     public void scoresClick(ActionEvent actionEvent) {
@@ -278,6 +269,7 @@ public class BoardController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.setTitle("Highscores");
+            stage.setAlwaysOnTop(true);
             stage.show();
         } catch(Exception e) {
             Sentry.capture(e);
@@ -295,6 +287,7 @@ public class BoardController implements Initializable {
             stage.setResizable(false);
             stage.setTitle("Help");
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setAlwaysOnTop(true);
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } catch(Exception e) {
@@ -311,6 +304,9 @@ public class BoardController implements Initializable {
                 gameTimer.timer.stop();
                 timerLabel.setVisible(false);
                 pane.getChildren().remove(grid);
+                informationTxt.setText("Press new game to play");
+                informationTxt.setFill(Color.BLACK);
+                informationTxt.setVisible(true);
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
@@ -319,12 +315,10 @@ public class BoardController implements Initializable {
                     stage.setResizable(false);
                     stage.setTitle("Settings");
                     stage.initModality(Modality.WINDOW_MODAL);
+                    stage.setAlwaysOnTop(true);
                     stage.setOnCloseRequest(e -> {
-                        informationTxt.setText("Press new game to play");
-                        informationTxt.setFill(Color.BLACK);
-                        informationTxt.setVisible(true);
-                    });
 
+                    });
                     stage.show();
                 } catch(Exception e) {
                     Sentry.capture(e);
@@ -344,12 +338,14 @@ public class BoardController implements Initializable {
                 stage.setResizable(false);
                 stage.setTitle("Settings");
                 stage.initModality(Modality.WINDOW_MODAL);
+                stage.setAlwaysOnTop(true);
                 stage.setOnCloseRequest(e -> {
                     informationTxt.setText("Press new game to play");
                     informationTxt.setFill(Color.BLACK);
                     informationTxt.setVisible(true);
                 });
                 stage.show();
+
             } catch(Exception e) {
                 Sentry.capture(e);
                 System.out.println("[Log]: Settings Window failed to open");
@@ -452,13 +448,12 @@ public class BoardController implements Initializable {
         return board;
     }
     public void showBombs() {
-
         for (rect[] aBoard : board) {
             for (rect anABoard : aBoard) {
                 if(anABoard.isBomb() && !anABoard.isCovered()) {
-                    anABoard.setFill(new ImagePattern(game.getSettingsController().getBombImg()));
+                    anABoard.setFill(new ImagePattern(ImageHandler.getBombImg()));
                 } else if(anABoard.isCovered()) {
-                    anABoard.setFill(new ImagePattern(game.getSettingsController().getGreenBombImg()));
+                    anABoard.setFill(new ImagePattern(ImageHandler.getGreenBombImg()));
                 }
 
             }
@@ -543,10 +538,10 @@ public class BoardController implements Initializable {
         playerTxt.setText("Player: " + settings.getUserName());
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);
-        newGameButton.setGraphic(new ImageView(newGameImg));
-        helpButton.setGraphic(new ImageView(helpImg));
-        settingsButton.setGraphic(new ImageView(settingsImg));
-        highscoresButton.setGraphic(new ImageView(highscoresImg));
+        newGameButton.setGraphic(new ImageView(ImageHandler.getNewGameImg()));
+        helpButton.setGraphic(new ImageView(ImageHandler.getHelpImg()));
+        settingsButton.setGraphic(new ImageView(ImageHandler.getSettingsImg()));
+        highscoresButton.setGraphic(new ImageView(ImageHandler.getHighscoresImg()));
 
         gameTimer = new GameTimer(this);
 

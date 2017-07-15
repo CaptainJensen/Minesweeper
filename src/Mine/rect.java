@@ -271,6 +271,7 @@ public class rect extends Rectangle {
                     isCovered = true;
                 }
                 game.placeFlag(row,col);
+                AudioHandler.playFlagSound();
 
             }
             else if(e.getCode() == KeyCode.SPACE && placedFlag) {
@@ -297,6 +298,7 @@ public class rect extends Rectangle {
                 game.startNewGame(row, col);
                 firstClicked = false;
                 game.checkSuroundings(row,col);
+                //AudioHandler.playClickSound(); SLows down Game
             }
             else if(e.getButton() == MouseButton.SECONDARY && firstClicked) { //click secondary on first move to disable end game
                 isClicked = false;
@@ -308,10 +310,11 @@ public class rect extends Rectangle {
                     isCovered = true;
                 }
                 game.placeFlag(row,col);
+                AudioHandler.playFlagSound();
 
 
             }
-            else if (e.getButton() == MouseButton.SECONDARY && placedFlag) { //remove a flag is one is on
+            else if (e.getButton() == MouseButton.SECONDARY && placedFlag) { //remove a flag
                 isClicked = false;
                 setFill(Color.WHITE);
                 game.addTotFlags();
@@ -333,6 +336,7 @@ public class rect extends Rectangle {
                     game.endGame();
                 } else {
                     game.checkSuroundings(row,col);
+                    //AudioHandler.playClickSound(); //Slows game up
                 }
 
 

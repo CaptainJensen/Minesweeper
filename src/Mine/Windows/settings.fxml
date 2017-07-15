@@ -206,113 +206,221 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-border-color: #dd8b47; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="191.0" layoutX="203.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="160.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="191.0" layoutX="37.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="160.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="191.0" layoutX="37.0" layoutY="265.0" stroke="BLACK" strokeType="INSIDE" width="160.0" />
-      <Text fill="#dd8b47" layoutX="134.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="132.6669921875">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Text>
-      <Button layoutX="53.0" layoutY="421.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" prefHeight="27.0" prefWidth="128.0" text="Reset" textFill="#ff5555">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Text layoutX="75.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" textAlignment="CENTER" underline="true">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Text>
-      <RadioButton fx:id="easyToggle" alignment="BOTTOM_LEFT" layoutX="61.0" layoutY="124.0" mnemonicParsing="false" onAction="#easyClickToggle" text="Easy" textFill="#08b92e">
-         <toggleGroup>
-            <ToggleGroup fx:id="diff" />
-         </toggleGroup>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="medToggle" layoutX="61.0" layoutY="162.0" mnemonicParsing="false" onAction="#medClickToggle" selected="true" text="Medium" textFill="#ddd346" toggleGroup="$diff">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="hardToggle" layoutX="61.0" layoutY="202.0" mnemonicParsing="false" onAction="#hardClickToggle" text="Hard" textFill="#ff5555" toggleGroup="$diff">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </RadioButton>
-      <Text fx:id="versionLabel" fill="#00000065" layoutX="233.0" layoutY="452.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Text>
-      <Button layoutX="231.0" layoutY="408.0" mnemonicParsing="false" onAction="#checkUpdateClick" text="Check Update">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fx:id="infoTxt" layoutX="213.0" layoutY="308.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Random INFO&gt;" textAlignment="CENTER" visible="false" wrappingWidth="141.0" />
-      <Text layoutX="243.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" textAlignment="CENTER" underline="true">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Text>
-      <TextField fx:id="nameboxEdit" layoutX="60.0" layoutY="297.0" onAction="#editNameBox" onInputMethodTextChanged="#editNameBox" prefHeight="27.0" prefWidth="114.0" promptText="Enter Name">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </TextField>
-      <Text layoutX="78.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Name" />
-      <Text layoutX="216.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Board" textAlignment="CENTER" underline="true">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="84.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Resources/Images/settingsImg64.png" />
-         </image>
-      </ImageView>
-      <Slider fx:id="rowsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="123.0" majorTickUnit="1.0" max="16.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0">
-         <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-         </cursor></Slider>
-      <Label layoutX="266.0" layoutY="108.0" text="Rows" />
-      <Label layoutX="269.0" layoutY="146.0" text="Cols" />
-      <Slider fx:id="colsSlider" blockIncrement="1.0" layoutX="213.0" layoutY="161.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="1" snapToTicks="true" value="10.0">
-         <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-         </cursor></Slider>
-      <Slider fx:id="bombsSlider" blockIncrement="1.0" layoutX="214.0" layoutY="201.0" majorTickUnit="1.0" max="1000.0" min="2.0" minorTickCount="1" snapToTicks="true" value="10.0">
-         <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-         </cursor></Slider>
-      <Label layoutX="262.0" layoutY="186.0" text="Bombs" />
-      <Button layoutX="254.0" layoutY="224.0" mnemonicParsing="false" onAction="#createCustomBoardClick" text="Apply">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Text fx:id="bombsNum" layoutX="319.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Text fx:id="colsNum" layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Text fx:id="rowsNum" layoutX="319.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-   </children>
-</AnchorPane>
+<TabPane fx:id="tabbedPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
+   <tabs>
+      <Tab fx:id="gamemodesTab" closable="false" text="Gamemodes">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;">
+               <children>
+                  <Text layoutX="234.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gamemodes">
+                     <font>
+                        <Font name="Yuanti SC Regular" size="34.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="easyGameInfoText" layoutX="332.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10 x 10 - 10 Bombs">
+                     <font>
+                        <Font name="Futura Medium" size="29.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="medGameInfoText" layoutX="332.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16 x 16 - 40 Bombs">
+                     <font>
+                        <Font name="Futura Medium" size="29.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="hardGameInfoText" layoutX="332.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16 x 30 - 99 Bombs">
+                     <font>
+                        <Font name="Futura Medium" size="29.0" />
+                     </font>
+                  </Text>
+                  <AnchorPane fx:id="customBoardPane" layoutX="325.0" layoutY="292.0" prefHeight="194.0" prefWidth="291.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffbb0083" height="190.0" layoutX="-1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" width="280.0" />
+                        <Button layoutX="72.0" layoutY="153.0" mnemonicParsing="false" onAction="#createCustomBoardClick" prefHeight="27.0" prefWidth="135.0" style="-fx-background-color: #ffbd00; -fx-border-color: D07610;" text="Play" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Text fill="WHITE" layoutX="76.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Board" textAlignment="CENTER" underline="true">
+                           <font>
+                              <Font name="Yuanti SC Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <Slider fx:id="rowsSlider" blockIncrement="1.0" layoutX="19.0" layoutY="59.0" majorTickUnit="1.0" max="16.0" min="5.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Slider>
+                        <Label layoutX="17.0" layoutY="42.0" text="Rows" textFill="WHITE">
+                           <font>
+                              <Font name="Futura Medium" size="13.0" />
+                           </font></Label>
+                        <Label layoutX="16.0" layoutY="81.0" text="Cols" textFill="WHITE">
+                           <font>
+                              <Font name="Futura Medium" size="13.0" />
+                           </font></Label>
+                        <Slider fx:id="colsSlider" blockIncrement="1.0" layoutX="19.0" layoutY="96.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Slider>
+                        <Slider fx:id="bombsSlider" blockIncrement="1.0" layoutX="20.0" layoutY="134.0" majorTickUnit="1.0" max="1000.0" min="2.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Slider>
+                        <Label layoutX="16.0" layoutY="117.0" text="Bombs" textFill="WHITE">
+                           <font>
+                              <Font name="Futura Medium" size="13.0" />
+                           </font></Label>
+                        <Text fx:id="bombsNum" fill="WHITE" layoutX="245.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <font>
+                              <Font name="Futura Bold" size="13.0" />
+                           </font></Text>
+                        <Text fx:id="colsNum" fill="WHITE" layoutX="245.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <font>
+                              <Font name="Futura Bold" size="13.0" />
+                           </font></Text>
+                        <Text fx:id="rowsNum" fill="WHITE" layoutX="245.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <font>
+                              <Font name="Futura Bold" size="13.0" />
+                           </font></Text>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="timetrialButton" layoutX="27.0" layoutY="292.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: E038FF;" text="Time Trial" textFill="#ffffffcc">
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="funrunButton" layoutX="27.0" layoutY="355.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #59FFFF;" text="Fun Run" textFill="WHITE">
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="easyButton" layoutX="27.0" layoutY="65.0" mnemonicParsing="false" onAction="#easyClickToggle" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #0bff42;" text="Easy" textFill="WHITE">
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="medButton" layoutX="27.0" layoutY="121.0" mnemonicParsing="false" onAction="#medClickToggle" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #FFE100;" text="Medium" textFill="WHITE">
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="hardButton" layoutX="27.0" layoutY="177.0" mnemonicParsing="false" onAction="#hardClickToggle" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #ff5555;" text="Hard" textFill="WHITE">
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="shopTab" closable="false" text="Shop">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;">
+               <children>
+                  <ScrollPane layoutX="14.0" layoutY="12.0" prefHeight="477.0" prefWidth="325.0">
+                     <content>
+                        <ImageView fitHeight="161.0" fitWidth="135.0" layoutX="3.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="100.0">
+                           <image>
+                              <Image url="@../../Resources/Images/redFlag.png" />
+                           </image>
+                        </ImageView>
+                     </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="settingsTab" closable="false" text="Settings">
+         <content>
+            <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #dadada;">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="240.0" layoutX="410.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="240.0" layoutX="14.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Text fill="#dd8b47" layoutX="269.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="132.6669921875">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="446.0" layoutY="268.0" mnemonicParsing="false" onAction="#restoreDefaultsClick" prefHeight="27.0" prefWidth="128.0" text="Reset" textFill="#ff5555">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Text fx:id="versionLabel" fill="#00000065" layoutX="459.0" layoutY="167.0" onMouseClicked="#versionClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Jensen &lt;VERSION&gt;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="457.0" layoutY="123.0" mnemonicParsing="false" onAction="#checkUpdateClick" text="Check Update">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Text fx:id="infoTxt" layoutX="213.0" layoutY="308.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Random INFO&gt;" textAlignment="CENTER" visible="false" wrappingWidth="141.0" />
+                  <Text layoutX="254.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" textAlignment="CENTER" underline="true">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="nameboxEdit" layoutX="21.0" layoutY="106.0" onAction="#editNameBox" onInputMethodTextChanged="#editNameBox" prefHeight="27.0" prefWidth="126.0" promptText="Enter Name">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <Text layoutX="98.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" />
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="223.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resources/Images/settingsImg64.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="155.0" layoutY="106.0" mnemonicParsing="false" text="Apply">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Text layoutX="21.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Games played:" />
+                  <Label layoutX="117.0" layoutY="147.0" prefHeight="17.0" prefWidth="87.0" text="0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>

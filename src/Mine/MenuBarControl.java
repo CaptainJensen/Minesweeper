@@ -210,7 +210,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.print.PrinterJob;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
@@ -259,7 +258,7 @@ public class MenuBarControl extends MenuBar {
                 .withVersionString(String.valueOf(boardController.getSettings().getVERSION())).withCopyright("Copyright \u00A9 " + Calendar
                         .getInstance().get(Calendar.YEAR));
 
-        aboutStageBuilder = aboutStageBuilder.withImage(new Image("/Resources/Images/Minesweeper.png"));
+        aboutStageBuilder = aboutStageBuilder.withImage(ImageHandler.getMinesweeperLogoImg());
 
         Menu appMenu = new Menu("Minesweeper");
         MenuItem updatesMenuItem = new MenuItem("Check for Updates...");
@@ -279,6 +278,7 @@ public class MenuBarControl extends MenuBar {
 
         });
         MenuItem prefsItem = new MenuItem("Preferences...");
+        prefsItem.setAccelerator(KeyCombination.keyCombination("META+,"));
         prefsItem.setOnAction(e -> boardController.settingsClick(e) );
         appMenu.getItems().addAll(tk.createAboutMenuItem("Minesweeper",aboutStageBuilder.build()), updatesMenuItem,new SeparatorMenuItem(), prefsItem, new SeparatorMenuItem(), tk.createHideMenuItem("Minesweeper"), tk.createHideOthersMenuItem(), tk.createUnhideAllMenuItem(), new SeparatorMenuItem(), tk.createQuitMenuItem("Minesweeper"));
 
@@ -291,7 +291,7 @@ public class MenuBarControl extends MenuBar {
         newGameMenuItem.setOnAction(e -> {
             boardController.newGameClick(e);
         });
-        newGameMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/newgameImg.png")));
+        newGameMenuItem.setGraphic(new ImageView(ImageHandler.getNewGameImg()));
         //TODO: Create a new game dialogue using http://code.makery.ch/blog/javafx-dialogs-official/
 
         MenuItem screenshot = new MenuItem("Take Screenshot");
@@ -312,7 +312,7 @@ public class MenuBarControl extends MenuBar {
 
         MenuItem printMenuItem = new MenuItem("Print...");
         printMenuItem.setAccelerator(KeyCombination.keyCombination("META+P"));
-        printMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/printImg.png")));
+        printMenuItem.setGraphic(new ImageView(ImageHandler.getPrintImg()));
         printMenuItem.setOnAction(e -> {
 
             PrinterJob job = PrinterJob.createPrinterJob();
@@ -333,7 +333,7 @@ public class MenuBarControl extends MenuBar {
         //Options menu
 
         MenuItem screenshotMenuItem = new MenuItem("Open Screenshots");
-        screenshotMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/folderImg.png")));
+        screenshotMenuItem.setGraphic(new ImageView(ImageHandler.getFolderImg()));
         screenshotMenuItem.setOnAction(e -> {
 
                 File file = new File(boardController.getDirectorySearch().getScreenshotsDirectory());
@@ -354,7 +354,7 @@ public class MenuBarControl extends MenuBar {
 
         //Help menu
         MenuItem helpMenuItem = new MenuItem("Keymap Reference");
-        helpMenuItem.setGraphic(new ImageView(new Image("/Resources/Images/noticeImg.png")));
+        helpMenuItem.setGraphic(new ImageView(ImageHandler.getNoticeImg()));
         helpMenuItem.setOnAction(e -> {
             boardController.helpClick(e);
         });
