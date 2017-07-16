@@ -217,7 +217,7 @@ import java.util.Random;
 public final class Game {
 
     private BoardController boardController;
-    private SettingsController settingsController;
+    private MenuController menuController;
     private ScoresController scoresController;
     private directorySearch directorySearch;
     private ArrayList<Point> bombs;
@@ -228,14 +228,14 @@ public final class Game {
     private boolean gameOver;
     private boolean gameWin;
 
-    public Game(Difficulty Difficulty,BoardController c, SettingsController s, ScoresController sc){
+    public Game(Difficulty Difficulty, BoardController c, MenuController s, ScoresController sc){
         gameWin = false;
         difficulty = Difficulty;
         boardController = c;
-        settingsController = s;
+        menuController = s;
         scoresController = sc;
         directorySearch = boardController.getDirectorySearch();
-        numOfBombs = settingsController.getNumOfsetBombs(difficulty);
+        numOfBombs = menuController.getNumOfsetBombs(difficulty);
         numberofActiveBombs = numOfBombs;
     }
 
@@ -417,10 +417,10 @@ public final class Game {
     }
 
     public void setBombImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getBombImg())); }
-    public void setFlagImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(settingsController.getSelectedFlagImg())); }
+    public void setFlagImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(menuController.getSelectedFlagImg())); }
     private void setNumber(int r, int c, int value) { boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getValueImage(value))); }
-    public SettingsController getSettingsController() {
-        return settingsController;
+    public MenuController getMenuController() {
+        return menuController;
     }
 
 

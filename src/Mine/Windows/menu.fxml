@@ -212,7 +212,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<TabPane fx:id="tabbedPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
+<TabPane fx:id="tabbedPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.MenuController">
    <tabs>
       <Tab fx:id="gamemodesTab" closable="false" text="Gamemodes">
         <content>

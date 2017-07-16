@@ -251,7 +251,7 @@ public class BoardController implements Initializable {
     private Game game;
     private directorySearch directorySearch;
     private ScoresController scoresController = new ScoresController();
-    private SettingsController settings = new SettingsController();
+    private MenuController settings = new MenuController();
 
     //CLASS DECLARATIONS
     private GridPane grid;
@@ -308,7 +308,7 @@ public class BoardController implements Initializable {
                 informationTxt.setFill(Color.BLACK);
                 informationTxt.setVisible(true);
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/menu.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
@@ -331,7 +331,7 @@ public class BoardController implements Initializable {
             timerLabel.setVisible(false);
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/settings.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/menu.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -514,7 +514,7 @@ public class BoardController implements Initializable {
 
     //Get classes
     public Mine.directorySearch getDirectorySearch() { return directorySearch; }
-    public SettingsController getSettings() { return settings; }
+    public MenuController getSettings() { return settings; }
     public GameTimer getGameTimer() { return gameTimer; }
 
 

@@ -227,7 +227,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Jensen on 6/29/17.
  */
-public class SettingsController implements Initializable {
+public class MenuController implements Initializable {
 
     public TabPane tabbedPane;
     public AnchorPane pane;
