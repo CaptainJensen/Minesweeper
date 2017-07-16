@@ -313,7 +313,7 @@ public class BoardController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setResizable(false);
-                    stage.setTitle("Settings");
+                    stage.setTitle("Menu");
                     stage.initModality(Modality.WINDOW_MODAL);
                     stage.setAlwaysOnTop(true);
                     stage.setOnCloseRequest(e -> {
@@ -336,7 +336,7 @@ public class BoardController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
-                stage.setTitle("Settings");
+                stage.setTitle("Menu");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.setAlwaysOnTop(true);
                 stage.setOnCloseRequest(e -> {

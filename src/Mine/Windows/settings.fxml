@@ -209,7 +209,7 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <TabPane fx:id="tabbedPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.SettingsController">
@@ -303,7 +303,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="funrunButton" layoutX="27.0" layoutY="355.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #59FFFF;" text="Fun Run" textFill="WHITE">
+                  <Button fx:id="cherryBombButton" layoutX="27.0" layoutY="355.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: C84545;" text="Cherry Bomb" textFill="WHITE">
                      <font>
                         <Font name="Futura Medium" size="26.0" />
                      </font>
@@ -347,23 +347,32 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button fx:id="moreButton" disable="true" layoutX="27.0" layoutY="418.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: #00C8C8;" text="More..." textFill="#ffffffcc">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <font>
+                        <Font name="Futura Medium" size="26.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
         </content>
       </Tab>
-      <Tab fx:id="shopTab" closable="false" text="Shop">
+      <Tab fx:id="shopTab" closable="false" onSelectionChanged="#shopClick" text="Shop">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;">
                <children>
-                  <ScrollPane layoutX="14.0" layoutY="12.0" prefHeight="477.0" prefWidth="325.0">
-                     <content>
-                        <ImageView fitHeight="161.0" fitWidth="135.0" layoutX="3.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="100.0">
-                           <image>
-                              <Image url="@../../Resources/Images/redFlag.png" />
-                           </image>
-                        </ImageView>
-                     </content>
-                  </ScrollPane>
+                  <ScrollPane fx:id="ScrollPaneShop" hbarPolicy="NEVER" layoutY="74.0" prefHeight="426.0" prefWidth="650.0" />
+                  <ProgressBar layoutX="77.0" layoutY="44.0" prefWidth="200.0" progress="0.0" />
                </children></AnchorPane>
+        </content>
+      </Tab>
+      <Tab closable="false" disable="true" text="Statistics">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;" />
         </content>
       </Tab>
       <Tab fx:id="settingsTab" closable="false" text="Settings">

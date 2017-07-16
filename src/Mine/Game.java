@@ -395,6 +395,7 @@ public final class Game {
             boardController.informationTxt.setText("Congratulations");
             boardController.informationTxt.setFill(Color.rgb(12, 146, 32));
             scoresController.getScoreshandeler().addScore(boardController.getSettings().getUserName(), boardController.getGameTimer().time.get(), difficulty);
+            AudioHandler.playWinSound();
         } else {
             boardController.showBombs();
             boardController.informationTxt.setText("Game Over");

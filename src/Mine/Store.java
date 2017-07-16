@@ -204,119 +204,76 @@
 
 package Mine;
 
-import io.sentry.Sentry;
+import javafx.geometry.Pos;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Created by Jensen on 7/15/17.
  */
-public final class AudioHandler {
-    private final static int BUFFER_SIZE = 12800;
+public class Store extends GridPane {
 
-    private AudioHandler(){
-       //Nullable
-    }
+    ArrayList<ShopItem> shopItems;
 
 
-    /**
-     * Plays the sound file
-     * @param filename the name of the file that is going to be played
-     */
-    private static void playSound(String filename){
+    public Store() {
+        int numofCols = 5;
 
-        String strFilename = filename;
-        AudioInputStream audioStream = null;
-        SourceDataLine sourceLine = null;
+        setHgap(50);
+        setVgap(50);
+        setGridLinesVisible(true);
 
-        try {
-            File soundFile = new File(strFilename);
-            audioStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (Exception e){
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
 
-        AudioFormat audioFormat = audioStream.getFormat();
 
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-        try {
-            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
-            sourceLine.open(audioFormat);
-        } catch (LineUnavailableException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        } catch (Exception e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
+        shopItems = new ArrayList<>();
+        setShopItems();
 
-        sourceLine.start();
-
-        int nBytesRead = 0;
-        byte[] abData = new byte[BUFFER_SIZE];
-        while (nBytesRead != -1) {
-            try {
-                nBytesRead = audioStream.read(abData, 0, abData.length);
-            } catch (IOException e) {
-                e.printStackTrace();
+        int r = 0;
+        int c = 0;
+        for (ShopItem shopItem : shopItems) {
+            add(shopItem, c, r);
+            c++;
+            if (c > numofCols) {
+                c = 0;
+                r++;
             }
-            if (nBytesRead >= 0) {
-                @SuppressWarnings("unused")
-                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
-            }
+
+
         }
 
-        sourceLine.drain();
-        sourceLine.close();
-    }
-
-
-    /**
-     * Plays the sound faster
-     * @param path file path to the sound file
-     * @implNote File format must be in .wav files
-     */
-    private static synchronized void playFastSound(final String path) {
-        // Note: use .wav files
-
-        new Thread(() -> {
-            try {
-                 Clip clip = AudioSystem.getClip();
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
-                clip.open(inputStream);
-                clip.start();
-                inputStream.close();
-            } catch (Exception e) {
-                System.out.println("play sound error: " + e.getMessage() + " for " + path);
-            }
-        }).start();
-    }
-
-
-    public static void playFlagSound() { playFastSound("Resources/Sound/flag.wav"); }
-    public static void playClickSound() {
-        Random random = new Random();
-        int numOfClickFiles = 4;
-        if(random.nextInt(numOfClickFiles) == 0) {
-            playSound("Resources/Sound/click0.wav");
+        for (int i = 0; i < shopItems.size()/numofCols; i++) {
+            RowConstraints rConstraint = new RowConstraints();
+            // ((nbRow - 1) * 10 / nbRow) = takes gap into account (10% of height)
+            rConstraint.setPercentHeight(100 / shopItems.size() - ((shopItems.size() - 1) * 10 / shopItems.size()));
+            getRowConstraints().add(rConstraint);
         }
-        else if(random.nextInt(numOfClickFiles) == 1) {
-            playSound("Resources/Sound/click1.wav");
+
+        for (int i = 0; i < numofCols; i++) {
+            ColumnConstraints cConstraint = new ColumnConstraints();
+            cConstraint.setPercentWidth(10);
+            getColumnConstraints().add(cConstraint);
         }
-        else if(random.nextInt(numOfClickFiles) == 2) {
-            playSound("Resources/Sound/click2.wav");
-        }
-        else playSound("Resources/Sound/click3.wav");
+
+
+        setFocusTraversable(true);
+        setAlignment(Pos.TOP_CENTER);
+
+
 
 
     }
-    public static void playSelectSound() { playFastSound("Resources/Sound/select.wav"); }
-    public static void playWinSound() { playFastSound("Resources/Sound/win.wav"); }
-    public static void playBeginSound() { playFastSound("Resources/Sound/begin.wav");}
+
+    private void setShopItems() {
+
+        for (int i = 0; i < 45; i++) {
+            shopItems.add(new ShopItem(ImageHandler.getRedFlagImg(),"Orignal"));
+        }
+
+
+    }
 
 
 }

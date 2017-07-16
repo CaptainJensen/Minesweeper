@@ -207,6 +207,7 @@ package Mine;
 import io.sentry.Sentry;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -243,14 +244,15 @@ public class SettingsController implements Initializable {
     public Slider colsSlider;
     public Slider bombsSlider;
     public Button timetrialButton;
-    public Button funrunButton;
     public Button easyButton;
     public Button medButton;
     public Button hardButton;
     public Tab shopTab;
     public Tab settingsTab;
     public Tab gamemodesTab;
-
+    public ScrollPane ScrollPaneShop;
+    public Button moreButton;
+    public Button cherryBombButton;
 
 
     private directorySearch directorySearch = new directorySearch();
@@ -265,6 +267,8 @@ public class SettingsController implements Initializable {
         //TODO: Change to allow custom flags here
     }
 
+
+    //Menu clicks
     public void restoreDefaultsClick(ActionEvent actionEvent) {
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
@@ -294,7 +298,7 @@ public class SettingsController implements Initializable {
 
     }
     public void createCustomBoardClick(ActionEvent actionEvent) {
-
+        AudioHandler.playSelectSound();
         try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
             properties.setProperty("easyToggle", String.valueOf(false));
@@ -397,6 +401,11 @@ public class SettingsController implements Initializable {
 
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
+
+    }
+    public void shopClick(Event actionEvent) {
+        ScrollPaneShop.setContent(new Store());
+        ScrollPaneShop.setPannable(true);
 
     }
 
@@ -568,13 +577,22 @@ public class SettingsController implements Initializable {
         timetrialButton.setOnMouseEntered(e -> timetrialButton.setStyle("-fx-background-color:  #c236e1"));
         timetrialButton.setOnMouseExited(e -> timetrialButton.setStyle("-fx-background-color:   #E038FF"));
 
-        funrunButton.setOnMouseEntered(e -> funrunButton.setStyle("-fx-background-color:  #56e1e1"));
-        funrunButton.setOnMouseExited(e -> funrunButton.setStyle("-fx-background-color:  #59ffff"));
+        moreButton.setOnMouseEntered(e -> moreButton.setStyle("-fx-background-color:  #56e1e1"));
+        moreButton.setOnMouseExited(e -> moreButton.setStyle("-fx-background-color:  #59ffff"));
+
+        cherryBombButton.setOnMouseEntered(e -> cherryBombButton.setStyle("-fx-background-color:  #a03838"));
+        cherryBombButton.setOnMouseExited(e -> cherryBombButton.setStyle("-fx-background-color:  #C84545"));
+
 
 
     }
 
     public double getVERSION() { return VERSION; }
+
+
+
+
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.

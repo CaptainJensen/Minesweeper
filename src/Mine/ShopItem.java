@@ -204,119 +204,86 @@
 
 package Mine;
 
-import io.sentry.Sentry;
-
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * Created by Jensen on 7/15/17.
  */
-public final class AudioHandler {
-    private final static int BUFFER_SIZE = 12800;
+public class ShopItem extends Button {
 
-    private AudioHandler(){
-       //Nullable
+    private Image itemIcon;
+    private String itemName;
+    private int price;
+    private boolean purchased;
+
+
+
+    public ShopItem(Image itemIcon, String itemName) {
+        this.itemIcon = itemIcon;
+        this.itemName = itemName;
+        this.price = 0;
+
+        setupVisuals();
+        setupEvents();
+
     }
+    public ShopItem(Image itemIcon, String itemName, int price, boolean purchased) {
+        this.itemIcon = itemIcon;
+        this.itemName = itemName;
+
+        setupVisuals();
+        setupEvents();
+
+    }
+
+    private void setupVisuals(){
+        setText(itemName + "\n $" + price);
+        ImageView imageView = new ImageView(itemIcon);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
+        imageView.setSmooth(true);
+        setGraphic(imageView);
+        setContentDisplay(ContentDisplay.TOP);
+        setGraphicTextGap(3);
+        setTextFill(Color.WHITE);
+        setStyle("-fx-background-color: #5b6163");
+        setCursor(Cursor.HAND);
+
+        setWidth(90);
+        setHeight(100);
+        //More to add
+    }
+
+
+
 
 
     /**
-     * Plays the sound file
-     * @param filename the name of the file that is going to be played
+     * sets up the nodes events
      */
-    private static void playSound(String filename){
+    private void setupEvents(){
+        setOnMouseEntered(e-> setStyle("-fx-background-color: #3a3e40"));
+        setOnMouseExited(e-> setStyle("-fx-background-color: #5b6163"));
+        setOnMousePressed(e-> setStyle("-fx-background-color: #242729"));
 
-        String strFilename = filename;
-        AudioInputStream audioStream = null;
-        SourceDataLine sourceLine = null;
+        setOnMouseReleased(e-> { if(isHover()) setStyle("-fx-background-color: #3a3e40"); });
 
-        try {
-            File soundFile = new File(strFilename);
-            audioStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (Exception e){
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
+        setOnMouseClicked(e-> {
 
-        AudioFormat audioFormat = audioStream.getFormat();
-
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-        try {
-            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
-            sourceLine.open(audioFormat);
-        } catch (LineUnavailableException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        } catch (Exception e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
-
-        sourceLine.start();
-
-        int nBytesRead = 0;
-        byte[] abData = new byte[BUFFER_SIZE];
-        while (nBytesRead != -1) {
-            try {
-                nBytesRead = audioStream.read(abData, 0, abData.length);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (nBytesRead >= 0) {
-                @SuppressWarnings("unused")
-                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
-            }
-        }
-
-        sourceLine.drain();
-        sourceLine.close();
+        });
     }
 
 
-    /**
-     * Plays the sound faster
-     * @param path file path to the sound file
-     * @implNote File format must be in .wav files
-     */
-    private static synchronized void playFastSound(final String path) {
-        // Note: use .wav files
-
-        new Thread(() -> {
-            try {
-                 Clip clip = AudioSystem.getClip();
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
-                clip.open(inputStream);
-                clip.start();
-                inputStream.close();
-            } catch (Exception e) {
-                System.out.println("play sound error: " + e.getMessage() + " for " + path);
-            }
-        }).start();
-    }
+    public String getPrice() { return String.valueOf(price); } //TODO: Add a price value in front
+    public boolean isPurchased() { return purchased; }
 
 
-    public static void playFlagSound() { playFastSound("Resources/Sound/flag.wav"); }
-    public static void playClickSound() {
-        Random random = new Random();
-        int numOfClickFiles = 4;
-        if(random.nextInt(numOfClickFiles) == 0) {
-            playSound("Resources/Sound/click0.wav");
-        }
-        else if(random.nextInt(numOfClickFiles) == 1) {
-            playSound("Resources/Sound/click1.wav");
-        }
-        else if(random.nextInt(numOfClickFiles) == 2) {
-            playSound("Resources/Sound/click2.wav");
-        }
-        else playSound("Resources/Sound/click3.wav");
-
-
-    }
-    public static void playSelectSound() { playFastSound("Resources/Sound/select.wav"); }
-    public static void playWinSound() { playFastSound("Resources/Sound/win.wav"); }
-    public static void playBeginSound() { playFastSound("Resources/Sound/begin.wav");}
-
-
+    @Override
+    public String toString() { return "Name: " + itemName + "\nPrice: " + price; }
 }
