@@ -220,12 +220,15 @@ public class directorySearch {
     private String scoresDirectory = "";
     private String settingsDirectory = "";
     private String screenshotsDirectory = "";
+    private String shopDirectory = "";
     private static String easyScoresPath = "";
     private static String medScoresPath = "";
     private static String hardScoresPath = "";
     private static String settingsPath = "";
     private static String splashtextpath = "";
     private static String customBoardpath = "";
+    private static String storeDataFilePath = "";
+    private static String purchasedfilePath = "";
 
     //Initialising an in and outputStream for working with the file
     private ObjectOutputStream outputStream = null;
@@ -242,6 +245,7 @@ public class directorySearch {
         scoresDirectory = mainDirectory + "/Scores";
         settingsDirectory = mainDirectory + "/Settings";
         screenshotsDirectory = mainDirectory + "/Screenshots";
+        shopDirectory = mainDirectory + "/Shop";
 
     }
 
@@ -300,6 +304,17 @@ public class directorySearch {
                 // Directory creation failed
                 Sentry.capture("Screenshots directory creation failed.");
                 System.out.println("Screenshots directory creation failed.");
+                System.exit(17);
+            }
+        }
+
+        File shop = new File(shopDirectory);
+        if(!shop.exists()) {
+            boolean isshopCreated = (shop.mkdirs());
+            if (!isshopCreated) {
+                // Directory creation failed
+                Sentry.capture("Shop directory creation failed.");
+                System.out.println("Shop directory creation failed.");
                 System.exit(17);
             }
         }
@@ -500,6 +515,47 @@ public class directorySearch {
 
         }
 
+        File storeFie = new File(shopDirectory + "/storeVal.properties");
+        storeDataFilePath = storeFie.getAbsolutePath();
+        if(!storeFie.exists()) {
+            try {
+                storeFie.createNewFile();
+                outputStream = new ObjectOutputStream(new FileOutputStream(storeDataFilePath));
+
+                Properties properties = new Properties();
+                properties.setProperty(Store.getShopNames()[0],String.valueOf(true));
+                properties.store(outputStream, null);
+
+            } catch (IOException e) {
+                Sentry.capture(e);
+                System.out.println("[Log]: Flags file could not be created");
+                e.printStackTrace();
+            }
+        }
+
+        File purchasedFile = new File(shopDirectory + "/purchased.properties");
+        purchasedfilePath = purchasedFile.getAbsolutePath();
+        if(!purchasedFile.exists()) {
+            try {
+                purchasedFile.createNewFile();
+                outputStream = new ObjectOutputStream(new FileOutputStream(purchasedfilePath));
+
+                Properties properties = new Properties();
+                System.out.println(Store.getNumOfItems());
+                for (int i = 0; i < Store.getNumOfItems(); i++) {
+                    properties.setProperty(Store.getShopNames()[i],String.valueOf(false));
+                    System.out.println(Store.getShopNames()[i]);
+
+                }
+                properties.setProperty(Store.getShopNames()[0],String.valueOf(true));
+                properties.store(outputStream, null);
+
+            } catch (IOException e) {
+                Sentry.capture(e);
+                System.out.println("[Log]: purchased file could not be created");
+                e.printStackTrace();
+            }
+        }
 
 
     }
@@ -511,10 +567,12 @@ public class directorySearch {
     public String getHardScoresPath() { return hardScoresPath; }
     public String getSettingsPath() { return settingsPath; }
     public String getScreenshotsDirectory() { return screenshotsDirectory; }
+    public String getShopDirectory() { return shopDirectory; }
     public String getLogsDirectory() { return logsDirectory; }
     public String getSplashtextpath() { return splashtextpath; }
     public String getCustomBoardpath() { return customBoardpath; }
-
+    public String getstoreDataFilePath() { return storeDataFilePath; }
+    public String getPurchasedfilePath() { return purchasedfilePath; }
 
 
 

@@ -209,7 +209,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -229,7 +228,6 @@ public class ScoresController implements Initializable {
     public Button clearButton;
 
     private Scoreshandeler scoreshandeler;
-    private final Image BROOM_ICON = new Image("/Resources/Images/clearImg.png");
 
 
     public ScoresController() {
@@ -250,6 +248,7 @@ public class ScoresController implements Initializable {
         informationTxt.setVisible(true);
         informationTxt.setFill(Color.rgb(211, 160, 12));
         informationTxt.setText("Scores cleared!");
+        new fileLoader().setPurchased("HAZARD");
     }
     /**
      * Called to initialize a controller after its root element has been
@@ -264,7 +263,7 @@ public class ScoresController implements Initializable {
         easyScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.EASY)));
         medScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.MEDIUM)));
         hardScoresList.setItems(FXCollections.observableArrayList(scoreshandeler.getScoreArray(Difficulty.HARD)));
-        clearButton.setGraphic(new ImageView(BROOM_ICON));
+        clearButton.setGraphic(new ImageView(ImageHandler.getClearImg()));
         informationTxt.setVisible(true);
         informationTxt.setText(scoreshandeler.getErrorMessage());
         informationTxt.setFill(Color.MAROON);

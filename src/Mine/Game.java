@@ -217,9 +217,8 @@ import java.util.Random;
 public final class Game {
 
     private BoardController boardController;
-    private MenuController menuController;
+    private fileLoader fileLoader;
     private ScoresController scoresController;
-    private directorySearch directorySearch;
     private ArrayList<Point> bombs;
     private Difficulty difficulty;
     private int numOfBombs;
@@ -228,14 +227,14 @@ public final class Game {
     private boolean gameOver;
     private boolean gameWin;
 
+
     public Game(Difficulty Difficulty, BoardController c, MenuController s, ScoresController sc){
         gameWin = false;
         difficulty = Difficulty;
+        fileLoader = new fileLoader();
         boardController = c;
-        menuController = s;
         scoresController = sc;
-        directorySearch = boardController.getDirectorySearch();
-        numOfBombs = menuController.getNumOfsetBombs(difficulty);
+        numOfBombs = fileLoader.getNumOfsetBombs(difficulty);
         numberofActiveBombs = numOfBombs;
     }
 
@@ -315,7 +314,7 @@ public final class Game {
     public void placeFlag(int r, int c) {
         if(totFlags>0) {
             totFlags--;
-            setFlagImg(r,c);
+            boardController.showFlagImg(r,c);
             boardController.setFlagsTxt(totFlags);
             if(boardController.getBoard()[r][c].isCovered()) {
                 numberofActiveBombs--;
@@ -394,12 +393,26 @@ public final class Game {
         if(gameWin) {
             boardController.informationTxt.setText("Congratulations");
             boardController.informationTxt.setFill(Color.rgb(12, 146, 32));
-            scoresController.getScoreshandeler().addScore(boardController.getSettings().getUserName(), boardController.getGameTimer().time.get(), difficulty);
+            scoresController.getScoreshandeler().addScore(fileLoader.getUserName(), boardController.getGameTimer().time.get(), difficulty);
+            if(difficulty != Difficulty.CUSTOM && boardController.getGameTimer().time.get() <= 5) {
+                fileLoader.setPurchased("BLACK");
+            } else if(difficulty != Difficulty.HARD && boardController.getGameTimer().time.get() <= 150) {
+                fileLoader.setPurchased("MAROON");
+            } else if(difficulty != Difficulty.MEDIUM && boardController.getGameTimer().time.get() <= 60 ) {
+                fileLoader.setPurchased("DARKYELLOW");
+            } else if(difficulty != Difficulty.EASY && boardController.getGameTimer().time.get() <= 30 ) {
+                fileLoader.setPurchased("DARKGREEN");
+            }
             AudioHandler.playWinSound();
         } else {
             boardController.showBombs();
             boardController.informationTxt.setText("Game Over");
             boardController.informationTxt.setFill(Color.rgb(255, 56, 68));
+            if(difficulty != Difficulty.CUSTOM && boardController.getGameTimer().time.get() <= 1 && boardController.getGameTimer().time.get() > 0) {
+                fileLoader.setPurchased("BOMB");
+            } else if(difficulty != Difficulty.CUSTOM && numberofActiveBombs == 1) {
+                fileLoader.setPurchased("PURPLE");
+            }
         }
 
     }
@@ -415,13 +428,7 @@ public final class Game {
         boardController.getGameTimer().timer.start();
         boardController.timerLabel.setVisible(true);
     }
-
-    public void setBombImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getBombImg())); }
-    public void setFlagImg(int r, int c){ boardController.getBoard()[r][c].setFill(new ImagePattern(menuController.getSelectedFlagImg())); }
     private void setNumber(int r, int c, int value) { boardController.getBoard()[r][c].setFill(new ImagePattern(ImageHandler.getValueImage(value))); }
-    public MenuController getMenuController() {
-        return menuController;
-    }
 
 
 

@@ -207,9 +207,14 @@ package Mine;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Created by Jensen on 7/15/17.
@@ -218,23 +223,23 @@ public class ShopItem extends Button {
 
     private Image itemIcon;
     private String itemName;
-    private int price;
+    private String itemCodeName;
+    private String acheivemntText;
+    private String unlockText;
+    private String funText;
     private boolean purchased;
+    private boolean selected;
+    private fileLoader fileLoader;
 
 
-
-    public ShopItem(Image itemIcon, String itemName) {
+    public ShopItem(Image itemIcon, String itemName, String acheivemntText, String unlockText, String funText) {
         this.itemIcon = itemIcon;
         this.itemName = itemName;
-        this.price = 0;
-
-        setupVisuals();
-        setupEvents();
-
-    }
-    public ShopItem(Image itemIcon, String itemName, int price, boolean purchased) {
-        this.itemIcon = itemIcon;
-        this.itemName = itemName;
+        this.acheivemntText = acheivemntText;
+        this.unlockText = unlockText;
+        this.funText = funText;
+        this.selected = false;
+        this.fileLoader = new fileLoader();
 
         setupVisuals();
         setupEvents();
@@ -242,22 +247,37 @@ public class ShopItem extends Button {
     }
 
     private void setupVisuals(){
-        setText(itemName + "\n $" + price);
-        ImageView imageView = new ImageView(itemIcon);
-        imageView.setPreserveRatio(true);
-        imageView.setFitHeight(40);
-        imageView.setFitWidth(40);
-        imageView.setSmooth(true);
-        setGraphic(imageView);
+        setMinWidth(150);
+        setMinHeight(175);
+        Border border = new Border(new BorderStroke(null,null,new CornerRadii(100),null));
+        this.setBorder(border);
+        if(purchased) {
+            setText(itemName + "\n\n" + unlockText);
+            setStyle("-fx-background-color: #6dff6f;");
+
+        } else {
+            setText(itemName + "\n\n" + acheivemntText);
+            setStyle("-fx-background-color: #5b6163;");
+        }
+
+        Tooltip tooltip = new Tooltip(funText);
+        tooltip.setStyle("-fx-font: normal bold 15 Langdon; "
+                + "-fx-background-color: rgba(255,157,77,0.88);"
+                + "-fx-text-fill: #ffffff;");
+        setTooltip(tooltip);
+        setTextAlignment(TextAlignment.CENTER);
+
         setContentDisplay(ContentDisplay.TOP);
         setGraphicTextGap(3);
         setTextFill(Color.WHITE);
-        setStyle("-fx-background-color: #5b6163");
-        setCursor(Cursor.HAND);
 
-        setWidth(90);
-        setHeight(100);
+        setCursor(Cursor.HAND);
         //More to add
+
+        ImageView imageView = new ImageView(itemIcon);
+        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        setGraphic(imageView);
     }
 
 
@@ -268,22 +288,60 @@ public class ShopItem extends Button {
      * sets up the nodes events
      */
     private void setupEvents(){
-        setOnMouseEntered(e-> setStyle("-fx-background-color: #3a3e40"));
-        setOnMouseExited(e-> setStyle("-fx-background-color: #5b6163"));
-        setOnMousePressed(e-> setStyle("-fx-background-color: #242729"));
-
-        setOnMouseReleased(e-> { if(isHover()) setStyle("-fx-background-color: #3a3e40"); });
-
-        setOnMouseClicked(e-> {
+        setOnMouseEntered(e-> {
+            if(!purchased) {
+                setStyle("-fx-background-color: #3a3e40;");
+            } else {
+                setStyle("-fx-background-color: #68e26b;");
+            }
 
         });
+        setOnMouseExited(e-> {
+            if(!purchased) {
+                setStyle("-fx-background-color: #5b6163;");
+            } else {
+                setStyle("-fx-background-color: #6dff6f;");
+            }
+        });
+        setOnMousePressed(e-> {
+            if(!purchased) {
+                setStyle("-fx-background-color: #242729;");
+            } else {
+                setStyle("-fx-background-color: #5ac95c;");
+            }
+        });
+
+        setOnMouseReleased(e-> {
+            if(isHover() && !purchased) setStyle("-fx-background-color: #3a3e40;");
+            if(isHover() && purchased) setStyle("-fx-background-color: #6dff6f;");
+        });
+
+        setOnMouseClicked(e-> {
+            if(!purchased) {
+                AudioHandler.playErrorSound();
+            }
+            else {
+                selected = true;
+                fileLoader.setSelected(itemCodeName);
+                //setEffect(new DropShadow());
+                AudioHandler.playClickSound();
+
+            }
+        });
+
     }
 
+    public void setPurchased(boolean purchased) {
+        if(purchased) {
+            setText(itemName + "\n\n" + unlockText);
+            setStyle("-fx-background-color: #63ea65");
+        }
+        this.purchased = purchased;
+    }
 
-    public String getPrice() { return String.valueOf(price); } //TODO: Add a price value in front
-    public boolean isPurchased() { return purchased; }
+    public void setItemCodeName(String itemCodeName) { this.itemCodeName = itemCodeName; }
 
-
+    public Image getShopItemImage() { return itemIcon; }
     @Override
-    public String toString() { return "Name: " + itemName + "\nPrice: " + price; }
+    public String toString() { return "Name: " + itemName; }
 }

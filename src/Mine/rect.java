@@ -209,6 +209,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 
@@ -332,7 +333,7 @@ public class rect extends Rectangle {
                     isCovered = true;
                 }
                 if(isBomb) {
-                    game.setFlagImg(row,col);
+                    setFill(new ImagePattern(ImageHandler.getSelectedFlagImage()));
                     game.endGame();
                 } else {
                     game.checkSuroundings(row,col);

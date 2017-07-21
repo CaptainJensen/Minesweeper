@@ -204,68 +204,35 @@
 
 package Mine;
 
-import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.event.UserBuilder;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
-public class Main extends Application {
+/**
+ * Created by Jensen on 7/21/17.
+ */
+public class Logger extends PrintWriter{
 
-    private static SentryClient sentry;
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
-        //DEBUG system
-//        System.out.println("[Log]: TIME: " + System.currentTimeMillis());
-//        Map<String, String> env = System.getenv();
-//        for (String envName : env.keySet()) {
-//            System.out.format("%s=%s%n",
-//                    envName,
-//                    env.get(envName));
-//        }
-
-        Parent root = FXMLLoader.load(getClass().getResource("Windows/Board.fxml"));
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.centerOnScreen();
-        Scene scene = new Scene(root);
-        primaryStage.getIcons().add(ImageHandler.getBombImg());
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setMaximized(false);
-        primaryStage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
+    /**
+     * Creates a new PrintWriter from an existing OutputStream.  This
+     * convenience constructor creates the necessary intermediate
+     * OutputStreamWriter, which will convert characters into bytes using the
+     * default character encoding.
+     *
+     * @param out       An output stream
+     * @param autoFlush A boolean; if true, the <tt>println</tt>,
+     *                  <tt>printf</tt>, or <tt>format</tt> methods will
+     *                  flush the output buffer
+     * @see OutputStreamWriter#OutputStreamWriter(OutputStream)
+     */
+    public Logger(OutputStream out, boolean autoFlush) {
+        super(out, autoFlush);
 
 
-        primaryStage.show();
-
-
-
-
-
-
-
-
-
+        
     }
 
 
-    public static void main(String[] args) {
 
-        Sentry.init("https://32820f5e9c6f45c6a7e0d03dd8138f8b:215c9c242e794264b1493c787abdae48@sentry.io/190351");
-        Sentry.setUser(new UserBuilder().setUsername(System.getenv("LOGNAME")).build());
 
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-
-        launch(args);
-
-        Sentry.close();
-    }
 }

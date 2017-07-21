@@ -206,11 +206,12 @@ package Mine;
 
 import io.sentry.Sentry;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -218,10 +219,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -250,29 +250,26 @@ public class MenuController implements Initializable {
     public Tab shopTab;
     public Tab settingsTab;
     public Tab gamemodesTab;
+    public Tab statisticsTab;
     public ScrollPane ScrollPaneShop;
     public Button moreButton;
     public Button cherryBombButton;
-
-
-    private directorySearch directorySearch = new directorySearch();
-    private Properties properties = new Properties();
-    private Properties propertiesCust = new Properties();
+    public ProgressBar shopprogressbar;
+    public Text percentText;
 
     //YEAR:MAJOR:MINOR:PATCH
-    private final double VERSION = 17020403;
+    public static final double VERSION = 17020403;
 
-    public Image getSelectedFlagImg() {
-        return ImageHandler.getRedFlagImg();
-        //TODO: Change to allow custom flags here
-    }
 
+
+    private fileLoader fileLoader = new fileLoader();
 
     //Menu clicks
     public void restoreDefaultsClick(ActionEvent actionEvent) {
         nameboxEdit.setText(System.getenv("LOGNAME"));
         infoTxt.setFill(Color.BLACK);
-        setDefaultSettings();
+        fileLoader.setDefaultSettings();
+        fileLoader.setallReturned();
     }
     public void checkUpdateClick(ActionEvent actionEvent) {
         UpdateReader updateReader = new UpdateReader();
@@ -299,270 +296,56 @@ public class MenuController implements Initializable {
     }
     public void createCustomBoardClick(ActionEvent actionEvent) {
         AudioHandler.playSelectSound();
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
+        fileLoader.setPurchased("ORANGE");
+        fileLoader.saveCustomBoardSettings(rowsSlider.getValue(), colsSlider.getValue(), bombsSlider.getValue());
 
-            properties.setProperty("easyToggle", String.valueOf(false));
-            properties.setProperty("medToggle", String.valueOf(false));
-            properties.setProperty("hardToggle", String.valueOf(false));
-            properties.setProperty("customToggle", String.valueOf(true));
-
-            properties.store(output, "Settings changed to custom");
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in setting custom board settings for settings properties");
-            e.printStackTrace();
-        }
-
-
-
-        try (OutputStream output = new FileOutputStream(directorySearch.getCustomBoardpath())) {
-
-            propertiesCust.setProperty("rows", String.valueOf(rowsSlider.getValue()));
-            propertiesCust.setProperty("cols", String.valueOf(colsSlider.getValue()));
-            propertiesCust.setProperty("bombs", String.valueOf(bombsSlider.getValue()));
-            propertiesCust.store(output, "Custom Board set values");
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in setting custom board properties");
-            e.printStackTrace();
-        }
+        if(rowsSlider.getValue() == 7 && colsSlider.getValue() == 7 && bombsSlider.getValue() == 7) fileLoader.setPurchased("CYAN");
 
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
 
 
     }
+    public void helpImageClicked(MouseEvent mouseEvent) {
+        AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
+        alertWindow.createHelpWindow();
+    }
     public void editNameBox(ActionEvent actionEvent) {
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
-            properties.setProperty("username", nameboxEdit.getText());
-            properties.store(output, null);
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
+        fileLoader.saveUserName(nameboxEdit.getText());
     }
     public void easyClickToggle(ActionEvent actionEvent) {
         AudioHandler.playSelectSound();
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
-            properties.setProperty("easyToggle", String.valueOf(true));
-            properties.setProperty("medToggle", String.valueOf(false));
-            properties.setProperty("hardToggle", String.valueOf(false));
-            properties.setProperty("customToggle", String.valueOf(false));
-
-            properties.store(output, null);
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
-
+        fileLoader.setEasyClickToggle();
+        fileLoader.setPurchased("GREEN");
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
     }
     public void medClickToggle(ActionEvent actionEvent) {
         AudioHandler.playSelectSound();
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
-            properties.setProperty("easyToggle", String.valueOf(false));
-            properties.setProperty("medToggle", String.valueOf(true));
-            properties.setProperty("hardToggle", String.valueOf(false));
-            properties.setProperty("customToggle", String.valueOf(false));
-
-            properties.store(output, null);
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
-
+        fileLoader.setMedClickToggle();
+        fileLoader.setPurchased("YELLOW");
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
 
     }
     public void hardClickToggle(ActionEvent actionEvent) {
         AudioHandler.playSelectSound();
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
 
-            properties.setProperty("easyToggle", String.valueOf(false));
-            properties.setProperty("medToggle", String.valueOf(false));
-            properties.setProperty("hardToggle", String.valueOf(true));
-            properties.setProperty("customToggle", String.valueOf(false));
-
-            properties.store(output, null);
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            e.printStackTrace();
-        }
+        fileLoader.setHardClickToggle();
 
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
 
     }
     public void shopClick(Event actionEvent) {
+        ScrollPaneShop.setStyle("-fx-background-color: #dadada");
         ScrollPaneShop.setContent(new Store());
-        ScrollPaneShop.setPannable(true);
+        ScrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
     }
 
-    public void loadCustomBoardSettings() {
-        try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
-
-            propertiesCust.load(input);
-
-            rowsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("rows")));
-            colsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("cols")));
-            bombsSlider.setValue(Double.parseDouble(propertiesCust.getProperty("bombs")));
-
-        } catch (IOException ex) {
-            Sentry.capture(ex);
-            System.out.println("[Log]: Error in getting custom board settings, check loading");
-            ex.printStackTrace();
-        }
-    }
-    public double getCustomBoardSettings(String property) {
-        try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
-            propertiesCust.load(input);
-
-            if(property.equalsIgnoreCase("rows")){
-                return Double.parseDouble(propertiesCust.getProperty("rows"));
-            } else if(property.equalsIgnoreCase("cols")){
-                return Double.parseDouble(propertiesCust.getProperty("cols"));
-            } else if(property.equalsIgnoreCase("bombs")){
-                return Double.parseDouble(propertiesCust.getProperty("bombs"));
-            }
-            else return -1;
-
-        } catch (IOException ex) {
-            Sentry.capture(ex);
-            System.out.println("[Log]: Error in getting custom board settings, check loading");
-            ex.printStackTrace();
-        }
-        return -1;
-    }
-    public int getNumOfsetBombs(Difficulty difficulty) {
-        if(difficulty == Difficulty.CUSTOM) {
-
-            try (InputStream input = new FileInputStream(directorySearch.getCustomBoardpath())) {
-
-                propertiesCust.load(input);
-                return (int) Double.parseDouble(propertiesCust.getProperty("bombs"));
-
-            } catch (IOException ex) {
-                Sentry.capture(ex);
-                System.out.println("[Log]: Error in getting custom board settings bombs, check loading");
-                ex.printStackTrace();
-            }
-            return 2; //Default min
-        }
-
-        return difficulty.getNumOfBombs();
-    }
-    public void setDownShowAgainValue(boolean value){
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
-
-            properties.setProperty("downShowAgain", String.valueOf(value));
-
-            properties.store(output, "Down show Again set to false");
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in setting default settings for settings properties");
-            e.printStackTrace();
-        }
-    }
-    public boolean getDownShowAgainValue(){
-        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
-
-            properties.load(input);
-
-            return Boolean.parseBoolean(properties.getProperty("downShowAgain"));
-
-
-        } catch (IOException ex) {
-            Sentry.capture(ex);
-            ex.printStackTrace();
-        }
-        return false;
-    }
-    public Difficulty getDifficulty(){
-        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
-
-            properties.load(input);
-
-            if(properties.getProperty("easyToggle").equals("true")) {
-                return Difficulty.EASY;
-            } else if(properties.getProperty("hardToggle").equals("true")) {
-                return Difficulty.HARD;
-            } else if(properties.getProperty("customToggle").equals("true")) {
-                return Difficulty.CUSTOM;
-            } else {
-                return Difficulty.MEDIUM;
-            }
-
-        } catch (IOException ex) {
-            Sentry.capture(ex);
-            ex.printStackTrace();
-        }
-        return Difficulty.MEDIUM; //DEFAULT
-    }
-    public String getUserName() {
-        try (InputStream input = new FileInputStream(directorySearch.getSettingsPath())) {
-
-            properties.load(input);
-            if(properties.getProperty("username") == null || properties.getProperty("username").equals("")) {
-                properties.setProperty("username", System.getenv("LOGNAME"));
-                return System.getenv("LOGNAME"); //DEFAULT
-
-            } else {
-                return properties.getProperty("username");
-            }
-
-        } catch (IOException ex) {
-            Sentry.capture(ex);
-            ex.printStackTrace();
-        }
-
-        return  System.getenv("LOGNAME"); //DEFAULT
-    }
-    private void setDefaultSettings() {
-        try (OutputStream output = new FileOutputStream(directorySearch.getSettingsPath())) {
-
-            properties.setProperty("easyToggle", String.valueOf(false));
-            properties.setProperty("medToggle", String.valueOf(true));
-            properties.setProperty("hardToggle", String.valueOf(false));
-            properties.setProperty("customToggle", String.valueOf(false));
-            properties.setProperty("username", System.getenv("LOGNAME"));
-            properties.setProperty("downShowAgain", String.valueOf(false));
-
-
-            properties.store(output, "Settings reset to default");
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in setting default settings for settings properties");
-            e.printStackTrace();
-        }
-
-
-        try (OutputStream output = new FileOutputStream(directorySearch.getCustomBoardpath())) {
-
-            propertiesCust.setProperty("rows", String.valueOf(10));
-            propertiesCust.setProperty("cols", String.valueOf(10));
-            propertiesCust.setProperty("bombs", String.valueOf(10));
-
-            propertiesCust.store(output, "Custom Board Reset to default");
-
-        } catch (IOException e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in setting default settings for custom board properties");
-            e.printStackTrace();
-        }
-    }
 
     private void setButtonEffects(){
         easyButton.setOnMouseEntered(e -> easyButton.setStyle("-fx-background-color:  #08e139"));
@@ -587,7 +370,7 @@ public class MenuController implements Initializable {
 
     }
 
-    public double getVERSION() { return VERSION; }
+    private double getVERSION() { return VERSION; }
 
 
 
@@ -604,6 +387,7 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        //custom board setup
         rowsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             bombsSlider.setMax((newValue.doubleValue()*colsSlider.getValue())-9);
             bombsSlider.setValue((newValue.doubleValue()*colsSlider.getValue())/2);
@@ -612,8 +396,20 @@ public class MenuController implements Initializable {
             bombsSlider.setMax((rowsSlider.getValue()*newValue.doubleValue())-9);
             bombsSlider.setValue((rowsSlider.getValue()*newValue.doubleValue())/2);
         });
+        bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
+        rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
+        colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
+        bombsSlider.setValue(fileLoader.getCustomBoardSettings("bombs"));
+        rowsSlider.setValue(fileLoader.getCustomBoardSettings("rows"));
+        colsSlider.setValue(fileLoader.getCustomBoardSettings("cols"));
+        bombsSlider.setMax((rowsSlider.getValue()*colsSlider.getValue())-9);
+
+        percentText.setText(String.valueOf(fileLoader.getNumPurchased()).substring(0,1) + "/" + Store.getNumOfItems());
+        DoubleProperty doubleProperty = new SimpleDoubleProperty(fileLoader.getNumPurchased());
+        shopprogressbar.progressProperty().bind(doubleProperty.divide(Store.getNumOfItems()));
 
         settingsTab.setGraphic(new ImageView(ImageHandler.getSettingsImg()));
+        tabbedPane.setTabMinWidth(100);
 
         setButtonEffects();
 
@@ -621,13 +417,7 @@ public class MenuController implements Initializable {
         medGameInfoText.setText(Difficulty.MEDIUM.getRows() + " x " + Difficulty.MEDIUM.getCols() + " - " + Difficulty.MEDIUM.getNumOfBombs()+ " Bombs");
         hardGameInfoText.setText(Difficulty.HARD.getRows() + " x " + Difficulty.HARD.getCols() + " - " + Difficulty.HARD.getNumOfBombs()+ " Bombs");
 
-        bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
-        rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
-        colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
-        loadCustomBoardSettings();
-        bombsSlider.setMax((rowsSlider.getValue()*colsSlider.getValue())-9);
         versionLabel.setText("Jensen " + VERSION);
-        nameboxEdit.setText(getUserName());
+        nameboxEdit.setText(fileLoader.getUserName());
     }
-
 }

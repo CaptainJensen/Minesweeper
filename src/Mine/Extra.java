@@ -204,14 +204,10 @@
 
 package Mine;
 
-import io.sentry.Sentry;
 import javafx.scene.paint.Color;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -231,6 +227,7 @@ public class Extra {
         LocalDate localDate = LocalDate.now();
         switch (dtf.format(localDate)) {
             case "07/04":
+                new fileLoader().setPurchased("USA");
                 boardController.splashText.setVisible(true);
                 boardController.splashText.setText("Happy Fourth!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(155,12,40,0.9), #9b9b9b, #12669b)\n 0%");
@@ -245,6 +242,7 @@ public class Extra {
                 boardController.splashText.setText("Boo!");
                 boardController.pane.setStyle("-fx-background-color: linear-gradient(to top right, rgba(0,0,0,0.8), #9b560c)\n 0%");
             case "4/1":
+                new fileLoader().setPurchased("RUSSIA");
                 boardController.splashText.setVisible(true);
                 boardController.splashText.setText("April Fools!");
         }
@@ -256,28 +254,17 @@ public class Extra {
      */
     public void setSplash() {
 
-        ArrayList<String> splashText = new ArrayList<>();
-        String line = null;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(boardController.getDirectorySearch().getSplashtextpath()));
-            while((line = reader.readLine()) != null){
-                if (line.length() <=22) {
-                    splashText.add(line);
-                }
-            }
-        } catch (Exception e) {
-            Sentry.capture(e);
-            System.out.println("[Log]: Error in getting splashes from file");
-            e.printStackTrace();
-        }
+        fileLoader fileLoader = new fileLoader();
 
         boardController.splashText.setVisible(true);
         boardController.splashText.setFill(Color.BLACK);
         Random random = new Random();
-        boardController.splashText.setText(splashText.get(random.nextInt(splashText.size())));
+        boardController.splashText.setText(fileLoader.getSplashTexts().get(random.nextInt(fileLoader.getSplashTexts().size())));
 
         if(boardController.splashText.getText().equals("Koalas are cool")) {
             boardController.splashText.setFill(Color.ORANGE);
+        } else if(boardController.splashText.getText().equals("The cake is a lie!")) {
+            fileLoader.setPurchased("SCIENCE");
         }
 
 
@@ -289,6 +276,7 @@ public class Extra {
     public void rotateBoard() {
         if(boardController.pane.getRotate() == 0) {
             boardController.pane.setRotate(180);
+            new fileLoader().setPurchased("SWIRLS");
         } else {
             boardController.pane.setRotate(0);
         }

@@ -210,6 +210,8 @@ package Mine;
 import java.util.Comparator;
 
 public class ScoreComparator implements Comparator<Score> {
+
+
     public int compare(Score score1, Score score2) {
 
         double sc1 = score1.getScore();

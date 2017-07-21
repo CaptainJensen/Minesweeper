@@ -210,33 +210,75 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Jensen on 7/15/17.
  */
 public class Store extends GridPane {
 
-    ArrayList<ShopItem> shopItems;
+
+    /**
+     * Shop items list
+     */
+    enum SHOPITEMS {
+
+        ORIGINAL(new ShopItem(ImageHandler.getRedFlagImg(),"Original","Plain and Simple","The starter flag","The grandfather of all flags")),
+        MAROON(new ShopItem(ImageHandler.getMaroonFlagImg(),"Maroon","Play a Hard game\nunder 2.5 min","","")),
+        ORANGE(new ShopItem(ImageHandler.getOrangeFlagImg(),"Orange","Play a custom game","", "Variety")),
+        YELLOW(new ShopItem(ImageHandler.getYellowFlagImg(),"Yellow","Play Medium\n difficulty","","Getting there!")),
+        DARKYELLOW(new ShopItem(ImageHandler.getDarkyellowFlagImg(),"Dark Yellow","Play Medium game\nunder 1 min","","Speedy!")),
+        GREEN(new ShopItem(ImageHandler.getGreenFlagImg(),"Green","Play a easy game","","Gotta start somewhere...")),
+        DARKGREEN(new ShopItem(ImageHandler.getDarkgreenFlagImg(),"Dark Green","Easy game under\n 30 sec","","Practice makes perfect!")),
+        CYAN(new ShopItem(ImageHandler.getCyanFlagImg(),"Cyan","Seven","","7")),
+        BLUE(new ShopItem(ImageHandler.getBlueFlagImg(),"Blue","","","")),
+        DARKBLUE(new ShopItem(ImageHandler.getDarkblueFlagImg(),"Dark Blue","Record the game","","Snap")),
+        PURPLE(new ShopItem(ImageHandler.getPurpleFlagImg(),"Purple","So close","","One away UGH")),
+        PINK(new ShopItem(ImageHandler.getPinkFlagImg(),"Pink","","","")),
+        BROWN(new ShopItem(ImageHandler.getBrownFlagImg(),"Brown","","","")),
+        WHITE(new ShopItem(ImageHandler.getWhiteFlagImg(),"White","","","")),
+        GREY(new ShopItem(ImageHandler.getGreyFlagImg(),"Grey","","","")),
+        FULLBLACK(new ShopItem(ImageHandler.getBlackfullFlagImg(),"Black","","","")),
+        HAZARD(new ShopItem(ImageHandler.getHazardFlagImg(),"Hazard","Forget the past","","Restart")),
+        RAINBOW(new ShopItem(ImageHandler.getRainbowFlagImg(),"Rainbow","","","")),
+        SWIRLS(new ShopItem(ImageHandler.getSwirlsFlagImg(),"Swirls","Vertigo","The Master of\n Suspense","1958")),
+        MINESWEEPER(new ShopItem(ImageHandler.getMinesweeperFlagImg(),"Minesweeper","Secret","Cheater!","Pants on fire")),
+        BOMB(new ShopItem(ImageHandler.getBombFlagImg(),"Bomb","Loose under 1 sec","","Boom!")),
+        SCIENCE(new ShopItem(ImageHandler.getScienceFlagImg(),"The lie","For Science!","For Science!","The cake is a lie")),
+        BLACK(new ShopItem(ImageHandler.getBlackFlagImg(),"Black Flag", "Win a game\nunder 5 sec","","Arghhhhh")),
+        USA(new ShopItem(ImageHandler.getUsaFlagImg(),"USA","Play on a special day", "","The glorious banner")),
+        RUSSIA(new ShopItem(ImageHandler.getRussiaFlagImg(),"Russia","Secret","", "Play to find out")),
+        UN(new ShopItem(ImageHandler.getUnFlagImg(),"United","","",""));
+
+        private ShopItem shopItem;
+
+        SHOPITEMS(ShopItem shopItem) {
+            this.shopItem = shopItem;
+            shopItem.setItemCodeName(this.name());
+        }
+        public ShopItem getShopItem() { return shopItem; }
+
+    }
+
+
+
+    private ArrayList<SHOPITEMS> shopItems;
 
 
     public Store() {
-        int numofCols = 5;
-
-        setHgap(50);
-        setVgap(50);
-        setGridLinesVisible(true);
-
-
+        int numofCols = 3;
 
         shopItems = new ArrayList<>();
         setShopItems();
 
+
         int r = 0;
         int c = 0;
-        for (ShopItem shopItem : shopItems) {
+        for (int i = 0; i < shopItems.size(); i++) {
+            ShopItem shopItem = shopItems.get(i).getShopItem();
             add(shopItem, c, r);
             c++;
-            if (c > numofCols) {
+            if (c == numofCols) {
                 c = 0;
                 r++;
             }
@@ -244,36 +286,73 @@ public class Store extends GridPane {
 
         }
 
+        setHgap(150/numofCols);
+        setVgap(40);
+
         for (int i = 0; i < shopItems.size()/numofCols; i++) {
             RowConstraints rConstraint = new RowConstraints();
             // ((nbRow - 1) * 10 / nbRow) = takes gap into account (10% of height)
-            rConstraint.setPercentHeight(100 / shopItems.size() - ((shopItems.size() - 1) * 10 / shopItems.size()));
+            //rConstraint.setPercentHeight(100 / shopItems.size() - ((shopItems.size() - 10) * 10 / shopItems.size()));
+            rConstraint.setPercentHeight(((shopItems.size() - 1) * 10 / shopItems.size()));
             getRowConstraints().add(rConstraint);
         }
 
         for (int i = 0; i < numofCols; i++) {
             ColumnConstraints cConstraint = new ColumnConstraints();
-            cConstraint.setPercentWidth(10);
+            //cConstraint.setPercentWidth(150/shopItems.size());
+            cConstraint.setMaxWidth(150);
             getColumnConstraints().add(cConstraint);
         }
 
 
+
         setFocusTraversable(true);
         setAlignment(Pos.TOP_CENTER);
-
-
+        setStyle("-fx-background-color: #dadada");
 
 
     }
 
     private void setShopItems() {
-
-        for (int i = 0; i < 45; i++) {
-            shopItems.add(new ShopItem(ImageHandler.getRedFlagImg(),"Orignal"));
-        }
+        shopItems.addAll(Arrays.asList(SHOPITEMS.values()));
+        checkPurchased();
 
 
     }
+
+    /**
+     * sets the shopitems to either purchased or not based on the file
+     */
+    private void checkPurchased() {
+        fileLoader fileLoader = new fileLoader();
+        for (int i = 0; i < shopItems.size(); i++) {
+            shopItems.get(i).getShopItem().setPurchased(fileLoader.getPurchased(shopItems.get(i).name()));
+        }
+    }
+
+    /**
+     *
+     * @return the number of shop items in the "store"
+     */
+    public static int getNumOfItems() {
+       return SHOPITEMS.values().length;
+
+    }
+
+
+    public static String[] getShopNames() {
+        SHOPITEMS[] items = SHOPITEMS.values();
+        String[] names = new String[items.length];
+
+        for (int i = 0; i < items.length; i++) {
+            names[i] = items[i].name();
+        }
+
+        return names;
+    }
+
+
+
 
 
 }

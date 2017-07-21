@@ -317,6 +317,7 @@ public final class AudioHandler {
     public static void playSelectSound() { playFastSound("Resources/Sound/select.wav"); }
     public static void playWinSound() { playFastSound("Resources/Sound/win.wav"); }
     public static void playBeginSound() { playFastSound("Resources/Sound/begin.wav");}
+    public static void playErrorSound() { playFastSound("Resources/Sound/cant.wav");}
 
 
 }

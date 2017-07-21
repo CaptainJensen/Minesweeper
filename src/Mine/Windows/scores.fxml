@@ -235,7 +235,7 @@
          </font>
       </Text>
       <Text fx:id="informationTxt" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Information&gt;" textAlignment="CENTER" visible="false" wrappingWidth="233.93115234375" />
-      <Button fx:id="clearButton" layoutX="525.0" layoutY="20.0" mnemonicParsing="false" onAction="#clearHighscoresClick" text="Clear" textAlignment="CENTER">
+      <Button fx:id="clearButton" focusTraversable="false" layoutX="525.0" layoutY="20.0" mnemonicParsing="false" onAction="#clearHighscoresClick" text="Clear" textAlignment="CENTER">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

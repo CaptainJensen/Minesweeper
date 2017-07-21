@@ -218,7 +218,7 @@ import java.util.Optional;
 /**
  * Created by Jensen on 7/10/17.
  */
-public class AlertWindow extends Alert {
+public class AlertWindow extends Alert{
 
 
     private boolean okPressed;
@@ -320,6 +320,31 @@ public class AlertWindow extends Alert {
         } else {
             // ... user chose CANCEL or closed the dialog
         }
+    }
+
+    public void createHelpWindow() {
+
+        //TODO: Fix this befire next release
+        setAlertType(AlertType.INFORMATION);
+        setGraphic(null);
+        setTitle("Shop Help");
+        setContentText("If the item is unlocked, click on it to select \nDescription shows how to unlock flag");
+        show();
+    }
+
+
+    public void createFlagUnlockedDialogue(String flag, Image flagImg) {
+        setAlertType(AlertType.INFORMATION);
+        setTitle("Flag Unlocked!");
+        setHeaderText(null);
+        ImageView imageView = new ImageView(flagImg);
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
+        imageView.setPreserveRatio(true);
+        setGraphic(imageView);
+        setContentText("Congradulations! The " + flag + " Flag has been unlocked!");
+        showAndWait();
+
     }
 
     public boolean isOkPressed() { return okPressed; }

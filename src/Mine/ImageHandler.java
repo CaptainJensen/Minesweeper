@@ -225,12 +225,34 @@ public final class ImageHandler {
     private static final Image NINE = new Image("/Resources/Images/9.png");
 
     //Flags
-    private static final Image BLACK_FLAG_IMG = new Image("/Resources/Images/redflag.png");
-    private static final Image RED_FLAG_IMG = new Image("/Resources/Images/redFlag.png");
-    private static final Image ORANGE_FLAG_IMG = new Image("/Resources/Images/orangeFlag.png");
-    private static final Image USA_FLAG_IMG = new Image("/Resources/Images/USAFlag.png");
-    private static final Image RUSSIA_FLAG_IMG = new Image("/Resources/Images/RussiaFlag.png");
-    private static final Image MAPLELEAF_IMG = new Image("/Resources/Images/MapleLeafFlag.png");
+    private static final Image BLACK_FLAG_IMG = new Image("/Resources/Images/Flags/blackFlag.png");
+    private static final Image RED_FLAG_IMG = new Image("/Resources/Images/Flags/redFlag.png");
+    private static final Image ORANGE_FLAG_IMG = new Image("/Resources/Images/Flags/orangeFlag.png");
+    private static final Image USA_FLAG_IMG = new Image("/Resources/Images/Flags/USAFlag.png");
+    private static final Image RUSSIA_FLAG_IMG = new Image("/Resources/Images/Flags/RussiaFlag.png");
+    private static final Image GREEN_FLAG_IMG = new Image("/Resources/Images/Flags/greenFlag.png");
+    private static final Image MAROON_FLAG_IMG = new Image("/Resources/Images/Flags/maroonFlag.png");
+    private static final Image CAMMO_FLAG_IMG = new Image("/Resources/Images/Flags/cammoFlag.png");
+    private static final Image BLUE_FLAG_IMG = new Image("/Resources/Images/Flags/blueFlag.png");
+    private static final Image BROWN_FLAG_IMG = new Image("/Resources/Images/Flags/brownFlag.png");
+    private static final Image PURPLE_FLAG_IMG = new Image("/Resources/Images/Flags/purpleFlag.png");
+    private static final Image PINK_FLAG_IMG = new Image("/Resources/Images/Flags/pinkFlag.png");
+    private static final Image MINESWEEPER_FLAG_IMG = new Image("/Resources/Images/Flags/minesweeperFlag.png");
+    private static final Image HAZARD_FLAG_IMG = new Image("/Resources/Images/Flags/hazardFlag.png");
+    private static final Image DARKGREEN_FLAG_IMG = new Image("/Resources/Images/Flags/darkgreenFlag.png");
+    private static final Image RAINBOW_FLAG_IMG = new Image("/Resources/Images/Flags/rainbowFlag.png");
+    private static final Image SCIENCE_FLAG_IMG = new Image("/Resources/Images/Flags/scienceFlag.png");
+    private static final Image SWIRLS_FLAG_IMG = new Image("/Resources/Images/Flags/swirlsFlag.png");
+    private static final Image WHITE_FLAG_IMG = new Image("/Resources/Images/Flags/whiteFlag.png");
+    private static final Image YELLOW_FLAG_IMG = new Image("/Resources/Images/Flags/yellowFlag.png");
+    private static final Image UN_FLAG_IMG = new Image("/Resources/Images/Flags/unFlag.png");
+    private static final Image BLACKFULL_FLAG_IMG = new Image("/Resources/Images/Flags/blackFullFlag.png");
+    private static final Image GREY_FLAG_IMG = new Image("/Resources/Images/Flags/greyFlag.png");
+    private static final Image DARKBLUE_FLAG_IMG = new Image("/Resources/Images/Flags/darkblueFlag.png");
+    private static final Image DARKYELLOW_FLAG_IMG = new Image("/Resources/Images/Flags/darkYellowFlag.png");
+    private static final Image CYAN_FLAG_IMG = new Image("/Resources/Images/Flags/cyanFlag.png");
+    private static final Image BOMB_FLAG_IMG = new Image("/Resources/Images/Flags/bombFlag.png");
+
 
     //Bombs
     private static final Image BOMB_IMG = new Image("/Resources/Images/bomb.png");
@@ -251,6 +273,7 @@ public final class ImageHandler {
     private static final Image CLEAR_IMG = new Image("/Resources/Images/clearImg.png");
     private static final Image CHECKMARK_IMG = new Image("/Resources/Images/checkmarkImg.png");
     private static final Image CANCEL_IMG = new Image("/Resources/Images/cancelImg.png");
+    private static final Image MENU_IMG = new Image("/Resources/Images/menuImg.png");
 
     //Other
     private static final Image MINESWEEPER_LOGO_IMG = new Image("/Resources/Images/Minesweeper.png");
@@ -259,6 +282,11 @@ public final class ImageHandler {
 
     private ImageHandler(Image image) {
         //nullable
+    }
+
+    public static Image getSelectedFlagImage() {
+        fileLoader fileLoader = new fileLoader();
+        return fileLoader.getSelectedFlag().getShopItem().getShopItemImage();
     }
 
 
@@ -292,10 +320,6 @@ public final class ImageHandler {
         }
     }
 
-
-
-
-
     public static Image getBlackFlagImg() {
         return BLACK_FLAG_IMG;
     }
@@ -314,10 +338,6 @@ public final class ImageHandler {
 
     public static Image getRussiaFlagImg() {
         return RUSSIA_FLAG_IMG;
-    }
-
-    public static Image getMapleleafImg() {
-        return MAPLELEAF_IMG;
     }
 
     public static Image getBombImg() {
@@ -388,12 +408,97 @@ public final class ImageHandler {
         return MINESWEEPER_LOGO_IMG;
     }
 
+    public static Image getMenuImg() {
+        return MENU_IMG;
+    }
 
+    public static Image getGreenFlagImg() {
+        return GREEN_FLAG_IMG;
+    }
 
+    public static Image getMaroonFlagImg() {
+        return MAROON_FLAG_IMG;
+    }
 
+    public static Image getCammoFlagImg() {
+        return CAMMO_FLAG_IMG;
+    }
 
+    public static Image getBlueFlagImg() {
+        return BLUE_FLAG_IMG;
+    }
 
+    public static Image getBrownFlagImg() {
+        return BROWN_FLAG_IMG;
+    }
 
+    public static Image getPurpleFlagImg() {
+        return PURPLE_FLAG_IMG;
+    }
+
+    public static Image getPinkFlagImg() {
+        return PINK_FLAG_IMG;
+    }
+
+    public static Image getMinesweeperFlagImg() {
+        return MINESWEEPER_FLAG_IMG;
+    }
+
+    public static Image getHazardFlagImg() {
+        return HAZARD_FLAG_IMG;
+    }
+
+    public static Image getDarkgreenFlagImg() {
+        return DARKGREEN_FLAG_IMG;
+    }
+
+    public static Image getRainbowFlagImg() {
+        return RAINBOW_FLAG_IMG;
+    }
+
+    public static Image getScienceFlagImg() {
+        return SCIENCE_FLAG_IMG;
+    }
+
+    public static Image getSwirlsFlagImg() {
+        return SWIRLS_FLAG_IMG;
+    }
+
+    public static Image getWhiteFlagImg() {
+        return WHITE_FLAG_IMG;
+    }
+
+    public static Image getYellowFlagImg() {
+        return YELLOW_FLAG_IMG;
+    }
+
+    public static Image getUnFlagImg() {
+        return UN_FLAG_IMG;
+    }
+
+    public static Image getBlackfullFlagImg() {
+        return BLACKFULL_FLAG_IMG;
+    }
+
+    public static Image getGreyFlagImg() {
+        return GREY_FLAG_IMG;
+    }
+
+    public static Image getDarkblueFlagImg() {
+        return DARKBLUE_FLAG_IMG;
+    }
+
+    public static Image getDarkyellowFlagImg() {
+        return DARKYELLOW_FLAG_IMG;
+    }
+
+    public static Image getCyanFlagImg() {
+        return CYAN_FLAG_IMG;
+    }
+
+    public static Image getBombFlagImg() {
+        return BOMB_FLAG_IMG;
+    }
 
 
 }

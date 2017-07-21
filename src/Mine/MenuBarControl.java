@@ -234,11 +234,13 @@ public class MenuBarControl extends MenuBar {
     private final Menu helpMenu = new Menu("Help");
 
     private BoardController boardController;
+    private fileLoader fileLoader;
 
 
 
     public MenuBarControl(BoardController b) {
         boardController = b;
+        fileLoader = new fileLoader();
         setupMenuBar();
 
         getMenus().addAll(nullMenu, fileMenu, viewMenu, helpMenu);
@@ -254,8 +256,8 @@ public class MenuBarControl extends MenuBar {
         MenuToolkit tk = MenuToolkit.toolkit();
 
         AboutStageBuilder aboutStageBuilder = AboutStageBuilder.start("Minesweeper")
-                .withAppName("Minesweeper").withCloseOnFocusLoss().withHtml("Minesweeper<br /> Created by Jensen<br /> <br />Testers: marank ")
-                .withVersionString(String.valueOf(boardController.getSettings().getVERSION())).withCopyright("Copyright \u00A9 " + Calendar
+                .withAppName("Minesweeper").withCloseOnFocusLoss().withHtml("Minesweeper<br /> Created by Jensen<br /> <br />Testers: marannk ")
+                .withVersionString(String.valueOf(MenuController.VERSION)).withCopyright("Copyright \u00A9 " + Calendar
                         .getInstance().get(Calendar.YEAR));
 
         aboutStageBuilder = aboutStageBuilder.withImage(ImageHandler.getMinesweeperLogoImg());
@@ -265,10 +267,10 @@ public class MenuBarControl extends MenuBar {
         updatesMenuItem.setOnAction(e -> {
             //check for update after all loaded
             UpdateReader updateReader = new UpdateReader();
-            if(updateReader.checkForUpdate(boardController.getSettings().getVERSION())){
+            if(updateReader.checkForUpdate(MenuController.VERSION)){
                 AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
                 alertWindow.createUpdateAlert(updateReader);
-                boardController.getSettings().setDownShowAgainValue(alertWindow.isDownShowAgain());
+                fileLoader.setDownShowAgainValue(alertWindow.isDownShowAgain());
             }
             else {
                 AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
@@ -279,7 +281,7 @@ public class MenuBarControl extends MenuBar {
         });
         MenuItem prefsItem = new MenuItem("Preferences...");
         prefsItem.setAccelerator(KeyCombination.keyCombination("META+,"));
-        prefsItem.setOnAction(e -> boardController.settingsClick(e) );
+        prefsItem.setOnAction(e -> boardController.menuClick(e) );
         appMenu.getItems().addAll(tk.createAboutMenuItem("Minesweeper",aboutStageBuilder.build()), updatesMenuItem,new SeparatorMenuItem(), prefsItem, new SeparatorMenuItem(), tk.createHideMenuItem("Minesweeper"), tk.createHideOthersMenuItem(), tk.createUnhideAllMenuItem(), new SeparatorMenuItem(), tk.createQuitMenuItem("Minesweeper"));
 
         tk.setApplicationMenu(appMenu);
@@ -297,7 +299,7 @@ public class MenuBarControl extends MenuBar {
         MenuItem screenshot = new MenuItem("Take Screenshot");
         screenshot.setAccelerator(KeyCombination.keyCombination("META+S"));
         screenshot.setOnAction(e -> {
-
+            fileLoader.setPurchased("DARKBLUE");
             WritableImage image = boardController.pane.snapshot(new SnapshotParameters(), null);
             File file = new File(boardController.getDirectorySearch().getScreenshotsDirectory() + "/" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd'_'HH-mm-ss"))+ ".png");
             try {

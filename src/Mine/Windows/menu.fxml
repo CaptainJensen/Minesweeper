@@ -365,12 +365,30 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;">
                <children>
-                  <ScrollPane fx:id="ScrollPaneShop" hbarPolicy="NEVER" layoutY="74.0" prefHeight="426.0" prefWidth="650.0" />
-                  <ProgressBar layoutX="77.0" layoutY="44.0" prefWidth="200.0" progress="0.0" />
+                  <ScrollPane fx:id="ScrollPaneShop" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="74.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="650.0" style="-fx-background-color: #dadada;" vbarPolicy="NEVER" />
+                  <ProgressBar fx:id="shopprogressbar" layoutX="442.0" layoutY="27.0" prefWidth="200.0" progress="0.0" />
+                  <Text fx:id="percentText" layoutX="346.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100%" textAlignment="RIGHT" wrappingWidth="87.6181640625">
+                     <font>
+                        <Font name="Futura Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shop" textAlignment="CENTER">
+                     <font>
+                        <Font name="Yuanti SC Regular" size="34.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="31.0" fitWidth="34.0" layoutX="99.0" layoutY="21.0" onMouseClicked="#helpImageClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resources/Images/question.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
                </children></AnchorPane>
         </content>
       </Tab>
-      <Tab closable="false" disable="true" text="Statistics">
+      <Tab fx:id="statisticsTab" closable="false" disable="true" text="Statistics">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;" />
         </content>

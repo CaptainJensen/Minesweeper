@@ -239,7 +239,7 @@ public class BoardController implements Initializable {
     public Button newGameButton;
     public Button helpButton;
     public Button highscoresButton;
-    public Button settingsButton;
+    public Button menuButton;
     public Pane pane;
     public Text bombsTxt;
     public Text flagsTxt;
@@ -252,6 +252,7 @@ public class BoardController implements Initializable {
     private directorySearch directorySearch;
     private ScoresController scoresController = new ScoresController();
     private MenuController settings = new MenuController();
+    private fileLoader fileLoader = new fileLoader();
 
     //CLASS DECLARATIONS
     private GridPane grid;
@@ -296,7 +297,7 @@ public class BoardController implements Initializable {
             e.printStackTrace();
         }
     }
-    public void settingsClick(ActionEvent actionEvent) {
+    public void menuClick(ActionEvent actionEvent) {
         if(gameTimer.isRunning()) {
             AlertWindow alert = new AlertWindow(Alert.AlertType.CONFIRMATION);
             alert.createNewGameAlert();
@@ -315,7 +316,6 @@ public class BoardController implements Initializable {
                     stage.setResizable(false);
                     stage.setTitle("Menu");
                     stage.initModality(Modality.WINDOW_MODAL);
-                    stage.setAlwaysOnTop(true);
                     stage.setOnCloseRequest(e -> {
 
                     });
@@ -338,7 +338,6 @@ public class BoardController implements Initializable {
                 stage.setResizable(false);
                 stage.setTitle("Menu");
                 stage.initModality(Modality.WINDOW_MODAL);
-                stage.setAlwaysOnTop(true);
                 stage.setOnCloseRequest(e -> {
                     informationTxt.setText("Press new game to play");
                     informationTxt.setFill(Color.BLACK);
@@ -363,6 +362,7 @@ public class BoardController implements Initializable {
     public void boardKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.isMetaDown() && keyEvent.getCode() == KeyCode.C && gameTimer.isRunning() && keyEvent.isShiftDown()) {
             showBombs();
+            fileLoader.setPurchased("MINESWEEPER");
         }
         if(keyEvent.isMetaDown() && keyEvent.isShiftDown() && keyEvent.getCode() == KeyCode.R) {
             Extra extras = new Extra(this);
@@ -403,8 +403,8 @@ public class BoardController implements Initializable {
             grid.setLayoutX((pane.getWidth()/2)-(Difficulty.HARD.getCols()*15)-(Difficulty.HARD.getCols()/2));
         }
         else if(difficulty == Difficulty.CUSTOM) {
-            cols = (int) settings.getCustomBoardSettings("cols");
-            rows = (int) settings.getCustomBoardSettings("rows");
+            cols = (int) fileLoader.getCustomBoardSettings("cols");
+            rows = (int) fileLoader.getCustomBoardSettings("rows");
             grid.setLayoutY((pane.getHeight()/2+25)-rows*15);
             grid.setLayoutX((pane.getWidth()/2)-(cols*15)-cols/2);
 
@@ -434,13 +434,13 @@ public class BoardController implements Initializable {
     }
     public int getGridRows(Difficulty difficulty) {
         if (difficulty == Difficulty.CUSTOM) {
-            return (int) settings.getCustomBoardSettings("rows");
+            return (int) fileLoader.getCustomBoardSettings("rows");
         }
         return difficulty.getRows();
     }
     public int getGridCols(Difficulty difficulty) {
         if(difficulty == Difficulty.CUSTOM) {
-            return (int) settings.getCustomBoardSettings("cols");
+            return (int) fileLoader.getCustomBoardSettings("cols");
         }
         return difficulty.getCols();
     }
@@ -461,6 +461,9 @@ public class BoardController implements Initializable {
     }
     public void setBombValue(int r,int c) {
         board[r][c].setBomb(true);
+    }
+    public void showFlagImg(int r, int c) {
+        board[r][c].setFill(new ImagePattern(ImageHandler.getSelectedFlagImage()));
     }
 
     public void setFlagsTxt(int num) {
@@ -483,7 +486,7 @@ public class BoardController implements Initializable {
 
     private void createNewGame(){
         informationTxt.setVisible(false);
-        playerTxt.setText("Player: " + settings.getUserName());
+        playerTxt.setText("Player: " + fileLoader.getUserName());
         Extra extras = new Extra(this);
         extras.setSplash();
 
@@ -492,7 +495,7 @@ public class BoardController implements Initializable {
             AlertWindow alert = new AlertWindow(Alert.AlertType.CONFIRMATION);
             alert.createNewGameAlert();
             if(alert.isOkPressed()) {
-                Difficulty difficulty = settings.getDifficulty();
+                Difficulty difficulty = fileLoader.getDifficulty();
                 pane.getChildren().remove(grid);
                 game = new Game(difficulty,this, settings, scoresController);
                 setupGrid(difficulty);
@@ -500,7 +503,7 @@ public class BoardController implements Initializable {
                 addRectanglesToBoard();
             }
         } else {
-            Difficulty difficulty = settings.getDifficulty();
+            Difficulty difficulty = fileLoader.getDifficulty();
             pane.getChildren().remove(grid);
             game = new Game(difficulty,this, settings, scoresController);
             setupGrid(difficulty);
@@ -514,7 +517,6 @@ public class BoardController implements Initializable {
 
     //Get classes
     public Mine.directorySearch getDirectorySearch() { return directorySearch; }
-    public MenuController getSettings() { return settings; }
     public GameTimer getGameTimer() { return gameTimer; }
 
 
@@ -535,12 +537,16 @@ public class BoardController implements Initializable {
         MenuBarControl menuBar = new MenuBarControl(this);
         pane.getChildren().addAll(menuBar);
 
-        playerTxt.setText("Player: " + settings.getUserName());
+        playerTxt.setText("Player: " + fileLoader.getUserName());
         informationTxt.setText("Press new game to play");
         informationTxt.setVisible(true);
         newGameButton.setGraphic(new ImageView(ImageHandler.getNewGameImg()));
         helpButton.setGraphic(new ImageView(ImageHandler.getHelpImg()));
-        settingsButton.setGraphic(new ImageView(ImageHandler.getSettingsImg()));
+        ImageView imageView = new ImageView(ImageHandler.getMenuImg());
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
+        menuButton.setGraphic(imageView);
         highscoresButton.setGraphic(new ImageView(ImageHandler.getHighscoresImg()));
 
         gameTimer = new GameTimer(this);
@@ -551,10 +557,10 @@ public class BoardController implements Initializable {
 
         //check for update after all loaded
         UpdateReader updateReader = new UpdateReader();
-        if(updateReader.checkForUpdate(settings.getVERSION()) && !settings.getDownShowAgainValue()){
+        if(updateReader.checkForUpdate(MenuController.VERSION) && !fileLoader.getDownShowAgainValue()){
             AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
             alertWindow.createUpdateAlert(updateReader);
-            settings.setDownShowAgainValue(alertWindow.isDownShowAgain());
+            fileLoader.setDownShowAgainValue(alertWindow.isDownShowAgain());
         }
 
 
