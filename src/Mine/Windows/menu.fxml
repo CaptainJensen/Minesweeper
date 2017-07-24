@@ -209,7 +209,7 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <TabPane fx:id="tabbedPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mine.MenuController">
@@ -388,11 +388,6 @@
                </children></AnchorPane>
         </content>
       </Tab>
-      <Tab fx:id="statisticsTab" closable="false" disable="true" text="Statistics">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #dadada;" />
-        </content>
-      </Tab>
       <Tab fx:id="settingsTab" closable="false" text="Settings">
          <content>
             <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #dadada;">
@@ -428,7 +423,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="nameboxEdit" layoutX="21.0" layoutY="106.0" onAction="#editNameBox" onInputMethodTextChanged="#editNameBox" prefHeight="27.0" prefWidth="126.0" promptText="Enter Name">
+                  <TextField fx:id="nameboxEdit" layoutX="21.0" layoutY="106.0" prefHeight="27.0" prefWidth="126.0" promptText="Enter Name">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -439,7 +434,7 @@
                         <Image url="@../../Resources/Images/settingsImg64.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="155.0" layoutY="106.0" mnemonicParsing="false" text="Apply">
+                  <Button layoutX="155.0" layoutY="106.0" mnemonicParsing="false" onAction="#applyEditNameClick" text="Apply">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

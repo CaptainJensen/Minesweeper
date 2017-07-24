@@ -375,6 +375,7 @@ public class MenuBarControl extends MenuBar {
         });
         MenuItem reportMenuItem = new MenuItem("Report an issue...");
         reportMenuItem.setOnAction(e -> {
+            fileLoader.setPurchased("WHITE");
             try {
                 java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper/issues/new"));
             } catch (IOException ex) {

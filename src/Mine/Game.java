@@ -209,7 +209,9 @@ import javafx.scene.paint.ImagePattern;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jensen on 6/29/17.
@@ -402,6 +404,8 @@ public final class Game {
                 fileLoader.setPurchased("DARKYELLOW");
             } else if(difficulty != Difficulty.EASY && boardController.getGameTimer().time.get() <= 30 ) {
                 fileLoader.setPurchased("DARKGREEN");
+            } else if(TimeUnit.SECONDS.toHours((long) boardController.getGameTimer().time.get()) > 12 && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY){
+                fileLoader.setPurchased("FULLBLACK");
             }
             AudioHandler.playWinSound();
         } else {

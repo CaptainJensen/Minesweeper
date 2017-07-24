@@ -250,7 +250,6 @@ public class MenuController implements Initializable {
     public Tab shopTab;
     public Tab settingsTab;
     public Tab gamemodesTab;
-    public Tab statisticsTab;
     public ScrollPane ScrollPaneShop;
     public Button moreButton;
     public Button cherryBombButton;
@@ -272,6 +271,7 @@ public class MenuController implements Initializable {
         fileLoader.setallReturned();
     }
     public void checkUpdateClick(ActionEvent actionEvent) {
+        fileLoader.setPurchased("RAINBOW");
         UpdateReader updateReader = new UpdateReader();
         if(updateReader.checkForUpdate(getVERSION())){
             AlertWindow alertWindow = new AlertWindow(Alert.AlertType.CONFIRMATION);
@@ -300,6 +300,7 @@ public class MenuController implements Initializable {
         fileLoader.saveCustomBoardSettings(rowsSlider.getValue(), colsSlider.getValue(), bombsSlider.getValue());
 
         if(rowsSlider.getValue() == 7 && colsSlider.getValue() == 7 && bombsSlider.getValue() == 7) fileLoader.setPurchased("CYAN");
+        if(rowsSlider.getValue() == 42 && colsSlider.getValue() == 5 && bombsSlider.getValue() == 2) fileLoader.setPurchased("BROWNs");
 
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
@@ -310,8 +311,9 @@ public class MenuController implements Initializable {
         AlertWindow alertWindow = new AlertWindow(Alert.AlertType.INFORMATION);
         alertWindow.createHelpWindow();
     }
-    public void editNameBox(ActionEvent actionEvent) {
+    public void applyEditNameClick(ActionEvent actionEvent) {
         fileLoader.saveUserName(nameboxEdit.getText());
+        fileLoader.setPurchased("CAMMO");
     }
     public void easyClickToggle(ActionEvent actionEvent) {
         AudioHandler.playSelectSound();
@@ -340,6 +342,7 @@ public class MenuController implements Initializable {
 
     }
     public void shopClick(Event actionEvent) {
+        if(fileLoader.getPurchased("USA") && fileLoader.getPurchased("RUSSIA")) fileLoader.setSelected("UN");
         ScrollPaneShop.setStyle("-fx-background-color: #dadada");
         ScrollPaneShop.setContent(new Store());
         ScrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -409,7 +412,8 @@ public class MenuController implements Initializable {
         shopprogressbar.progressProperty().bind(doubleProperty.divide(Store.getNumOfItems()));
 
         settingsTab.setGraphic(new ImageView(ImageHandler.getSettingsImg()));
-        tabbedPane.setTabMinWidth(100);
+        tabbedPane.setTabMinWidth(200);
+
 
         setButtonEffects();
 
@@ -420,4 +424,5 @@ public class MenuController implements Initializable {
         versionLabel.setText("Jensen " + VERSION);
         nameboxEdit.setText(fileLoader.getUserName());
     }
+
 }

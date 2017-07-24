@@ -258,6 +258,9 @@ public class BoardController implements Initializable {
     private GridPane grid;
     private GameTimer gameTimer;
     private static rect[][] board;
+    private int gameCounter = 0;
+
+
 
 
     //Button actions
@@ -280,6 +283,8 @@ public class BoardController implements Initializable {
 
     }
     public void helpClick(ActionEvent actionEvent) {
+        fileLoader.setPurchased("PINK");
+        fileLoader.setPurchased("BLUE"); //TODO: Remove in full release
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Windows/help.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -296,6 +301,7 @@ public class BoardController implements Initializable {
             Sentry.capture(e);
             e.printStackTrace();
         }
+
     }
     public void menuClick(ActionEvent actionEvent) {
         if(gameTimer.isRunning()) {
@@ -485,6 +491,9 @@ public class BoardController implements Initializable {
     }
 
     private void createNewGame(){
+        gameCounter++;
+        if(gameCounter == 500) fileLoader.setPurchased("GREY");
+
         informationTxt.setVisible(false);
         playerTxt.setText("Player: " + fileLoader.getUserName());
         Extra extras = new Extra(this);
@@ -562,9 +571,6 @@ public class BoardController implements Initializable {
             alertWindow.createUpdateAlert(updateReader);
             fileLoader.setDownShowAgainValue(alertWindow.isDownShowAgain());
         }
-
-
-
 
     }
 }
