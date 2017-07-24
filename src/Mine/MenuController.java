@@ -205,7 +205,6 @@
 package Mine;
 
 import io.sentry.Sentry;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -233,9 +232,6 @@ public class MenuController implements Initializable {
     public AnchorPane pane;
     public Text versionLabel;
     public Text infoTxt;
-    public Text bombsNum;
-    public Text colsNum;
-    public Text rowsNum;
     public Text easyGameInfoText;
     public Text medGameInfoText;
     public Text hardGameInfoText;
@@ -399,9 +395,6 @@ public class MenuController implements Initializable {
             bombsSlider.setMax((rowsSlider.getValue()*newValue.doubleValue())-9);
             bombsSlider.setValue((rowsSlider.getValue()*newValue.doubleValue())/2);
         });
-        bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
-        rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
-        colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
         bombsSlider.setValue(fileLoader.getCustomBoardSettings("bombs"));
         rowsSlider.setValue(fileLoader.getCustomBoardSettings("rows"));
         colsSlider.setValue(fileLoader.getCustomBoardSettings("cols"));

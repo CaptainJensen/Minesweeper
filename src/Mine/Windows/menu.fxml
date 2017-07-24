@@ -204,6 +204,7 @@
   ~    limitations under the License.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
@@ -251,11 +252,6 @@
                               <Font name="Yuanti SC Bold" size="20.0" />
                            </font>
                         </Text>
-                        <Slider fx:id="rowsSlider" blockIncrement="1.0" layoutX="19.0" layoutY="59.0" majorTickUnit="1.0" max="16.0" min="5.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Slider>
                         <Label layoutX="17.0" layoutY="42.0" text="Rows" textFill="WHITE">
                            <font>
                               <Font name="Futura Medium" size="13.0" />
@@ -264,32 +260,13 @@
                            <font>
                               <Font name="Futura Medium" size="13.0" />
                            </font></Label>
-                        <Slider fx:id="colsSlider" blockIncrement="1.0" layoutX="19.0" layoutY="96.0" majorTickUnit="1.0" max="30.0" min="5.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Slider>
-                        <Slider fx:id="bombsSlider" blockIncrement="1.0" layoutX="20.0" layoutY="134.0" majorTickUnit="1.0" max="1000.0" min="2.0" minorTickCount="1" prefHeight="16.0" prefWidth="216.0" snapToTicks="true" value="10.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Slider>
                         <Label layoutX="16.0" layoutY="117.0" text="Bombs" textFill="WHITE">
                            <font>
                               <Font name="Futura Medium" size="13.0" />
                            </font></Label>
-                        <Text fx:id="bombsNum" fill="WHITE" layoutX="245.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Futura Bold" size="13.0" />
-                           </font></Text>
-                        <Text fx:id="colsNum" fill="WHITE" layoutX="245.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Futura Bold" size="13.0" />
-                           </font></Text>
-                        <Text fx:id="rowsNum" fill="WHITE" layoutX="245.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                           <font>
-                              <Font name="Futura Bold" size="13.0" />
-                           </font></Text>
+                        <JFXSlider fx:id="rowsSlider" blockIncrement="1.0" layoutX="17.0" layoutY="60.0" majorTickUnit="1.0" max="16.0" maxHeight="-Infinity" maxWidth="-Infinity" min="5.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="16.0" prefWidth="245.0" snapToTicks="true" value="15.0" />
+                        <JFXSlider fx:id="colsSlider" layoutX="17.0" layoutY="99.0" max="30.0" maxHeight="-Infinity" maxWidth="-Infinity" min="5.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="245.0" value="15.0" />
+                        <JFXSlider fx:id="bombsSlider" blockIncrement="1.0" layoutX="17.0" layoutY="135.0" majorTickUnit="1.0" max="479.0" maxHeight="-Infinity" maxWidth="-Infinity" min="2.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" prefHeight="16.0" prefWidth="245.0" snapToTicks="true" value="15.0" />
                      </children>
                   </AnchorPane>
                   <Button fx:id="timetrialButton" layoutX="27.0" layoutY="292.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="280.0" style="-fx-background-color: E038FF;" text="Time Trial" textFill="#ffffffcc">

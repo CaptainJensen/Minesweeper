@@ -260,11 +260,14 @@ public class ShopItem extends Button {
             setStyle("-fx-background-color: #5b6163;");
         }
 
-        Tooltip tooltip = new Tooltip(funText);
-        tooltip.setStyle("-fx-font: normal bold 15 Langdon; "
-                + "-fx-background-color: rgba(255,157,77,0.88);"
-                + "-fx-text-fill: #ffffff;");
-        setTooltip(tooltip);
+        if(funText.length()>1) {
+            Tooltip tooltip = new Tooltip(funText);
+            tooltip.setStyle("-fx-font: normal bold 15 Langdon; "
+                    + "-fx-background-color: rgba(255,157,77,0.88);"
+                    + "-fx-text-fill: #ffffff;");
+            setTooltip(tooltip);
+        }
+
         setTextAlignment(TextAlignment.CENTER);
 
         setContentDisplay(ContentDisplay.TOP);
