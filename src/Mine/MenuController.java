@@ -205,6 +205,7 @@
 package Mine;
 
 import io.sentry.Sentry;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -235,6 +236,9 @@ public class MenuController implements Initializable {
     public Text easyGameInfoText;
     public Text medGameInfoText;
     public Text hardGameInfoText;
+    public Text bombsNum;
+    public Text colsNum;
+    public Text rowsNum;
     public TextField nameboxEdit;
     public Slider rowsSlider;
     public Slider colsSlider;
@@ -253,7 +257,7 @@ public class MenuController implements Initializable {
     public Text percentText;
 
     //YEAR:MAJOR:MINOR:PATCH
-    public static final double VERSION = 17020403;
+    public static final double VERSION = 17020500;
 
 
 
@@ -296,7 +300,7 @@ public class MenuController implements Initializable {
         fileLoader.saveCustomBoardSettings(rowsSlider.getValue(), colsSlider.getValue(), bombsSlider.getValue());
 
         if(rowsSlider.getValue() == 7 && colsSlider.getValue() == 7 && bombsSlider.getValue() == 7) fileLoader.setPurchased("CYAN");
-        if(rowsSlider.getValue() == 42 && colsSlider.getValue() == 5 && bombsSlider.getValue() == 2) fileLoader.setPurchased("BROWNs");
+        if(rowsSlider.getValue() == 42 && colsSlider.getValue() == 5 && bombsSlider.getValue() == 2) fileLoader.setPurchased("BROWN");
 
         Stage stage = (Stage) tabbedPane.getScene().getWindow();
         stage.close();
@@ -399,6 +403,9 @@ public class MenuController implements Initializable {
         rowsSlider.setValue(fileLoader.getCustomBoardSettings("rows"));
         colsSlider.setValue(fileLoader.getCustomBoardSettings("cols"));
         bombsSlider.setMax((rowsSlider.getValue()*colsSlider.getValue())-9);
+        bombsNum.textProperty().bind(Bindings.format("%.0f", bombsSlider.valueProperty() ));
+        rowsNum.textProperty().bind(Bindings.format( "%.0f", rowsSlider.valueProperty() ));
+        colsNum.textProperty().bind(Bindings.format( "%.0f", colsSlider.valueProperty() ));
 
         percentText.setText(String.valueOf(fileLoader.getNumPurchased()).substring(0,1) + "/" + Store.getNumOfItems());
         DoubleProperty doubleProperty = new SimpleDoubleProperty(fileLoader.getNumPurchased());

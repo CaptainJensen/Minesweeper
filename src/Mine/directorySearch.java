@@ -415,7 +415,7 @@ public class directorySearch {
                 final String[] SPLASH_TEXT = { //Max of 22 Chars
                         "Have a wonderful day",
                         "99 Bombs on the wall..",
-                        "10485 lines of code!",
+                        "8410 lines of code!",
                         "Have fun!",
                         "The cake is a lie!",
                         "Doug Rattman",
