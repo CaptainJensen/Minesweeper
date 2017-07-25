@@ -247,7 +247,6 @@ public class UpdateReader {
      */
     public void loadValues() {
 
-
         try (InputStream is = getSearchStream("https://api.github.com/repos/CaptainJensen/Minesweeper/releases");
              JsonReader rdr = Json.createReader(is)) {
 
@@ -264,13 +263,14 @@ public class UpdateReader {
             fullReleasesRawData = latest.entrySet();
             latestReleaseView = latest.getString("html_url");
             for (Map.Entry<String, JsonValue> entry : latest.entrySet()) {
-                LatestReleaseData.put(entry.getKey(),entry.getValue());
+                LatestReleaseData.put(entry.getKey(), entry.getValue());
             }
 
         } catch (IOException e) {
             Sentry.capture(e);
             e.printStackTrace();
         }
+
     }
 
     private static InputStream getSearchStream(String searchURL){
