@@ -293,7 +293,6 @@ public class BoardController implements Initializable {
             stage.setResizable(false);
             stage.setTitle("Help");
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setAlwaysOnTop(true);
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } catch(Exception e) {
