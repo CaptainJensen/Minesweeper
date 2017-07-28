@@ -229,7 +229,17 @@
                         <Font name="Yuanti SC Regular" size="17.0" />
                      </font>
                   </Text>
-                  <TextArea editable="false" focusTraversable="false" layoutX="7.0" layoutY="35.0" prefHeight="239.0" prefWidth="363.0" text="&#10;&lt;EDIT HERE&gt;&#10;">
+                  <TextArea editable="false" focusTraversable="false" layoutX="7.0" layoutY="35.0" prefHeight="239.0" prefWidth="363.0" text="&#10;&lt;Are you craving the thrill and adventure of war but don’t have the time to go? Well have no fear, you have come to the right place. This heart-stopping, breath taking, edge of your seat game will have you prepared for tactical training when it is time to go! Introducing Minesweeper, the game that combines logic and tactics to teach you how to get out of war alive. It’s simple, really, just follow the rules of the game. 
+
+1. First begin by clicking one the squares that will unlock an array of numbers and squares.
+2. The game is based on 3 by 3 boxes created around each number. The middle number represents the amount of mines within the 3 by 3 box. 
+3. The goal is to determine where the mines are located by using the overlapping numbers and boxes and not clicking them (or else you are dead!). 
+4. To keep track of where the mines are, a flag is used to represent each mine. To place a flag, either right click or hover over a square and press the spacebar. 
+5. Once the correct number of flags have been placed in the right spots representing each mine on the board, you have won the game. 
+
+Now get out there and find those mines!! 
+
+&gt;&#10;">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
