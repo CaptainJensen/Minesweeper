@@ -215,31 +215,16 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C7C7C7;">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="127.0" layoutX="384.0" layoutY="82.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-                  <Hyperlink layoutX="431.0" layoutY="142.0" onAction="#openDownload" text="Download Page" />
-                  <Hyperlink layoutX="449.0" layoutY="115.0" onAction="#openWiki" text="Wikipedia" />
-                  <Text layoutX="446.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quicklinks" underline="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9c9c9" height="127.0" layoutX="390.0" layoutY="82.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Hyperlink layoutX="437.0" layoutY="142.0" onAction="#openDownload" text="Download Page" />
+                  <Hyperlink layoutX="455.0" layoutY="114.0" onAction="#openWiki" text="Wikipedia" />
+                  <Text layoutX="452.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quicklinks" underline="true">
                      <font>
                         <Font name="Yuanti SC Regular" size="17.0" />
                      </font>
                   </Text>
-                  <Hyperlink layoutX="440.0" layoutY="168.0" onAction="#openSource" text="Source code" />
-                  <Text layoutX="153.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Header&gt;">
-                     <font>
-                        <Font name="Yuanti SC Regular" size="17.0" />
-                     </font>
-                  </Text>
-                  <TextArea editable="false" focusTraversable="false" layoutX="7.0" layoutY="35.0" prefHeight="239.0" prefWidth="363.0" text="&#10;&lt;Are you craving the thrill and adventure of war but don’t have the time to go? Well have no fear, you have come to the right place. This heart-stopping, breath taking, edge of your seat game will have you prepared for tactical training when it is time to go! Introducing Minesweeper, the game that combines logic and tactics to teach you how to get out of war alive. It’s simple, really, just follow the rules of the game. 
-
-1. First begin by clicking one the squares that will unlock an array of numbers and squares.
-2. The game is based on 3 by 3 boxes created around each number. The middle number represents the amount of mines within the 3 by 3 box. 
-3. The goal is to determine where the mines are located by using the overlapping numbers and boxes and not clicking them (or else you are dead!). 
-4. To keep track of where the mines are, a flag is used to represent each mine. To place a flag, either right click or hover over a square and press the spacebar. 
-5. Once the correct number of flags have been placed in the right spots representing each mine on the board, you have won the game. 
-
-Now get out there and find those mines!! 
-
-&gt;&#10;">
+                  <Hyperlink layoutX="446.0" layoutY="167.0" onAction="#openSource" text="Source code" />
+                  <TextArea editable="false" focusTraversable="false" layoutX="7.0" layoutY="35.0" prefHeight="239.0" prefWidth="374.0" text="Are you craving the thrill and adventure of war but don’t &#10;have the time to go? &#10;Well have no fear, you have come to the right place. &#10;This heart-stopping, breath taking, edge of your seat&#10;game will have you prepared for tactical training &#10;when it is time to go!&#10;&#10;Introducing Minesweeper, the game that combines logic&#10;and tactics to teach you how to get out of war alive.&#10; It’s simple, really, just follow the rules of the game.&#10;">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
@@ -254,7 +239,7 @@ Now get out there and find those mines!!
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C7C7C7;">
                <children>
-                  <TextArea editable="false" focusTraversable="false" layoutX="11.0" layoutY="12.0" prefHeight="267.0" prefWidth="576.0" text="&lt;EDIT HERE&gt;">
+                  <TextArea editable="false" focusTraversable="false" layoutX="11.0" layoutY="12.0" prefHeight="267.0" prefWidth="576.0" text="1. First begin by clicking one the squares that will unlock an array of numbers and squares. &#10;&#10;2. The game is based on 3 by 3 boxes created around each number. &#10;    The middle number represents the amount of mines within the 3 by 3 box.  &#10;&#10;3. The goal is to determine where the mines are located by using the overlapping&#10;     numbers and boxes and not clicking them (or else you are dead!). &#10;&#10;4. To keep track of where the mines are, a flag is used to represent each mine. &#10;    To place a flag, either right click or hover over a square and press the spacebar.  &#10;&#10;5. Once the correct number of flags have been placed in the right spots representing &#10;     each mine on the board, you have won the game.   &#10;&#10;Now get out there and find those mines!! &#10;">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
@@ -269,11 +254,12 @@ Now get out there and find those mines!!
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C7C7C7;">
                <children>
-                  <TextArea editable="false" focusTraversable="false" layoutX="11.0" layoutY="10.0" prefHeight="267.0" prefWidth="576.0" text="&lt;EIT HERE&gt;">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
-                  </TextArea>
+                  <Text layoutX="76.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meta+N :  New game" />
+                  <Text layoutX="76.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Space: Place flag" />
+                  <Text layoutX="76.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Click: Check square" />
+                  <Text layoutX="76.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Click: Place Flag" />
+                  <Text layoutX="77.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meta+Q : Quit Minesweeper" />
+                  <Text layoutX="75.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meta+S : Take Screenshot" />
                </children></AnchorPane>
       </content>
          <font>
