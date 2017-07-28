@@ -204,9 +204,9 @@
 
 package Mine;
 
+import io.sentry.Sentry;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.Accordion;
 
 import java.io.IOException;
 import java.net.URI;
@@ -217,19 +217,32 @@ import java.net.URI;
 public class HelpController {
 
 
-    public Button closeButton;
+    public Accordion mainPain;
 
-    public void closeWindow(ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+    public void openWiki(ActionEvent actionEvent){
+        try {
+            java.awt.Desktop.getDesktop().browse(URI.create("https://en.wikipedia.org/wiki/Microsoft_Minesweeper"));
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
     }
 
-    public void openWiki(ActionEvent actionEvent) throws IOException {
-        java.awt.Desktop.getDesktop().browse(URI.create("https://en.wikipedia.org/wiki/Microsoft_Minesweeper"));
+    public void openDownload(ActionEvent actionEvent) {
+        try {
+            java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper/releases"));
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
     }
 
-    public void openWikihow(ActionEvent actionEvent) throws IOException {
-        java.awt.Desktop.getDesktop().browse(URI.create("http://www.wikihow.com/Play-Minesweeper"));
-
+    public void openSource(ActionEvent actionEvent) {
+        try {
+            java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/CaptainJensen/Minesweeper"));
+        } catch (IOException e) {
+            Sentry.capture(e);
+            e.printStackTrace();
+        }
     }
 }

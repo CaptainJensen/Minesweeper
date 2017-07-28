@@ -103,3 +103,5 @@ Resources/
 Test/
 lib/
 src/Resources/log.txt
+!/src/Resources/
+target/
